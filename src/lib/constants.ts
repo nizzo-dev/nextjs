@@ -12,6 +12,7 @@ export const ROUTES = {
   home: "/",
   about: "/about",
   contact: "/contact",
+  login: "/login",
 } as const;
 
 export const API_ENDPOINTS = {

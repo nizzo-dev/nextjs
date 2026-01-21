@@ -34,3 +34,26 @@ export interface User {
   updatedAt: string;
 }
 
+// 登录请求类型
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+// 登录响应类型
+export interface LoginResponse {
+  user: User;
+  token: string;
+}
+
+// 数据库用户类型（包含密码哈希）
+export interface DbUser {
+  id: string;
+  name: string;
+  email: string;
+  password: string; // 存储的是哈希后的密码
+  avatar?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
