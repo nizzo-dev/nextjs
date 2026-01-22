@@ -10,6 +10,22 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* 动画持续时间 */
+  --animate-duration-fast: 150ms;
+  --animate-duration-normal: 300ms;
+  --animate-duration-slow: 500ms;
+
+  /* 动画关键帧 */
+  --animate-fade-in: fade-in var(--animate-duration-normal) ease-out;
+  --animate-fade-in-up: fade-in-up var(--animate-duration-normal) ease-out;
+  --animate-fade-in-down: fade-in-down var(--animate-duration-normal) ease-out;
+  --animate-scale-in: scale-in var(--animate-duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-bounce-in: bounce-in var(--animate-duration-slow) ease-out;
+  --animate-slide-in-left: slide-in-left var(--animate-duration-normal) ease-out;
+  --animate-slide-in-right: slide-in-right var(--animate-duration-normal) ease-out;
+  --animate-pulse-soft: pulse-soft 2s ease-in-out infinite;
+  --animate-shake: shake 0.5s ease-in-out;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +39,281 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===== 动画关键帧 ===== */
+
+/* 淡入 */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 上方淡入 */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 下方淡入 */
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 缩放淡入 */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 弹跳淡入 */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 从左滑入 */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 从右滑入 */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 柔和脉冲 */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* 抖动 */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* ===== 实用动画类 ===== */
+
+/* 渐变文字动画 */
+.animate-gradient-text {
+  background: linear-gradient(135deg, var(--foreground) 0%, #6366f1 50%, var(--foreground) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 3s linear infinite;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* 浮动动画 */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 光标跟随效果（悬停时） */
+.hover-lift {
+  transition: transform var(--animate-duration-normal) cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow var(--animate-duration-normal) ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
+}
+
+/* 悬停缩放 */
+.hover-scale {
+  transition: transform var(--animate-duration-fast) ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* 悬停闪光效果 */
+.hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left var(--animate-duration-normal) ease;
+}
+
+.hover-shine:hover::after {
+  left: 100%;
+}
+
+/* 文字发光悬停 */
+.hover-glow {
+  transition: text-shadow var(--animate-duration-normal) ease;
+}
+
+.hover-glow:hover {
+  text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+/* 边框渐变悬停 */
+.hover-border-glow {
+  position: relative;
+  transition: border-color var(--animate-duration-normal) ease;
+}
+
+.hover-border-glow:hover {
+  border-color: #6366f1;
+}
+
+/* 入场延迟动画 */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-600 { animation-delay: 600ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+.animate-delay-800 { animation-delay: 800ms; }
+
+/* 滚动显示动画类 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== 眼睛跟随小人物样式 ===== */
+
+.character-container {
+  transition: transform 0.3s ease;
+}
+
+.character-container:hover {
+  transform: scale(1.1);
+}
+
+.character-container:hover .character-arm-left {
+  animation: wave-left 0.5s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+.character-container:hover .character-arm-right {
+  animation: wave-right 0.5s ease-in-out infinite;
+  transform-origin: center top;
+}
+
+.eye-pupil {
+  transition: cx 75ms ease-out, cy 75ms ease-out;
+}
+
+@keyframes wave-left {
+  0%, 100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes wave-right {
+  0%, 100% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(-10deg);
+  }
 }
