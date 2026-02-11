@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { MainLayout } from "@/components/layout";
 import { Container, Button, Input, Card } from "@/components/ui";
 import { PERSONAL_INFO } from "@/lib/constants";
 
@@ -66,7 +65,7 @@ export default function ContactPage() {
   };
 
   return (
-    <MainLayout>
+    <>
       <Container className="py-12">
         <div className="space-y-16">
           {/* Header */}
@@ -239,6 +238,6 @@ export default function ContactPage() {
           </div>
         </div>
       </Container>
-    </MainLayout>
+    </>
   );
 }

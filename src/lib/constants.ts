@@ -14,12 +14,14 @@ export const ROUTES = {
   projects: "/projects",
   contact: "/contact",
   login: "/login",
+  resume: "/resume",
+  project: (slug: string) => `/projects/${slug}`,
 } as const;
 
 export const PERSONAL_INFO = {
   name: "Pani",
   title: "全栈开发者",
-  bio: "热爱编程，专注于构建高质量的 Web 应用。擅长 React、Next.js、Node.js 等技术栈。",
+  bio: "热爱编码，专注于构建高质量的 Web 应用。擅长 React、Next.js、Node.js 等技术栈。",
   email: "hello@example.com",
   github: "https://github.com",
   twitter: "https://twitter.com",
@@ -31,4 +33,3 @@ export const API_ENDPOINTS = {
   // users: "/api/users",
   // posts: "/api/posts",
 } as const;
-

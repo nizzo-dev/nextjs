@@ -3,7 +3,6 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { MainLayout } from "@/components/layout";
 import {
   Container,
   Button,
@@ -99,7 +98,7 @@ export default function LoginPage() {
   };
 
   return (
-    <MainLayout>
+    <>
       <Container className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12">
         <div className="w-full max-w-md">
           <Card>
@@ -207,7 +206,7 @@ export default function LoginPage() {
           </Card>
         </div>
       </Container>
-    </MainLayout>
+    </>
   );
 }
 

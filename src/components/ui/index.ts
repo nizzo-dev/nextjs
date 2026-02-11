@@ -5,4 +5,5 @@ export { Input, type InputProps } from "./input";
 export { Container, type ContainerProps } from "./container";
 export { Loading, type LoadingProps } from "./loading";
 export { MouseFollowCharacter } from "./character";
+export { ResumeActions } from "./resume-actions";
 
