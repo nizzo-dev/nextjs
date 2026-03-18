@@ -12,14 +12,10 @@ export function ResumeActions() {
   };
 
   return (
-    <div className="flex flex-wrap gap-3 no-print">
-      <Button onClick={handlePrint} className="hover-shine">
-        下载 PDF
-      </Button>
+    <div className="no-print flex flex-wrap gap-3">
+      <Button onClick={handlePrint}>下载 PDF</Button>
       <Link href={ROUTES.contact}>
-        <Button variant="outline" className="hover-shine">
-          联系我
-        </Button>
+        <Button variant="outline">联系我</Button>
       </Link>
     </div>
   );

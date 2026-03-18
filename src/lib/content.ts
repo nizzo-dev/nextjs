@@ -67,53 +67,54 @@ export interface ResumeSkillGroup {
 }
 
 const skills: SkillItem[] = [
-  { name: "React", icon: "⚛️", color: "from-cyan-400 to-blue-500" },
-  { name: "Next.js", icon: "▲", color: "from-gray-800 to-gray-600" },
-  { name: "TypeScript", icon: "📘", color: "from-blue-500 to-indigo-600" },
-  { name: "Node.js", icon: "🟢", color: "from-green-500 to-emerald-600" },
-  { name: "Tailwind", icon: "🎨", color: "from-cyan-400 to-blue-500" },
-  { name: "PostgreSQL", icon: "🐘", color: "from-blue-600 to-indigo-700" },
-  { name: "GraphQL", icon: "🕸️", color: "from-pink-500 to-rose-600" },
-  { name: "Docker", icon: "🐳", color: "from-blue-400 to-cyan-500" },
+  { name: "Vue", icon: "🟢", color: "from-emerald-400 to-green-600" },
+  { name: "React Hooks", icon: "⚛️", color: "from-cyan-400 to-blue-500" },
+  { name: "微信小程序", icon: "🧩", color: "from-lime-400 to-green-500" },
+  { name: "Webpack / Vite", icon: "⚡", color: "from-amber-400 to-orange-500" },
+  { name: "Ant Design / Element / Vant", icon: "🎨", color: "from-pink-400 to-rose-500" },
+  { name: "ECharts / 地图", icon: "📊", color: "from-indigo-400 to-violet-500" },
+  { name: "微前端 / 低代码", icon: "🧱", color: "from-sky-400 to-cyan-500" },
+  { name: "Node.js / Linux", icon: "🛠️", color: "from-slate-500 to-zinc-700" },
+  { name: "AI 辅助开发", icon: "🤖", color: "from-fuchsia-500 to-pink-600" },
 ];
 
 const statsByLocale: Record<Locale, StatItem[]> = {
   zh: [
     {
-      value: "3+",
-      label: "年开发经验",
+      value: "Vue + React",
+      label: "双主栈工程实践",
       color: "text-indigo-500",
       gradient: "from-indigo-500 to-purple-500",
     },
     {
-      value: "20+",
-      label: "完成项目",
+      value: "Web / H5 / 小程序",
+      label: "多端交付经验",
       color: "text-pink-500",
       gradient: "from-pink-500 to-rose-500",
     },
     {
-      value: "10+",
-      label: "技术栈",
+      value: "AI + 工程化",
+      label: "效率与质量并重",
       color: "text-cyan-500",
       gradient: "from-cyan-500 to-blue-500",
     },
   ],
   en: [
     {
-      value: "3+",
-      label: "Years Experience",
+      value: "Vue + React",
+      label: "Dual-stack engineering",
       color: "text-indigo-500",
       gradient: "from-indigo-500 to-purple-500",
     },
     {
-      value: "20+",
-      label: "Projects Delivered",
+      value: "Web / H5 / Mini Program",
+      label: "Cross-platform delivery",
       color: "text-pink-500",
       gradient: "from-pink-500 to-rose-500",
     },
     {
-      value: "10+",
-      label: "Core Skills",
+      value: "AI + DX",
+      label: "Speed with quality",
       color: "text-cyan-500",
       gradient: "from-cyan-500 to-blue-500",
     },
@@ -123,28 +124,30 @@ const statsByLocale: Record<Locale, StatItem[]> = {
 const homeTextByLocale = {
   zh: {
     greeting: "你好，我是",
-    primaryAction: "查看作品",
+    primaryAction: "查看项目",
     secondaryAction: "联系我",
-    skillsTitle: "技术栈",
-    skillsSubtitle: "我常用的技术",
+    skillsTitle: "核心能力",
+    skillsSubtitle: "围绕多端业务、工程化和 AI 效率提升持续实践",
     featuredTitle: "精选项目",
-    featuredSubtitle: "最近的工作成果",
+    featuredSubtitle: "覆盖 AI、企业应用、多端与可视化方向",
     viewAll: "查看全部",
-    ctaTitle: "准备好开始合作了吗？",
-    ctaSubtitle: "无论你是想构建一个网站、开发一个应用，还是需要技术咨询，我都很乐意帮忙。",
-    ctaButton: "立即联系",
+    ctaTitle: "如果你需要一名能快速落地的前端工程师",
+    ctaSubtitle:
+      "我可以参与 Vue / React 大型项目开发，多端适配、可视化、微前端、低代码和 AI 增效场景也有完整实践。",
+    ctaButton: "发起沟通",
   },
   en: {
     greeting: "Hi, I'm",
-    primaryAction: "View Work",
+    primaryAction: "View Projects",
     secondaryAction: "Contact Me",
-    skillsTitle: "Tech Stack",
-    skillsSubtitle: "Tools I use most often",
+    skillsTitle: "Core Skills",
+    skillsSubtitle: "Focused on multi-platform delivery, engineering quality, and AI-assisted productivity",
     featuredTitle: "Featured Projects",
-    featuredSubtitle: "Latest work highlights",
+    featuredSubtitle: "Selected work across AI, enterprise apps, cross-platform delivery, and visualization",
     viewAll: "View All",
-    ctaTitle: "Ready to build together?",
-    ctaSubtitle: "Whether it is a new website, a product idea, or technical consulting, I am happy to help.",
+    ctaTitle: "Need a frontend engineer who can ship fast and clean?",
+    ctaSubtitle:
+      "I work across Vue, React, H5, mini programs, visualization, micro-frontends, low-code, and AI-assisted workflows.",
     ctaButton: "Get in Touch",
   },
 } as const;
@@ -152,55 +155,57 @@ const homeTextByLocale = {
 const aboutTextByLocale = {
   zh: {
     title: "关于我",
-    subtitle: "我的职业历程",
-    experienceTitle: "工作经历",
-    experienceSubtitle: "我的职业历程",
-    educationTitle: "教育背景",
-    educationSubtitle: "我的学习经历",
-    servicesTitle: "我能提供的服务",
-    servicesSubtitle: "专业服务，为你创造价值",
-    ctaTitle: "有想法？让我帮你实现！",
-    ctaSubtitle: "无论是网站开发、技术咨询还是其它需求，我都愿意倾听并提供专业的解决方案。",
-    ctaButton: "开始合作",
+    subtitle: "聚焦业务落地与工程质量",
+    experienceTitle: "项目经验",
+    experienceSubtitle: "持续迭代的大型项目与复杂场景实践",
+    educationTitle: "学习成长",
+    educationSubtitle: "通过项目、工具和技术探索持续升级",
+    servicesTitle: "我能提供的价值",
+    servicesSubtitle: "不仅能写页面，也能推动交付效率和整体体验",
+    ctaTitle: "如果你的项目正需要稳定推进",
+    ctaSubtitle:
+      "欢迎交流 Vue、React、多端适配、可视化、微前端、低代码或 AI 辅助开发相关合作。",
+    ctaButton: "开始沟通",
     contactButton: "联系我",
   },
   en: {
     title: "About Me",
-    subtitle: "Career highlights",
+    subtitle: "Product-minded engineering with strong delivery discipline",
     experienceTitle: "Experience",
-    experienceSubtitle: "What I've been working on",
-    educationTitle: "Education",
-    educationSubtitle: "Academic background",
-    servicesTitle: "Services",
-    servicesSubtitle: "Professional support for your product",
-    ctaTitle: "Got an idea? Let's make it real.",
-    ctaSubtitle: "From web development to technical consulting, I'm happy to help with the right solution.",
-    ctaButton: "Start a Project",
+    experienceSubtitle: "Large projects, complex scenarios, and practical execution",
+    educationTitle: "Growth",
+    educationSubtitle: "Continuous learning through product work, tooling, and exploration",
+    servicesTitle: "What I Bring",
+    servicesSubtitle: "Beyond UI implementation: delivery speed, engineering quality, and user experience",
+    ctaTitle: "Need steady progress on a demanding project?",
+    ctaSubtitle:
+      "Happy to discuss Vue, React, cross-platform delivery, visualization, micro-frontends, low-code, or AI-assisted development.",
+    ctaButton: "Start a Conversation",
     contactButton: "Contact Me",
   },
 } as const;
 
 const projectsTextByLocale = {
   zh: {
-    title: "我的作品",
-    subtitle: "这里展示了我最近的项目实践，覆盖 Web、AI 与工程化方向。",
+    title: "项目作品",
+    subtitle: "围绕 AI、企业前端、多端交付、可视化与工程化能力的真实实践。",
     featuredTitle: "精选项目",
-    otherTitle: "其他项目",
+    otherTitle: "更多实践",
     detailButton: "查看详情",
-    repoButton: "源代码",
-    ctaTitle: "对这些项目感兴趣？",
-    ctaSubtitle: "想了解更多项目详情，或有合作想法，欢迎联系我。",
+    repoButton: "源码",
+    ctaTitle: "想进一步了解这些项目？",
+    ctaSubtitle: "如果你对某个方向感兴趣，或者有类似需求，欢迎直接联系我。",
     ctaButton: "联系我",
   },
   en: {
     title: "Projects",
-    subtitle: "Selected work across Web, AI, and engineering productivity.",
+    subtitle: "Practical work spanning AI, enterprise frontend, cross-platform delivery, visualization, and engineering systems.",
     featuredTitle: "Featured",
-    otherTitle: "More Projects",
+    otherTitle: "More Work",
     detailButton: "View Details",
     repoButton: "Source Code",
     ctaTitle: "Interested in these projects?",
-    ctaSubtitle: "Reach out if you'd like to learn more or collaborate.",
+    ctaSubtitle: "If any of these directions match your needs, feel free to reach out.",
     ctaButton: "Contact Me",
   },
 } as const;
@@ -208,8 +213,8 @@ const projectsTextByLocale = {
 const projectDetailTextByLocale = {
   zh: {
     back: "返回项目列表",
-    demo: "在线预览",
-    repo: "源代码",
+    demo: "在线演示",
+    repo: "源码",
     overview: "项目简介",
     highlights: "项目亮点",
     info: "项目信息",
@@ -222,7 +227,7 @@ const projectDetailTextByLocale = {
     back: "Back to Projects",
     demo: "Live Demo",
     repo: "Source Code",
-    overview: "Project Overview",
+    overview: "Overview",
     highlights: "Highlights",
     info: "Project Info",
     year: "Year",
@@ -234,12 +239,12 @@ const projectDetailTextByLocale = {
 
 const resumeTextByLocale = {
   zh: {
-    title: "简历",
+    title: "个人简历",
     summary: "个人概述",
-    experience: "工作经历",
-    education: "教育背景",
-    skills: "技能栈",
-    featured: "精选项目",
+    experience: "项目经验",
+    education: "学习成长",
+    skills: "技能矩阵",
+    featured: "代表项目",
     viewAll: "查看全部 →",
     download: "下载 PDF",
     contact: "联系我",
@@ -248,7 +253,7 @@ const resumeTextByLocale = {
     title: "Resume",
     summary: "Summary",
     experience: "Experience",
-    education: "Education",
+    education: "Growth",
     skills: "Skills",
     featured: "Featured Projects",
     viewAll: "View All →",
@@ -262,7 +267,7 @@ const headerTextByLocale = {
     nav: {
       home: "首页",
       about: "关于",
-      projects: "作品",
+      projects: "项目",
       resume: "简历",
       contact: "联系",
     },
@@ -284,410 +289,252 @@ const headerTextByLocale = {
 
 const projectCategoriesByLocale: Record<Locale, CategoryItem[]> = {
   zh: [
-    { key: "all", name: "全部", emoji: "🧩" },
-    { key: "web", name: "Web 应用", emoji: "🌐" },
-    { key: "ai", name: "AI & 工具", emoji: "🤖" },
-    { key: "oss", name: "开源项目", emoji: "🧪" },
+    { key: "all", name: "全部", emoji: "🌍" },
+    { key: "web", name: "企业应用", emoji: "💼" },
+    { key: "ai", name: "AI 与效率", emoji: "🤖" },
+    { key: "visual", name: "可视化", emoji: "📈" },
   ],
   en: [
-    { key: "all", name: "All", emoji: "🧩" },
-    { key: "web", name: "Web Apps", emoji: "🌐" },
-    { key: "ai", name: "AI & Tools", emoji: "🤖" },
-    { key: "oss", name: "Open Source", emoji: "🧪" },
+    { key: "all", name: "All", emoji: "🌍" },
+    { key: "web", name: "Enterprise Apps", emoji: "💼" },
+    { key: "ai", name: "AI & Productivity", emoji: "🤖" },
+    { key: "visual", name: "Visualization", emoji: "📈" },
   ],
 };
 
 const projectBase = [
   {
     id: 1,
-    slug: "ai-assistant",
+    slug: "cookieai",
     emoji: "🤖",
-    gradient: "from-violet-500 to-purple-600",
-    tags: ["React", "TypeScript", "OpenAI API", "RAG"],
+    gradient: "from-fuchsia-500 to-violet-600",
+    tags: ["React", "AI", "Prompt Engineering", "Workflow"],
     featured: true,
     category: "ai",
-    year: "2025",
-    role: "Full-stack",
-    highlights: ["Multi-model support", "Tool calling", "Conversation history"],
+    year: "2026",
+    role: "独立设计与开发",
+    demoUrl: "https://cookieai.xhbspace.cn",
+    highlights: [
+      "多轮对话与 AI 工作流整合",
+      "面向真实使用场景的效率工具设计",
+      "持续结合 AI 编程实践快速迭代",
+    ],
   },
   {
     id: 2,
-    slug: "ecommerce-platform",
-    emoji: "🛒",
-    gradient: "from-orange-500 to-amber-600",
-    tags: ["Next.js", "Stripe", "PostgreSQL", "Redis"],
+    slug: "enterprise-dashboard",
+    emoji: "💼",
+    gradient: "from-indigo-500 to-blue-600",
+    tags: ["Vue", "Element UI", "Redux", "权限系统"],
     featured: true,
     category: "web",
-    year: "2024",
-    role: "Frontend Lead",
-    highlights: ["SSR + ISR", "Multi-payments", "Ops console"],
+    year: "2025",
+    role: "前端负责人",
+    highlights: [
+      "负责大型后台项目模块拆分与组件复用",
+      "推动复杂表单、列表和权限体系稳定落地",
+      "注重性能优化和业务迭代效率",
+    ],
   },
   {
     id: 3,
-    slug: "video-conference",
-    emoji: "📹",
-    gradient: "from-blue-500 to-cyan-600",
-    tags: ["WebRTC", "Node.js", "WebSocket"],
+    slug: "mini-program-commerce",
+    emoji: "🛍️",
+    gradient: "from-emerald-500 to-teal-600",
+    tags: ["H5", "微信小程序", "Vant", "多端适配"],
     featured: true,
     category: "web",
-    year: "2024",
-    role: "Full-stack",
-    highlights: ["Low latency", "Recording", "Collaboration board"],
+    year: "2025",
+    role: "核心开发",
+    highlights: [
+      "同时兼顾 Web 端、H5 与小程序体验",
+      "处理多终端 UI 还原与交互一致性问题",
+      "沉淀跨端适配与组件封装方案",
+    ],
   },
   {
     id: 4,
-    slug: "online-education",
-    emoji: "🎓",
-    gradient: "from-emerald-500 to-teal-600",
-    tags: ["Next.js", "Prisma", "PostgreSQL"],
+    slug: "data-visualization-platform",
+    emoji: "📊",
+    gradient: "from-cyan-500 to-sky-600",
+    tags: ["ECharts", "BizCharts", "地图", "大屏"],
     featured: true,
-    category: "web",
-    year: "2023",
-    role: "Full-stack",
-    highlights: ["Course planning", "Learning analytics", "Content delivery"],
+    category: "visual",
+    year: "2024",
+    role: "可视化前端",
+    highlights: [
+      "建设多图表联动与地图可视化能力",
+      "强调数据表达清晰度与交互体验",
+      "支持大屏展示与业务决策场景",
+    ],
   },
   {
     id: 5,
-    slug: "task-manager",
-    emoji: "🧭",
-    gradient: "from-pink-500 to-rose-600",
-    tags: ["React", "Node.js", "MongoDB"],
+    slug: "micro-frontend-workspace",
+    emoji: "🧩",
+    gradient: "from-orange-500 to-amber-600",
+    tags: ["微前端", "React", "Vue", "模块治理"],
     featured: false,
     category: "web",
-    year: "2023",
-    role: "Frontend",
-    highlights: ["Visual workflows", "Realtime collaboration", "Role-based access"],
+    year: "2024",
+    role: "架构参与",
+    highlights: [
+      "探索多团队并行开发下的前端边界管理",
+      "提升应用拆分、发布和联调效率",
+      "兼顾业务隔离与整体体验一致性",
+    ],
   },
   {
     id: 6,
-    slug: "chat-app",
-    emoji: "💬",
-    gradient: "from-indigo-500 to-violet-600",
-    tags: ["React", "Node.js", "Socket.io"],
+    slug: "low-code-builder",
+    emoji: "🧱",
+    gradient: "from-pink-500 to-rose-600",
+    tags: ["低代码", "React", "Schema", "拖拽"],
     featured: false,
-    category: "web",
-    year: "2022",
-    role: "Full-stack",
-    highlights: ["Read receipts", "File sharing", "Search"],
+    category: "ai",
+    year: "2024",
+    role: "前端开发",
+    highlights: [
+      "参与低代码页面编排和组件配置能力建设",
+      "关注可扩展性、配置表达和渲染性能",
+      "提升业务页面生成效率",
+    ],
   },
   {
     id: 7,
-    slug: "automation-testing",
-    emoji: "🧪",
-    gradient: "from-amber-500 to-orange-600",
-    tags: ["TypeScript", "Playwright", "Node.js"],
+    slug: "build-performance-tooling",
+    emoji: "⚡",
+    gradient: "from-slate-600 to-zinc-800",
+    tags: ["Webpack", "Vite", "构建优化", "性能分析"],
     featured: false,
     category: "ai",
-    year: "2022",
-    role: "Frontend",
-    highlights: ["Script management", "Visual flows", "Reporting"],
+    year: "2023",
+    role: "工程化建设",
+    highlights: [
+      "优化本地开发体验与构建效率",
+      "分析包体积、首屏和缓存策略",
+      "推动工程脚手架和规范统一",
+    ],
   },
   {
     id: 8,
-    slug: "personal-blog",
-    emoji: "✍️",
-    gradient: "from-gray-500 to-slate-600",
-    tags: ["Next.js", "MDX", "Tailwind CSS"],
-    featured: false,
-    category: "oss",
-    year: "2022",
-    role: "Full-stack",
-    highlights: ["Content versioning", "Themes", "Full-text search"],
-  },
-  {
-    id: 9,
-    slug: "weather-app",
-    emoji: "🌤️",
-    gradient: "from-sky-400 to-sky-600",
-    tags: ["React", "Chart.js", "Weather API"],
+    slug: "node-api-collab",
+    emoji: "🔌",
+    gradient: "from-lime-500 to-green-700",
+    tags: ["Node.js", "Express", "Koa", "Linux"],
     featured: false,
     category: "web",
-    year: "2021",
-    role: "Frontend",
-    highlights: ["Multi-city", "Trends", "Auto location"],
-  },
-  {
-    id: 10,
-    slug: "analytics-dashboard",
-    emoji: "📊",
-    gradient: "from-cyan-500 to-blue-600",
-    tags: ["TypeScript", "D3.js", "Node.js"],
-    featured: false,
-    category: "web",
-    year: "2021",
-    role: "Frontend",
-    highlights: ["Multi-dim filters", "Exports", "Access control"],
-  },
-  {
-    id: 11,
-    slug: "snippet-manager",
-    emoji: "🧩",
-    gradient: "from-slate-600 to-gray-700",
-    tags: ["React", "Firebase", "Monaco Editor"],
-    featured: false,
-    category: "oss",
-    year: "2021",
-    role: "Frontend",
-    highlights: ["Sync", "Team sharing", "Themes"],
-  },
-  {
-    id: 12,
-    slug: "restaurant-booking",
-    emoji: "🍽️",
-    gradient: "from-red-500 to-rose-600",
-    tags: ["React", "MongoDB", "Stripe"],
-    featured: false,
-    category: "web",
-    year: "2020",
-    role: "Full-stack",
-    highlights: ["Reservations", "Seating management", "Payments"],
-  },
-  {
-    id: 13,
-    slug: "fitness-tracker",
-    emoji: "🏋️",
-    gradient: "from-green-500 to-emerald-600",
-    tags: ["React Native", "GraphQL", "Node.js"],
-    featured: false,
-    category: "web",
-    year: "2020",
-    role: "Frontend",
-    highlights: ["Training plans", "Data sync", "Goal tracking"],
-  },
-  {
-    id: 14,
-    slug: "image-editor",
-    emoji: "🖼️",
-    gradient: "from-fuchsia-500 to-pink-600",
-    tags: ["React", "Canvas API", "Web Workers"],
-    featured: false,
-    category: "web",
-    year: "2019",
-    role: "Frontend",
-    highlights: ["Filter library", "Batch edits", "Export optimizations"],
-  },
-  {
-    id: 15,
-    slug: "rss-reader",
-    emoji: "📰",
-    gradient: "from-orange-400 to-red-500",
-    tags: ["Next.js", "PWA", "Service Worker"],
-    featured: false,
-    category: "oss",
-    year: "2019",
-    role: "Frontend",
-    highlights: ["Offline cache", "Subscriptions", "Reader mode"],
-  },
-  {
-    id: 16,
-    slug: "file-sharing",
-    emoji: "📦",
-    gradient: "from-blue-600 to-indigo-700",
-    tags: ["React", "WebRTC", "WebSocket"],
-    featured: false,
-    category: "web",
-    year: "2019",
-    role: "Full-stack",
-    highlights: ["End-to-end encryption", "Resume transfer", "One-time links"],
+    year: "2023",
+    role: "前后端联调",
+    highlights: [
+      "可承担基础接口开发与联调工作",
+      "熟悉部署流程和 Linux 环境基础操作",
+      "帮助前端交付更闭环地推进",
+    ],
   },
 ] as const;
 
 type ProjectText = Record<string, { title: string; summary: string; description: string }>;
 
 const projectTextZh: ProjectText = {
-  "ai-assistant": {
-    title: "AI 助手应用",
-    summary: "多轮对话 + 代码生成 + 文档分析的一体化 AI 助手。",
+  cookieai: {
+    title: "Cookie AI",
+    summary: "AI 项目演示站，聚焦对话、效率提升与个人 AI 编程实践。",
     description:
-      "基于大语言模型的智能助手，支持多轮对话、代码生成、文档分析与检索增强。提供可配置工具链，覆盖日常开发、内容生产与团队协作场景。",
+      "这是我的 AI 项目演示作品，重点展示如何把大模型能力融入真实工作流，包括对话交互、内容生成、问题解决与持续迭代。在开发过程中我也大量使用 AI 辅助编程工具，以更快验证想法并优化实现细节。",
   },
-  "ecommerce-platform": {
-    title: "电商平台",
-    summary: "覆盖商品、订单、支付与运营后台的完整电商解决方案。",
+  "enterprise-dashboard": {
+    title: "企业后台管理系统",
+    summary: "基于 Vue 生态构建的大型后台项目，覆盖复杂业务模块与权限体系。",
     description:
-      "完整的电商系统，包含商品管理、购物车、订单、支付与营销模块，支持 SEO 与性能优化，具备高并发场景下的可扩展架构。",
+      "项目强调大型业务系统中的组件复用、状态管理、权限控制和复杂页面交互。我负责前端模块实现与工程治理，关注可维护性、交付效率以及高还原度 UI 落地。",
   },
-  "video-conference": {
-    title: "视频会议平台",
-    summary: "低延迟实时会议，支持屏幕共享与白板协作。",
+  "mini-program-commerce": {
+    title: "多端商城项目",
+    summary: "同时覆盖 Web、H5 与微信小程序的业务项目，重点解决多端适配问题。",
     description:
-      "实时视频会议应用，支持屏幕共享、白板协作与录制回放。优化信令与媒体传输，确保弱网场景下的稳定性。",
+      "该项目围绕多端交付展开，强调组件复用、样式还原与交互一致性。针对不同终端表现差异进行适配处理，在保证业务效率的同时兼顾用户体验。",
   },
-  "online-education": {
-    title: "在线教育平台",
-    summary: "课程管理 + 直播课堂 + 练习测评的在线学习系统。",
+  "data-visualization-platform": {
+    title: "数据可视化平台",
+    summary: "结合图表和地图能力构建的数据大屏与业务分析项目。",
     description:
-      "面向教育机构的综合在线学习系统，包含课程管理、直播课堂、作业与测评、学习进度追踪等能力。",
+      "围绕 ECharts、BizCharts 与地图集成能力，建设多维指标展示、联动分析和大屏可视化页面。重点在于信息表达效率、交互清晰度以及展示性能。",
   },
-  "task-manager": {
-    title: "任务管理应用",
-    summary: "团队协作任务管理，支持看板与甘特图。",
+  "micro-frontend-workspace": {
+    title: "微前端工作台",
+    summary: "服务多团队协作的微前端实践，优化业务拆分和独立发布效率。",
     description:
-      "团队协作任务管理工具，提供看板、甘特图与依赖关系管理，帮助团队可视化项目进度。",
+      "在复杂业务线协作场景下，通过微前端思想拆分应用边界，降低耦合度并提升团队并行开发效率，同时尽量保持产品体验统一。",
   },
-  "chat-app": {
-    title: "聊天应用",
-    summary: "支持私聊、群聊与文件分享的实时通信应用。",
+  "low-code-builder": {
+    title: "低代码搭建平台",
+    summary: "围绕页面编排、组件配置和渲染引擎的低代码平台实践。",
     description:
-      "实时聊天应用，支持私聊、群聊、文件共享与消息已读。使用 WebSocket 构建稳定的实时通信能力。",
+      "参与低代码平台前端能力建设，关注配置化表达、组件扩展能力、拖拽体验和渲染性能，帮助业务更快搭建页面和活动场景。",
   },
-  "automation-testing": {
-    title: "自动化测试平台",
-    summary: "可视化录制回放与报表分析的测试平台。",
+  "build-performance-tooling": {
+    title: "工程化与构建优化",
+    summary: "围绕 Webpack、Vite 和开发流程提效的工程实践。",
     description:
-      "可视化自动化测试平台，支持录制回放、断言配置与报告生成，显著提升团队测试效率。",
+      "针对大型项目的构建时间、开发体验和性能问题进行持续优化，包括依赖分析、包体积治理、缓存策略、脚手架整理与团队规范沉淀。",
   },
-  "personal-blog": {
-    title: "博客系统",
-    summary: "支持 MDX、SEO 与评论的个人博客平台。",
-    description: "个人博客平台，支持 MDX 写作、代码高亮、SEO 优化与评论系统。",
-  },
-  "weather-app": {
-    title: "天气应用",
-    summary: "多城市查询 + 趋势图表的实时天气应用。",
+  "node-api-collab": {
+    title: "Node 接口与部署协作",
+    summary: "使用 Express / Koa 参与接口开发、联调与基础部署支持。",
     description:
-      "实时天气预报应用，支持多城市查询、趋势图表展示与历史天气数据。",
-  },
-  "analytics-dashboard": {
-    title: "数据分析仪表盘",
-    summary: "多维度指标分析与可视化报表系统。",
-    description:
-      "面向业务与运营的数据分析仪表盘，支持多维度指标分析与可视化报表导出。",
-  },
-  "snippet-manager": {
-    title: "代码片段管理",
-    summary: "开发者代码片段管理与分享工具。",
-    description:
-      "面向开发者的代码片段管理工具，支持标签分类、语法高亮与一键复制。",
-  },
-  "restaurant-booking": {
-    title: "餐厅预订系统",
-    summary: "餐厅管理与在线预订的一体化系统。",
-    description:
-      "餐厅管理与在线预订系统，支持座位管理、菜品展示与订单处理。",
-  },
-  "fitness-tracker": {
-    title: "健身追踪应用",
-    summary: "训练计划 + 数据追踪 + 目标管理。",
-    description:
-      "个人健身助手，记录训练数据、制定训练计划并跟踪目标进度。",
-  },
-  "image-editor": {
-    title: "图片编辑器",
-    summary: "浏览器端图片编辑工具。",
-    description:
-      "浏览器端图片编辑工具，支持裁剪、滤镜、标注与批量处理。",
-  },
-  "rss-reader": {
-    title: "RSS 阅读器",
-    summary: "现代化 RSS 阅读器，支持离线阅读。",
-    description:
-      "现代化 RSS 阅读器，支持订阅管理、智能分类、离线阅读与分享。",
-  },
-  "file-sharing": {
-    title: "文件分享工具",
-    summary: "点对点文件传输工具，支持加密与过期。",
-    description:
-      "点对点文件分享工具，支持大文件传输、加密传输与过期自动删除。",
+      "除前端开发外，也能承担基础 Node.js 接口开发和联调工作，配合 Linux 环境完成简单部署与排查，提升项目推进的完整性。",
   },
 };
 
 const projectTextEn: ProjectText = {
-  "ai-assistant": {
-    title: "AI Assistant",
-    summary: "Conversational AI with code generation and document insights.",
+  cookieai: {
+    title: "Cookie AI",
+    summary: "An AI demo project focused on conversations, productivity, and personal AI-assisted coding practice.",
     description:
-      "An AI assistant powered by large language models. Supports multi-turn chat, code generation, and document analysis with retrieval augmentation.",
+      "This project showcases how LLM capabilities can be integrated into practical workflows, including chat interactions, content generation, problem solving, and rapid iteration with AI-assisted development tools.",
   },
-  "ecommerce-platform": {
-    title: "E-commerce Platform",
-    summary: "End-to-end commerce system covering catalog, orders, and payments.",
+  "enterprise-dashboard": {
+    title: "Enterprise Dashboard",
+    summary: "A large-scale admin system built with the Vue ecosystem for complex business workflows.",
     description:
-      "A full-featured commerce platform with product management, cart, orders, payments, and marketing tools optimized for performance and SEO.",
+      "Focused on reusable components, state management, access control, and complex page interactions in enterprise environments. The work emphasized maintainability, delivery efficiency, and strong UI fidelity.",
   },
-  "video-conference": {
-    title: "Video Conference",
-    summary: "Low-latency meetings with screen share and collaboration.",
+  "mini-program-commerce": {
+    title: "Cross-platform Commerce",
+    summary: "A business project delivered across Web, H5, and WeChat Mini Program.",
     description:
-      "A real-time video conferencing product with screen sharing, whiteboard collaboration, and recording. Optimized for stability on weak networks.",
+      "Built for multi-platform consistency with careful handling of shared components, responsive behavior, and interaction fidelity across different clients and devices.",
   },
-  "online-education": {
-    title: "Online Learning",
-    summary: "Course management, live classes, and assessments in one system.",
+  "data-visualization-platform": {
+    title: "Data Visualization Platform",
+    summary: "Dashboards and data screens powered by charts and map integrations.",
     description:
-      "An online learning platform for education providers, including course management, live classrooms, assignments, and progress tracking.",
+      "Built with charting and map tooling to support multi-dimensional metrics, linked interactions, and large-screen presentations, with a strong focus on clarity and performance.",
   },
-  "task-manager": {
-    title: "Task Manager",
-    summary: "Team collaboration with kanban and Gantt views.",
+  "micro-frontend-workspace": {
+    title: "Micro-frontend Workspace",
+    summary: "A micro-frontend practice for multi-team collaboration and independent delivery.",
     description:
-      "A collaborative task management tool with kanban boards, Gantt charts, and dependencies for clear project visibility.",
+      "Explored micro-frontend architecture to reduce coupling, improve team autonomy, and support independent deployment while preserving a coherent product experience.",
   },
-  "chat-app": {
-    title: "Chat App",
-    summary: "Real-time messaging with groups and file sharing.",
+  "low-code-builder": {
+    title: "Low-code Builder",
+    summary: "A low-code platform for page orchestration, component configuration, and rendering.",
     description:
-      "A real-time chat app with private chats, group rooms, file sharing, and read receipts built on WebSocket.",
+      "Worked on low-code frontend capabilities around schema-driven rendering, drag-and-drop editing, extensible components, and performance-sensitive page generation.",
   },
-  "automation-testing": {
-    title: "Automation Testing",
-    summary: "Visual test recording, playback, and reporting.",
+  "build-performance-tooling": {
+    title: "Build & Performance Tooling",
+    summary: "Engineering work around Webpack, Vite, and developer experience optimization.",
     description:
-      "A visual test automation platform supporting recording, assertions, and detailed reporting to boost QA efficiency.",
+      "Improved build speed, local development experience, bundle size, and team-wide engineering workflows through tooling, analysis, and reusable standards.",
   },
-  "personal-blog": {
-    title: "Personal Blog",
-    summary: "MDX-driven blog with SEO and comments.",
+  "node-api-collab": {
+    title: "Node API Collaboration",
+    summary: "API development, integration, and basic deployment support with Node.js.",
     description:
-      "A personal blogging platform with MDX authoring, syntax highlighting, SEO optimization, and comments.",
-  },
-  "weather-app": {
-    title: "Weather App",
-    summary: "Real-time weather with multi-city forecasts.",
-    description:
-      "Weather app with multi-city search, trend charts, and historical data views.",
-  },
-  "analytics-dashboard": {
-    title: "Analytics Dashboard",
-    summary: "Multi-dimensional analytics and reporting.",
-    description:
-      "A data analytics dashboard for business and operations with flexible filters and exportable reports.",
-  },
-  "snippet-manager": {
-    title: "Snippet Manager",
-    summary: "Save and share developer snippets.",
-    description:
-      "A developer tool for managing code snippets with tags, syntax highlighting, and quick sharing.",
-  },
-  "restaurant-booking": {
-    title: "Restaurant Booking",
-    summary: "Reservation and seating management system.",
-    description:
-      "A restaurant management and booking system with seat planning, menu display, and order processing.",
-  },
-  "fitness-tracker": {
-    title: "Fitness Tracker",
-    summary: "Training plans, data tracking, and goals.",
-    description:
-      "A personal fitness tracker that logs workouts, plans training, and tracks progress.",
-  },
-  "image-editor": {
-    title: "Image Editor",
-    summary: "Browser-based image editing tools.",
-    description:
-      "An in-browser image editor with crop, filters, annotations, and batch processing.",
-  },
-  "rss-reader": {
-    title: "RSS Reader",
-    summary: "Modern RSS reader with offline mode.",
-    description:
-      "A modern RSS reader supporting subscription management, smart grouping, and offline reading.",
-  },
-  "file-sharing": {
-    title: "File Sharing",
-    summary: "Peer-to-peer file transfer with encryption.",
-    description:
-      "A peer-to-peer file sharing tool with encryption, expiration, and large-file transfer support.",
+      "Handled lightweight API work with Express and Koa, supported frontend-backend integration, and contributed to basic Linux deployment and troubleshooting workflows.",
   },
 };
 
@@ -695,123 +542,120 @@ const aboutContentByLocale = {
   zh: {
     experiences: [
       {
-        role: "高级前端开发工程师",
-        company: "某科技公司",
-        period: "2022 - 至今",
+        role: "大型前端项目开发",
+        company: "Vue / React 企业项目",
+        period: "持续实践",
         description:
-          "负责核心产品的前端架构设计与开发，落地设计系统与组件库，持续优化性能与开发体验。",
-        icon: "💼",
+          "熟练掌握 Vue、React 函数式组件与 Hooks，能在复杂业务场景中完成模块拆分、状态管理、组件沉淀与大型项目交付。",
+        icon: "🚀",
         gradient: "from-indigo-500 to-purple-600",
       },
       {
-        role: "全栈开发工程师",
-        company: "某创业公司",
-        period: "2020 - 2022",
+        role: "多端业务适配",
+        company: "Web / H5 / 微信小程序",
+        period: "持续实践",
         description:
-          "参与多项目全栈交付，独立负责前端架构与后端 API 设计，实现从 0 到 1 的产品落地。",
-        icon: "🚀",
-        gradient: "from-pink-500 to-rose-600",
+          "拥有丰富的 Web 端、H5、微信小程序开发经验，能高效处理不同终端下的布局、交互与兼容性问题。",
+        icon: "📱",
+        gradient: "from-emerald-500 to-teal-600",
       },
       {
-        role: "初级前端开发工程师",
-        company: "某互联网公司",
-        period: "2019 - 2020",
+        role: "工程化与效率建设",
+        company: "Webpack / Vite / AI 工具链",
+        period: "持续实践",
         description:
-          "负责官网与内部系统的开发维护，积累扎实的前端工程与协作经验。",
-        icon: "🧑‍💻",
-        gradient: "from-cyan-500 to-blue-600",
+          "熟练配置现代化构建工具，关注开发体验和项目性能；同时积极使用 AI 辅助编程工具提升研发效率，Cursor 为重度使用者。",
+        icon: "⚙️",
+        gradient: "from-pink-500 to-rose-600",
       },
     ] satisfies ExperienceItem[],
     educations: [
       {
-        degree: "计算机科学与技术",
-        school: "某大学",
-        period: "2015 - 2019",
-        icon: "🎓",
-        gradient: "from-emerald-500 to-teal-600",
+        degree: "技术探索与持续学习",
+        school: "个人项目 + 新技术实践",
+        period: "长期进行中",
+        icon: "📚",
+        gradient: "from-amber-500 to-orange-600",
       },
     ] satisfies EducationItem[],
     services: [
       {
-        icon: "🧭",
-        title: "Web 开发",
-        description:
-          "为企业与个人提供专业 Web 应用开发服务，覆盖前端、后端与部署交付。",
+        icon: "🖥️",
+        title: "前端项目开发",
+        description: "面向 Vue、React 和复杂业务系统进行高质量开发与重构落地。",
         gradient: "from-blue-500 to-indigo-600",
       },
       {
-        icon: "🎨",
-        title: "UI/UX 设计",
-        description: "提供界面与交互设计服务，打造美观易用的产品体验。",
-        gradient: "from-pink-500 to-rose-600",
+        icon: "🎯",
+        title: "多端与体验优化",
+        description: "处理 Web、H5、小程序适配，提升设计还原度、交互质量和用户体验。",
+        gradient: "from-fuchsia-500 to-pink-600",
       },
       {
-        icon: "🧠",
-        title: "技术咨询",
-        description: "面向团队与创业公司提供技术选型、架构与性能优化建议。",
-        gradient: "from-amber-500 to-orange-600",
+        icon: "🤖",
+        title: "工程化与 AI 增效",
+        description: "结合构建优化、组件沉淀和 AI 辅助开发，提升团队开发效率与稳定性。",
+        gradient: "from-cyan-500 to-sky-600",
       },
     ] satisfies ServiceItem[],
   },
   en: {
     experiences: [
       {
-        role: "Senior Frontend Engineer",
-        company: "Tech Company",
-        period: "2022 - Present",
+        role: "Large-scale Frontend Delivery",
+        company: "Vue / React enterprise projects",
+        period: "Ongoing",
         description:
-          "Led frontend architecture, design system rollout, and continuous performance improvements.",
-        icon: "💼",
+          "Experienced with Vue, React functional components, and Hooks for complex business applications, modular delivery, state management, and scalable frontend systems.",
+        icon: "🚀",
         gradient: "from-indigo-500 to-purple-600",
       },
       {
-        role: "Full-stack Engineer",
-        company: "Startup",
-        period: "2020 - 2022",
+        role: "Cross-platform Product Work",
+        company: "Web / H5 / WeChat Mini Program",
+        period: "Ongoing",
         description:
-          "Delivered multiple full-stack products, owning frontend architecture and backend API design.",
-        icon: "🚀",
-        gradient: "from-pink-500 to-rose-600",
+          "Strong hands-on experience across Web, H5, and mini program projects, with a focus on layout adaptation, interaction consistency, and compatibility handling.",
+        icon: "📱",
+        gradient: "from-emerald-500 to-teal-600",
       },
       {
-        role: "Frontend Engineer",
-        company: "Internet Company",
-        period: "2019 - 2020",
+        role: "Engineering & Productivity",
+        company: "Webpack / Vite / AI tooling",
+        period: "Ongoing",
         description:
-          "Built and maintained marketing sites and internal systems, strengthening collaboration and engineering foundations.",
-        icon: "🧑‍💻",
-        gradient: "from-cyan-500 to-blue-600",
+          "Comfortable with modern build tooling, performance optimization, and developer experience improvements. Heavy Cursor user with active AI-assisted coding workflows.",
+        icon: "⚙️",
+        gradient: "from-pink-500 to-rose-600",
       },
     ] satisfies ExperienceItem[],
     educations: [
       {
-        degree: "B.S. in Computer Science",
-        school: "University",
-        period: "2015 - 2019",
-        icon: "🎓",
-        gradient: "from-emerald-500 to-teal-600",
+        degree: "Continuous Learning",
+        school: "Personal projects and hands-on exploration",
+        period: "Always active",
+        icon: "📚",
+        gradient: "from-amber-500 to-orange-600",
       },
     ] satisfies EducationItem[],
     services: [
       {
-        icon: "🧭",
-        title: "Web Development",
-        description:
-          "End-to-end web development across frontend, backend, and deployment.",
+        icon: "🖥️",
+        title: "Frontend Delivery",
+        description: "Build and improve Vue and React products for complex business use cases.",
         gradient: "from-blue-500 to-indigo-600",
       },
       {
-        icon: "🎨",
-        title: "UI/UX Design",
-        description: "Designing clear, delightful interfaces and interactions.",
-        gradient: "from-pink-500 to-rose-600",
+        icon: "🎯",
+        title: "Cross-platform UX",
+        description: "Handle Web, H5, and mini program adaptation while keeping high UI fidelity and user experience quality.",
+        gradient: "from-fuchsia-500 to-pink-600",
       },
       {
-        icon: "🧠",
-        title: "Technical Consulting",
-        description:
-          "Architecture and performance guidance for teams and early-stage startups.",
-        gradient: "from-amber-500 to-orange-600",
+        icon: "🤖",
+        title: "Engineering + AI",
+        description: "Improve delivery efficiency through tooling, component systems, and AI-assisted development workflows.",
+        gradient: "from-cyan-500 to-sky-600",
       },
     ] satisfies ServiceItem[],
   },
@@ -823,63 +667,71 @@ const resumeContentByLocale: Record<
 > = {
   zh: {
     summary:
-      "全栈开发工程师，专注于构建高质量 Web 应用。擅长 React、Next.js 与 Node.js，关注性能、体验与工程化。",
+      "前端工程师，擅长 Vue、React 函数式组件与 Hooks，在大型项目、多端适配、构建优化、可视化、微前端、低代码和 AI 辅助开发方面有持续实践。",
     highlights: [
-      "主导落地组件库与设计系统，提高交付一致性",
-      "优化渲染与数据层性能，提升核心页面转化",
-      "具备从需求到上线的全流程交付能力",
+      "具备 Web、H5、微信小程序多端开发与适配经验",
+      "熟练使用 Webpack、Vite，重视开发体验与性能优化",
+      "擅长结合 AI 工具提升开发效率并推动个人项目快速迭代",
     ],
     skillGroups: [
       {
-        label: "前端",
-        items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+        label: "前端框架",
+        items: ["Vue", "React", "Hooks", "Vue Router", "Redux"],
       },
       {
-        label: "后端",
-        items: ["Node.js", "PostgreSQL", "GraphQL", "Redis"],
+        label: "多端与 UI",
+        items: ["Web", "H5", "微信小程序", "Ant Design", "Element UI", "Vant"],
       },
       {
-        label: "工程化",
-        items: ["Monorepo", "CI/CD", "Docker", "Testing"],
+        label: "工程与前沿实践",
+        items: ["Webpack", "Vite", "ECharts", "BizCharts", "微前端", "低代码", "地图集成", "AI Coding"],
+      },
+      {
+        label: "协作能力",
+        items: ["Node.js", "Express", "Koa", "Linux", "接口联调", "部署支持"],
       },
     ],
   },
   en: {
     summary:
-      "Full-stack engineer focused on building high-quality web applications with React, Next.js, and Node.js.",
+      "Frontend engineer with strong hands-on experience in Vue, React functional components, Hooks, cross-platform product work, build tooling, visualization, micro-frontends, low-code systems, and AI-assisted development.",
     highlights: [
-      "Led component library and design system delivery for consistent UX",
-      "Improved rendering and data performance on core pages",
-      "Delivered products end-to-end from discovery to launch",
+      "Delivered across Web, H5, and WeChat Mini Program environments",
+      "Experienced with Webpack and Vite for DX and performance optimization",
+      "Actively uses AI tools to accelerate coding, iteration, and problem solving",
     ],
     skillGroups: [
       {
-        label: "Frontend",
-        items: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+        label: "Frameworks",
+        items: ["Vue", "React", "Hooks", "Vue Router", "Redux"],
       },
       {
-        label: "Backend",
-        items: ["Node.js", "PostgreSQL", "GraphQL", "Redis"],
+        label: "Cross-platform & UI",
+        items: ["Web", "H5", "WeChat Mini Program", "Ant Design", "Element UI", "Vant"],
       },
       {
-        label: "Engineering",
-        items: ["Monorepo", "CI/CD", "Docker", "Testing"],
+        label: "Engineering & Advanced Topics",
+        items: ["Webpack", "Vite", "ECharts", "BizCharts", "Micro-frontends", "Low-code", "Maps", "AI Coding"],
+      },
+      {
+        label: "Collaboration",
+        items: ["Node.js", "Express", "Koa", "Linux", "API Integration", "Deployment"],
       },
     ],
   },
 };
 
 const aboutIntroByLocale = {
-  zh:
-    "我是一名充满热情的全栈开发者，专注于构建高质量的 Web 应用。在过去的几年里，我积累了丰富的项目经验，擅长使用现代技术栈解决复杂的技术挑战。我相信好的代码应该是简洁、可维护的，用户体验应该是直观且流畅的。",
-  en:
-    "I'm a passionate full-stack engineer focused on building high-quality web products. Over the years I have delivered multiple projects using modern stacks and believe great software should be clean, maintainable, and delightful to use.",
+  zh: "我是一名前端工程师，长期围绕 Vue、React、大型业务项目、多端适配和工程效率展开实践。除了页面开发，我也关注 UI 还原、性能优化、构建链路、可视化表达，以及如何把 AI 工具真正融入日常研发流程中。",
+  en: "I am a frontend engineer focused on Vue, React, large business applications, cross-platform delivery, and engineering productivity. Beyond UI implementation, I care about fidelity, performance, tooling, visualization, and practical AI-assisted development workflows.",
 } as const;
 
 function buildProjects(locale: Locale): ProjectItem[] {
   const textMap = locale === "en" ? projectTextEn : projectTextZh;
   return projectBase.map((project) => ({
     ...project,
+    tags: [...project.tags],
+    highlights: project.highlights ? [...project.highlights] : undefined,
     ...textMap[project.slug],
   }));
 }
