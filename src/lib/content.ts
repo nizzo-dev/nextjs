@@ -1,4 +1,5 @@
-import { defaultLocale, type Locale } from "@/lib/i18n";
+import { defaultLocale, type Locale } from "@/lib/locale";
+import { getProjectMetaMap } from "@/lib/translations";
 
 export interface SkillItem {
   name: string;
@@ -78,6 +79,18 @@ const skills: SkillItem[] = [
   { name: "AI 辅助开发", icon: "🤖", color: "from-fuchsia-500 to-pink-600" },
 ];
 
+const skillsEn: SkillItem[] = [
+  { name: "Vue", icon: "🟢", color: "from-emerald-400 to-green-600" },
+  { name: "React Hooks", icon: "⚛️", color: "from-cyan-400 to-blue-500" },
+  { name: "WeChat Mini Program", icon: "🧩", color: "from-lime-400 to-green-500" },
+  { name: "Webpack / Vite", icon: "⚡", color: "from-amber-400 to-orange-500" },
+  { name: "Ant Design / Element / Vant", icon: "🎨", color: "from-pink-400 to-rose-500" },
+  { name: "ECharts / Maps", icon: "📊", color: "from-indigo-400 to-violet-500" },
+  { name: "Micro-frontends / Low-code", icon: "🧱", color: "from-sky-400 to-cyan-500" },
+  { name: "Node.js / Linux", icon: "🛠️", color: "from-slate-500 to-zinc-700" },
+  { name: "AI-assisted Development", icon: "🤖", color: "from-fuchsia-500 to-pink-600" },
+];
+
 const statsByLocale: Record<Locale, StatItem[]> = {
   zh: [
     {
@@ -126,28 +139,40 @@ const homeTextByLocale = {
     greeting: "你好，我是",
     primaryAction: "查看项目",
     secondaryAction: "联系我",
-    skillsTitle: "核心能力",
-    skillsSubtitle: "围绕多端业务、工程化和 AI 效率提升持续实践",
-    featuredTitle: "精选项目",
-    featuredSubtitle: "覆盖 AI、企业应用、多端与可视化方向",
+    caseStudyLabel: "主打案例",
+    caseStudyDemo: "在线体验",
+    caseStudyDetail: "了解详情",
+    experienceTitle: "项目经验",
+    experienceSubtitle: "大型业务系统、多端交付与工程化建设的持续实践",
+    experienceViewAll: "查看全部经历",
+    skillsTitle: "技术栈",
+    skillsSubtitle: "围绕业务交付、工程质量与 AI 提效构建能力矩阵",
+    featuredTitle: "更多项目",
+    featuredSubtitle: "企业应用、可视化、微前端与工程化方向",
     viewAll: "查看全部",
-    ctaTitle: "如果你需要一名能快速落地的前端工程师",
+    ctaTitle: "有项目需要推进？",
     ctaSubtitle:
-      "我可以参与 Vue / React 大型项目开发，多端适配、可视化、微前端、低代码和 AI 增效场景也有完整实践。",
+      "我可以参与 Vue / React 大型项目、多端适配、可视化大屏，以及 AI 辅助研发相关合作。",
     ctaButton: "发起沟通",
   },
   en: {
     greeting: "Hi, I'm",
     primaryAction: "View Projects",
     secondaryAction: "Contact Me",
-    skillsTitle: "Core Skills",
-    skillsSubtitle: "Focused on multi-platform delivery, engineering quality, and AI-assisted productivity",
-    featuredTitle: "Featured Projects",
-    featuredSubtitle: "Selected work across AI, enterprise apps, cross-platform delivery, and visualization",
+    caseStudyLabel: "Spotlight",
+    caseStudyDemo: "Live Demo",
+    caseStudyDetail: "Case Study",
+    experienceTitle: "Experience",
+    experienceSubtitle: "Enterprise systems, cross-platform delivery, and engineering practice",
+    experienceViewAll: "View Full Profile",
+    skillsTitle: "Tech Stack",
+    skillsSubtitle: "Built around delivery, engineering quality, and AI-assisted productivity",
+    featuredTitle: "More Projects",
+    featuredSubtitle: "Enterprise apps, visualization, micro-frontends, and tooling",
     viewAll: "View All",
-    ctaTitle: "Need a frontend engineer who can ship fast and clean?",
+    ctaTitle: "Have a project to move forward?",
     ctaSubtitle:
-      "I work across Vue, React, H5, mini programs, visualization, micro-frontends, low-code, and AI-assisted workflows.",
+      "I can help with Vue/React apps, cross-platform delivery, data visualization, and AI-assisted development.",
     ctaButton: "Get in Touch",
   },
 } as const;
@@ -259,6 +284,61 @@ const resumeTextByLocale = {
     viewAll: "View All →",
     download: "Download PDF",
     contact: "Contact Me",
+  },
+} as const;
+
+const contactTextByLocale = {
+  zh: {
+    metaTitle: "联系我",
+    metaDescription: "项目合作、技术交流与咨询。",
+    title: "联系",
+    titleAccent: "我",
+    subtitle:
+      "欢迎交流 Vue、React、多端项目、可视化、微前端、低代码、AI 辅助开发等相关话题。",
+    channelsTitle: "联系方式",
+    emailLabel: "邮箱",
+    emailValue: "点击发送邮件",
+    githubLabel: "GitHub",
+    cookieAiLabel: "Cookie AI",
+    formTitle: "发送消息",
+    nameLabel: "姓名",
+    namePlaceholder: "你的名字",
+    emailFieldLabel: "邮箱",
+    emailPlaceholder: "your@email.com",
+    subjectLabel: "主题",
+    subjectPlaceholder: "想聊的话题",
+    messageLabel: "消息",
+    messagePlaceholder: "项目背景、需求或合作方式…",
+    submitButton: "通过邮件发送",
+    successMessage: "已为你打开邮件客户端。若未自动弹出，请直接发送邮件至",
+    mailBodyName: "姓名",
+    mailBodyEmail: "邮箱",
+  },
+  en: {
+    metaTitle: "Contact",
+    metaDescription: "Project collaboration, technical discussion, and inquiries.",
+    title: "Contact",
+    titleAccent: "Me",
+    subtitle:
+      "Open to discussing Vue, React, cross-platform apps, visualization, micro-frontends, low-code, and AI-assisted development.",
+    channelsTitle: "Get in Touch",
+    emailLabel: "Email",
+    emailValue: "Send an email",
+    githubLabel: "GitHub",
+    cookieAiLabel: "Cookie AI",
+    formTitle: "Send a Message",
+    nameLabel: "Name",
+    namePlaceholder: "Your name",
+    emailFieldLabel: "Email",
+    emailPlaceholder: "your@email.com",
+    subjectLabel: "Subject",
+    subjectPlaceholder: "What would you like to discuss?",
+    messageLabel: "Message",
+    messagePlaceholder: "Project context, requirements, or collaboration details…",
+    submitButton: "Send via Email",
+    successMessage: "Your mail client should open shortly. If it doesn't, email me at",
+    mailBodyName: "Name",
+    mailBodyEmail: "Email",
   },
 } as const;
 
@@ -432,6 +512,40 @@ const projectBase = [
       "帮助前端交付更闭环地推进",
     ],
   },
+  {
+    id: 9,
+    slug: "tts-voice-platform",
+    emoji: "🎙️",
+    gradient: "from-teal-500 to-cyan-600",
+    tags: ["Vue 3", "TypeScript", "Element Plus", "TTS", "Pinia"],
+    featured: true,
+    category: "ai",
+    year: "2026",
+    role: "独立设计与开发",
+    demoUrl: "https://tts.itnan.fun",
+    repoUrl: "https://github.com/pipi596888/TTS",
+    highlights: [
+      "单角色 / 多角色文本转语音，支持情绪与多格式导出",
+      "音色管理、声音克隆与作品全流程管理",
+      "用户反馈与管理员后台（权限、日志、资源监控）",
+    ],
+  },
+  {
+    id: 10,
+    slug: "device-upgrade-platform",
+    emoji: "⚙️",
+    gradient: "from-blue-600 to-indigo-700",
+    tags: ["React 19", "Vite", "Ant Design", "Zustand", "ProTable"],
+    featured: true,
+    category: "web",
+    year: "2025",
+    role: "前端核心开发",
+    highlights: [
+      "路由、菜单、按钮三层权限与后端动态菜单合并",
+      "PageProTable 统一表格 + 分片上传与下载任务进度",
+      "样本、工单、设备台账、升级包等模块完整联调交付",
+    ],
+  },
 ] as const;
 
 type ProjectText = Record<string, { title: string; summary: string; description: string }>;
@@ -485,6 +599,18 @@ const projectTextZh: ProjectText = {
     description:
       "除前端开发外，也能承担基础 Node.js 接口开发和联调工作，配合 Linux 环境完成简单部署与排查，提升项目推进的完整性。",
   },
+  "tts-voice-platform": {
+    title: "TTS 语音合成平台",
+    summary: "基于 Vue 3 的智能文本转语音 Web 应用，覆盖生成、音色、克隆与作品管理全流程。",
+    description:
+      "这是我独立完成的 TTS 语音合成平台，基于 Vue 3 + Vite + TypeScript + Element Plus 构建。平台支持单角色与多角色音频生成，可为不同片段分配音色与情绪（中性、开心、悲伤、愤怒），并支持 MP3 / WAV / FLAC / PCM 等格式输出。除核心生成功能外，还包含音色试听与管理、录音样本声音克隆、作品播放下载分享、用户意见反馈，以及面向管理员的用户权限、系统日志与资源监控等完整后台能力。",
+  },
+  "device-upgrade-platform": {
+    title: "设备升级平台",
+    summary: "面向桌面浏览器的企业级 Web 管理端，串联样本、设备、固件升级与运维权限全流程。",
+    description:
+      "基于 Vite 8 + React 19 + Ant Design 5 构建的行业后台管理系统，围绕「样本 → 设备 → 升级 → 运维」业务链路交付。平台提供统一布局、JWT 与会话双模式登录、动态菜单，以及路由 / 菜单 / 按钮三层权限控制；封装 PageProTable 统一表格分页与响应归一化，并实现 SHA-256 校验的分片上传、顶栏下载任务进度与 WebSocket 消息通知。业务侧覆盖样本数据与采集文件管理、售后工单流转、设备台账、固件升级包分发，以及用户角色、消息通知与操作日志等模块，已完成主要页面联调并可支撑完整管理流程。",
+  },
 };
 
 const projectTextEn: ProjectText = {
@@ -535,6 +661,18 @@ const projectTextEn: ProjectText = {
     summary: "API development, integration, and basic deployment support with Node.js.",
     description:
       "Handled lightweight API work with Express and Koa, supported frontend-backend integration, and contributed to basic Linux deployment and troubleshooting workflows.",
+  },
+  "tts-voice-platform": {
+    title: "TTS Voice Platform",
+    summary: "A Vue 3 text-to-speech web app covering generation, voice management, cloning, and project workflows.",
+    description:
+      "An independently built TTS platform using Vue 3, Vite, TypeScript, and Element Plus. It supports single- and multi-role speech generation with per-segment voice and emotion settings (neutral, happy, sad, angry), plus MP3, WAV, FLAC, and PCM export. Beyond core generation, it includes voice preview and management, voice cloning from recorded samples, full project playback/download/share flows, user feedback, and an admin console for user roles, system logs, and resource monitoring.",
+  },
+  "device-upgrade-platform": {
+    title: "Device Upgrade Platform",
+    summary: "An enterprise web admin console for samples, devices, firmware delivery, and operational access control.",
+    description:
+      "Built with Vite 8, React 19, and Ant Design 5, this admin system connects sample management, device records, firmware upgrades, and day-to-day operations in one workflow. It includes unified layout, dual-mode auth (JWT and local session), dynamic menus, and three-layer access control across routes, menus, and actions. Shared capabilities include PageProTable for list pages, chunked uploads with SHA-256 verification, download task progress in the header, and WebSocket notifications. Business modules cover sample and file management, after-sales tickets, device ledgers, upgrade packages, user roles, announcements, and audit logs—with core flows integrated end to end.",
   },
 };
 
@@ -728,19 +866,27 @@ const aboutIntroByLocale = {
 
 function buildProjects(locale: Locale): ProjectItem[] {
   const textMap = locale === "en" ? projectTextEn : projectTextZh;
-  return projectBase.map((project) => ({
-    ...project,
-    tags: [...project.tags],
-    highlights: project.highlights ? [...project.highlights] : undefined,
-    ...textMap[project.slug],
-  }));
+  const metaMap = getProjectMetaMap(locale);
+  return projectBase.map((project) => {
+    const meta = metaMap[project.slug];
+    return {
+      ...project,
+      ...textMap[project.slug],
+      role: meta?.role ?? project.role,
+      highlights: meta?.highlights ?? (project.highlights ? [...project.highlights] : undefined),
+      tags: meta?.tags ?? [...project.tags],
+    };
+  });
 }
 
 export function getHomeContent(locale: Locale) {
+  const about = aboutContentByLocale[locale] ?? aboutContentByLocale[defaultLocale];
   return {
-    skills,
+    skills: locale === "en" ? skillsEn : skills,
     stats: statsByLocale[locale] ?? statsByLocale[defaultLocale],
     text: homeTextByLocale[locale] ?? homeTextByLocale[defaultLocale],
+    spotlight: buildProjects(locale).find((p) => p.slug === "cookieai"),
+    experiencePreview: about.experiences.slice(0, 2),
   };
 }
 
@@ -781,4 +927,8 @@ export function getProjectDetailText(locale: Locale) {
 
 export function getHeaderText(locale: Locale) {
   return headerTextByLocale[locale] ?? headerTextByLocale[defaultLocale];
+}
+
+export function getContactContent(locale: Locale) {
+  return contactTextByLocale[locale] ?? contactTextByLocale[defaultLocale];
 }

@@ -1,6 +1,6 @@
-import { Header } from "./header";
-import { Footer } from "./footer";
-import { BackgroundDecorations } from "@/components/background-decorations";
+import { HeaderWrapper } from "./header-wrapper";
+import { FooterWrapper } from "./footer-wrapper";
+import { AnimatedBackground } from "@/components/animations";
 
 export interface MainLayoutProps {
   children: React.ReactNode;
@@ -9,14 +9,13 @@ export interface MainLayoutProps {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col transition-colors duration-300 relative overflow-hidden">
-      {/* 背景装饰 */}
-      <BackgroundDecorations />
+      <AnimatedBackground />
 
-      <Header />
+      <HeaderWrapper />
       <main className="flex-1 transition-colors duration-300 relative z-10">
         {children}
       </main>
-      <Footer />
+      <FooterWrapper />
     </div>
   );
 }

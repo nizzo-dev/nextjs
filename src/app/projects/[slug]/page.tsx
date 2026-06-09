@@ -1,10 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import { Button, Card, Container } from "@/components/ui";
 import { ROUTES } from "@/lib/constants";
 import { getProjectBySlug, getProjectDetailText, getProjectsContent } from "@/lib/content";
-import { defaultLocale, isLocale } from "@/lib/i18n";
+import { getLocale } from "@/lib/i18n";
+import { defaultLocale } from "@/lib/locale";
+import { createMetadata } from "@/lib/seo";
+import { getCommonText } from "@/lib/translations";
 
 export async function generateStaticParams() {
   const { projects } = getProjectsContent(defaultLocale);
@@ -12,17 +15,30 @@ export async function generateStaticParams() {
 }
 
 interface ProjectDetailPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: ProjectDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const locale = await getLocale();
+  const project = getProjectBySlug(locale, slug);
+  if (!project) {
+    const common = getCommonText(locale);
+    return createMetadata({ title: common.projectNotFound, path: `/projects/${slug}`, locale });
+  }
+  return createMetadata({
+    title: project.title,
+    description: project.summary,
+    path: `/projects/${slug}`,
+    locale,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const cookieStore = await cookies();
-  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value;
-  const locale = localeCookie && isLocale(localeCookie) ? localeCookie : defaultLocale;
+  const { slug } = await params;
+  const locale = await getLocale();
   const text = getProjectDetailText(locale);
-  const project = getProjectBySlug(locale, params.slug);
+  const project = getProjectBySlug(locale, slug);
 
   if (!project) {
     notFound();

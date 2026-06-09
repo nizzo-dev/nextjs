@@ -1,4 +1,8 @@
+"use client";
+
 import * as React from "react";
+import { useClientLocale } from "@/hooks/use-client-locale";
+import { getCommonText } from "@/lib/translations";
 import { cn } from "@/lib/utils";
 
 export interface ButtonProps
@@ -21,6 +25,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    const locale = useClientLocale();
+    const common = getCommonText(locale);
+
     const baseStyles =
       "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]";
 
@@ -75,7 +82,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            <span>加载中...</span>
+            <span>{common.loading}</span>
           </>
         ) : (
           children

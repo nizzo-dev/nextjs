@@ -1,34 +1,83 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useGSAP } from "@gsap/react";
 import { Button } from "@/components/ui/button";
 import { PERSONAL_INFO, ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { gsap, registerGsap } from "@/lib/gsap";
+import type { Locale } from "@/lib/locale";
+import { ThemeToggle } from "./theme-toggle";
+import { LocaleSwitcher } from "./locale-switcher";
+import { MobileNav } from "./mobile-nav";
 
-export const Header = memo(function Header() {
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+interface HeaderProps {
+  locale: Locale;
+  navItems: NavItem[];
+  contactLabel: string;
+  localeSwitchLabel: string;
+}
+
+export const Header = memo(function Header({
+  locale,
+  navItems,
+  contactLabel,
+  localeSwitchLabel,
+}: HeaderProps) {
   const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
+  const indicatorRef = useRef<HTMLSpanElement>(null);
 
-  const navItems = [
-    { href: ROUTES.home, label: "首页" },
-    { href: ROUTES.about, label: "关于" },
-    { href: ROUTES.projects, label: "项目" },
-    { href: ROUTES.resume, label: "简历" },
-    { href: ROUTES.contact, label: "联系" },
-  ];
+  useGSAP(
+    () => {
+      registerGsap();
+      const nav = navRef.current;
+      const indicator = indicatorRef.current;
+      if (!nav || !indicator) return;
+
+      const activeLink = nav.querySelector<HTMLElement>('[data-active="true"]');
+      if (!activeLink) {
+        gsap.set(indicator, { opacity: 0 });
+        return;
+      }
+
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = activeLink.getBoundingClientRect();
+
+      gsap.to(indicator, {
+        x: linkRect.left - navRect.left,
+        width: linkRect.width,
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+    },
+    { dependencies: [pathname] },
+  );
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-black/[.08] bg-white/80 backdrop-blur-sm dark:border-white/[.145] dark:bg-black/80">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href={ROUTES.home} className="flex items-center space-x-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-sm font-bold text-white">
-            {PERSONAL_INFO.name[0].toUpperCase()}
+      <div className="container mx-auto flex h-16 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <Link href={ROUTES.home} className="flex min-w-0 items-center space-x-2">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">
+            {PERSONAL_INFO.displayName[0].toUpperCase()}
           </div>
-          <span className="text-lg font-bold">{PERSONAL_INFO.name}</span>
+          <div className="min-w-0 leading-tight">
+            <span className="block truncate text-sm font-bold">{PERSONAL_INFO.displayName}</span>
+            <span className="hidden text-xs text-zinc-500 sm:block dark:text-zinc-400">
+              @{PERSONAL_INFO.handle}
+            </span>
+          </div>
         </Link>
 
-        <nav className="hidden items-center space-x-1 md:flex">
+        <nav ref={navRef} className="relative hidden items-center space-x-1 md:flex">
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -38,23 +87,36 @@ export const Header = memo(function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                data-active={isActive ? "true" : "false"}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors duration-200",
                   isActive ? "text-foreground" : "text-zinc-600 hover:text-foreground dark:text-zinc-400",
                 )}
               >
                 {item.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-indigo-500" />
-                )}
               </Link>
             );
           })}
+          <span
+            ref={indicatorRef}
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 rounded-full bg-indigo-500"
+            style={{ width: 0, opacity: 0 }}
+          />
         </nav>
 
-        <a href={`mailto:${PERSONAL_INFO.email}`}>
-          <Button size="sm">联系我</Button>
-        </a>
+        <div className="flex items-center gap-2">
+          <LocaleSwitcher locale={locale} label={localeSwitchLabel} />
+          <ThemeToggle />
+          <a href={`mailto:${PERSONAL_INFO.email}`} className="hidden md:block">
+            <Button size="sm">{contactLabel}</Button>
+          </a>
+          <MobileNav
+            navItems={navItems}
+            contactLabel={contactLabel}
+            locale={locale}
+            localeSwitchLabel={localeSwitchLabel}
+          />
+        </div>
       </div>
     </header>
   );

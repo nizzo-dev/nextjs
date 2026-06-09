@@ -1,6 +1,13 @@
 "use client";
 
-import { useState, useEffect, createContext, useContext, ReactNode } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  createContext,
+  useContext,
+  type ReactNode,
+} from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -12,68 +19,47 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function resolveTheme(theme: Theme): "light" | "dark" {
+  if (theme === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  return theme;
+}
+
+function applyThemeToDocument(theme: Theme) {
+  const resolved = resolveTheme(theme);
+  document.documentElement.classList.remove("light", "dark");
+  document.documentElement.classList.add(resolved);
+  return resolved;
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("system");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    // 从 localStorage 读取保存的主题
     const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) {
-      setThemeState(savedTheme);
-    }
+    const initial = savedTheme ?? "system";
+    setThemeState(initial);
+    setResolvedTheme(applyThemeToDocument(initial));
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
-
-    const updateResolvedTheme = () => {
-      let resolved: "light" | "dark";
-
-      if (theme === "system") {
-        resolved = window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      } else {
-        resolved = theme;
-      }
-
-      setResolvedTheme(resolved);
-      document.documentElement.classList.remove("light", "dark");
-      document.documentElement.classList.add(resolved);
-    };
-
-    updateResolvedTheme();
-
-    // 监听系统主题变化
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => {
       if (theme === "system") {
-        updateResolvedTheme();
+        setResolvedTheme(applyThemeToDocument("system"));
       }
     };
-
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme, mounted]);
+  }, [theme]);
 
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
     localStorage.setItem("theme", newTheme);
-  };
-
-  // 避免 hydration 不匹配
-  if (!mounted) {
-    return (
-      <ThemeContext.Provider
-        value={{ theme: "system", resolvedTheme: "light", setTheme: () => {} }}
-      >
-        {children}
-      </ThemeContext.Provider>
-    );
-  }
+    setResolvedTheme(applyThemeToDocument(newTheme));
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>

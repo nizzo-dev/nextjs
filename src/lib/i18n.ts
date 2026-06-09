@@ -1,33 +1,26 @@
-export const locales = ["zh", "en"] as const;
-export type Locale = (typeof locales)[number];
+import { cookies } from "next/headers";
+import {
+  defaultLocale,
+  isLocale,
+  type Locale,
+  locales,
+  getLocaleFromPathname,
+  replaceLocale,
+  withLocale,
+} from "@/lib/locale";
 
-export const defaultLocale: Locale = "zh";
+export {
+  defaultLocale,
+  isLocale,
+  locales,
+  type Locale,
+  getLocaleFromPathname,
+  replaceLocale,
+  withLocale,
+};
 
-export function isLocale(value: string): value is Locale {
-  return locales.includes(value as Locale);
-}
-
-export function getLocaleFromPathname(pathname: string): Locale | null {
-  const segment = pathname.split("/")[1];
-  if (segment && isLocale(segment)) {
-    return segment;
-  }
-  return null;
-}
-
-export function withLocale(locale: Locale, path: string): string {
-  if (path === "/") {
-    return `/${locale}`;
-  }
-  return `/${locale}${path}`;
-}
-
-export function replaceLocale(pathname: string, locale: Locale): string {
-  const segments = pathname.split("/");
-  if (segments.length > 1 && isLocale(segments[1])) {
-    segments[1] = locale;
-  } else {
-    segments.splice(1, 0, locale);
-  }
-  return segments.join("/") || "/";
+export async function getLocale(): Promise<Locale> {
+  const cookieStore = await cookies();
+  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value;
+  return localeCookie && isLocale(localeCookie) ? localeCookie : defaultLocale;
 }

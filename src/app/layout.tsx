@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { cookies } from "next/headers";
 import "./globals.css";
 import { ThemeProvider } from "@/hooks/use-theme";
-import { APP_CONFIG } from "@/lib/constants";
-import { defaultLocale, isLocale } from "@/lib/i18n";
+import { getLocale } from "@/lib/i18n";
+import { createMetadata, personJsonLd } from "@/lib/seo";
+import { getAppConfigText } from "@/lib/translations";
 import { MainLayout } from "@/components/layout";
+import { GsapProvider } from "@/components/animations";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,30 +18,43 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: APP_CONFIG.name,
-    template: `%s | ${APP_CONFIG.name}`,
-  },
-  description: APP_CONFIG.description,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const appConfig = getAppConfigText(locale);
+  return {
+    ...createMetadata({ locale }),
+    title: {
+      default: appConfig.name,
+      template: `%s | ${appConfig.name}`,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value;
-  const lang = localeCookie && isLocale(localeCookie) ? localeCookie : defaultLocale;
+  const lang = await getLocale();
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("theme");var d=t==="dark"||(!t||t==="system")&&window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.add(d?"dark":"light")}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(lang)) }}
+        />
         <ThemeProvider>
-          <MainLayout>{children}</MainLayout>
+          <GsapProvider>
+            <MainLayout>{children}</MainLayout>
+          </GsapProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -4,7 +4,12 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants";
 
-export function ResumeActions() {
+interface ResumeActionsProps {
+  downloadLabel: string;
+  contactLabel: string;
+}
+
+export function ResumeActions({ downloadLabel, contactLabel }: ResumeActionsProps) {
   const handlePrint = () => {
     if (typeof window !== "undefined") {
       window.print();
@@ -13,9 +18,9 @@ export function ResumeActions() {
 
   return (
     <div className="no-print flex flex-wrap gap-3">
-      <Button onClick={handlePrint}>下载 PDF</Button>
+      <Button onClick={handlePrint}>{downloadLabel}</Button>
       <Link href={ROUTES.contact}>
-        <Button variant="outline">联系我</Button>
+        <Button variant="outline">{contactLabel}</Button>
       </Link>
     </div>
   );
