@@ -15,7 +15,7 @@ export function Loading({ className, size = "md" }: LoadingProps) {
   return (
     <div className={cn("flex items-center justify-center", className)}>
       <svg
-        className={cn("animate-spin", sizes[size])}
+        className={cn("animate-spin text-blue-600 dark:text-blue-300", sizes[size])}
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"

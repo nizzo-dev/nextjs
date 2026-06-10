@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Card, Container } from "@/components/ui";
+import { ProjectMediaGallery } from "@/components/sections/project-media-gallery";
 import { ROUTES } from "@/lib/constants";
 import { getProjectBySlug, getProjectDetailText, getProjectsContent } from "@/lib/content";
 import { getLocale } from "@/lib/i18n";
 import { defaultLocale } from "@/lib/locale";
-import { createMetadata } from "@/lib/seo";
+import { createMetadata, projectJsonLd } from "@/lib/seo";
 import { getCommonText } from "@/lib/translations";
 
 export async function generateStaticParams() {
@@ -39,6 +40,7 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
   const locale = await getLocale();
   const text = getProjectDetailText(locale);
   const project = getProjectBySlug(locale, slug);
+  const isEnglish = locale === "en";
 
   if (!project) {
     notFound();
@@ -46,34 +48,38 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   return (
     <Container className="py-12">
-      <div className="space-y-12">
-        <section className="relative overflow-hidden rounded-3xl">
-          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="relative p-10 text-white md:p-14">
-            <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-              <div className="space-y-4">
-                <div className="text-5xl md:text-6xl">{project.emoji}</div>
-                <h1 className="text-3xl font-bold md:text-5xl">{project.title}</h1>
-                <p className="max-w-2xl text-lg text-white/80">{project.summary}</p>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project, locale)) }}
+      />
+      <div className="space-y-14">
+        <section className="relative overflow-hidden rounded-2xl bg-slate-950 text-white shadow-2xl shadow-blue-950/20">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_15%,rgba(96,165,250,0.34),transparent_48%)]" />
+          <div className="absolute right-8 top-8 h-36 w-36 rounded-full border border-white/10" />
+          <div className="relative p-8 md:p-14">
+            <div className="grid gap-10 md:grid-cols-[1fr_0.42fr] md:items-end">
+              <div className="space-y-5">
+                <p className="font-mono text-xs tracking-[0.2em] text-blue-100/70">{project.category}</p>
+                <h1 className="text-4xl font-bold tracking-tight md:text-6xl">{project.title}</h1>
+                <p className="max-w-2xl text-lg leading-relaxed text-blue-50/75">{project.summary}</p>
               </div>
-              <div className="flex flex-wrap gap-3">
-                <Link href={ROUTES.projects}>
-                  <Button className="bg-white/90 text-gray-900 hover:bg-white">{text.back}</Button>
-                </Link>
+              <div className="flex flex-wrap gap-3 md:justify-end">
+                <Button asChild className="bg-white text-blue-700 hover:bg-blue-50">
+                  <Link href={ROUTES.projects}>{text.back}</Link>
+                </Button>
                 {project.demoUrl && (
-                  <a href={project.demoUrl} target="_blank" rel="noreferrer">
-                    <Button variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20">
+                  <Button asChild variant="outline" className="border-white/30 bg-white/10 text-white hover:bg-white/20">
+                    <a href={project.demoUrl} target="_blank" rel="noreferrer">
                       {text.demo}
-                    </Button>
-                  </a>
+                    </a>
+                  </Button>
                 )}
                 {project.repoUrl && (
-                  <a href={project.repoUrl} target="_blank" rel="noreferrer">
-                    <Button variant="outline" className="border-white/40 bg-white/10 text-white hover:bg-white/20">
+                  <Button asChild variant="outline" className="border-white/30 bg-white/10 text-white hover:bg-white/20">
+                    <a href={project.repoUrl} target="_blank" rel="noreferrer">
                       {text.repo}
-                    </Button>
-                  </a>
+                    </a>
+                  </Button>
                 )}
               </div>
             </div>
@@ -81,24 +87,50 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
         </section>
 
         <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
-          <Card className="p-6 md:p-8">
-            <h2 className="mb-4 text-2xl font-bold">{text.overview}</h2>
-            <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
+          <div className="space-y-8">
+            <Card className="p-6 md:p-8">
+              <p className="font-mono text-xs tracking-[0.2em] text-blue-600 dark:text-blue-300">
+                {isEnglish ? "Overview" : "项目概览"}
+              </p>
+              <h2 className="mt-3 text-2xl font-bold tracking-tight">{text.overview}</h2>
+              <p className="mt-4 leading-relaxed text-zinc-600 dark:text-zinc-400">{project.description}</p>
+            </Card>
 
-            {project.highlights && project.highlights.length > 0 && (
-              <div className="mt-6 space-y-3">
-                <h3 className="text-lg font-semibold">{text.highlights}</h3>
-                <ul className="space-y-2">
-                  {project.highlights.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-indigo-500" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+            <ProjectMediaGallery items={project.screenshots} />
+
+            <div className="grid gap-5 md:grid-cols-2">
+              {[
+                [isEnglish ? "Problem" : "问题背景", project.caseStudy.problem],
+                [isEnglish ? "My role" : "我的角色", project.caseStudy.roleDetails],
+                [isEnglish ? "Solution" : "解决方案", project.caseStudy.solution],
+                [isEnglish ? "Outcome" : "最终结果", project.caseStudy.outcome],
+              ].map(([title, body]) => (
+                <Card key={title} className="p-6">
+                  <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
+                  <p className="mt-3 text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{body}</p>
+                </Card>
+              ))}
+            </div>
+
+            <Card className="p-6 md:p-8">
+              <h2 className="text-2xl font-bold tracking-tight">{isEnglish ? "Technical highlights" : "技术亮点"}</h2>
+              <div className="mt-5 grid gap-3">
+                {project.caseStudy.technicalHighlights.map((item) => (
+                  <div
+                    key={item}
+                    className="rounded-2xl border border-blue-200/70 bg-blue-50/60 p-4 text-sm text-blue-950 dark:border-blue-400/20 dark:bg-blue-950/30 dark:text-blue-100"
+                  >
+                    {item}
+                  </div>
+                ))}
               </div>
-            )}
-          </Card>
+            </Card>
+
+            <Card className="p-6 md:p-8">
+              <h2 className="text-2xl font-bold tracking-tight">{isEnglish ? "Lessons" : "复盘总结"}</h2>
+              <p className="mt-4 leading-relaxed text-zinc-600 dark:text-zinc-400">{project.caseStudy.lessons}</p>
+            </Card>
+          </div>
 
           <div className="space-y-6">
             <Card className="p-6">
@@ -131,12 +163,24 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400"
+                    className="rounded-full bg-blue-50 px-3 py-1 text-xs text-blue-700 dark:bg-blue-950/40 dark:text-blue-200"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className="mb-3 text-lg font-semibold">{isEnglish ? "Constraints" : "约束条件"}</h3>
+              <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+                {project.caseStudy.constraints.map((constraint) => (
+                  <li key={constraint} className="flex gap-3">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500" />
+                    <span>{constraint}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           </div>
         </section>

@@ -13,6 +13,7 @@ export async function FooterWrapper() {
     { label: headerText.nav.home, href: "/" },
     { label: headerText.nav.about, href: "/about" },
     { label: headerText.nav.projects, href: "/projects" },
+    { label: headerText.nav.notes, href: "/notes" },
     { label: headerText.nav.resume, href: "/resume" },
     { label: headerText.nav.contact, href: "/contact" },
   ];

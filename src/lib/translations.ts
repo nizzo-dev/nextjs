@@ -9,7 +9,7 @@ export const personalProfileByLocale = {
   en: {
     title: "Frontend Engineer",
     tagline: "Vue / React · Cross-platform · AI Engineering",
-    bio: "Focused on enterprise dashboards, complex business systems, and engineering excellence — with hands-on AI-assisted development through projects like Cookie AI.",
+    bio: "Focused on enterprise dashboards, complex business systems, and engineering excellence, with hands-on AI-assisted development through projects like Cookie AI.",
   },
 } as const;
 
@@ -17,12 +17,12 @@ export const appConfigByLocale = {
   zh: {
     name: "Pipi · 前端工程师",
     description:
-      "pipi596888 的个人作品集 — 聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
+      "pipi596888 的个人作品集，聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
   },
   en: {
     name: "Pipi · Frontend Engineer",
     description:
-      "Portfolio of pipi596888 — Vue/React dual-stack, cross-platform delivery, data visualization, and AI tooling.",
+      "Portfolio of pipi596888, focused on Vue/React dual-stack, cross-platform delivery, data visualization, and AI tooling.",
   },
 } as const;
 
@@ -31,7 +31,7 @@ export const footerTextByLocale = {
     navTitle: "导航",
     linksTitle: "链接",
     ctaTitle: "合作咨询",
-    sendEmail: "发送邮件 →",
+    sendEmail: "发送邮件",
     expertise: "Vue / React · 多端 · 可视化 · AI 工程化",
     emailLink: "Email",
   },
@@ -39,7 +39,7 @@ export const footerTextByLocale = {
     navTitle: "Navigation",
     linksTitle: "Links",
     ctaTitle: "Work With Me",
-    sendEmail: "Send Email →",
+    sendEmail: "Send Email",
     expertise: "Vue / React · Cross-platform · Visualization · AI",
     emailLink: "Email",
   },
@@ -82,16 +82,16 @@ export const commonTextByLocale = {
 
 export const pageMetaByLocale = {
   zh: {
-    home: { title: "首页", description: (name: string, tagline: string, bio: string) => `${name} — ${tagline}。${bio}` },
+    home: { title: "首页", description: (name: string, tagline: string, bio: string) => `${name} - ${tagline}。${bio}` },
     about: { title: "关于我", description: (name: string) => `了解 ${name} 的前端开发经历、技术方向与合作价值。` },
     projects: { title: "项目作品", description: "AI、企业前端、多端交付、可视化与工程化方向的项目实践。" },
-    resume: { title: "简历", description: (name: string) => `${name} 的在线简历 — 前端工程师，Vue / React 双栈。` },
+    resume: { title: "简历", description: (name: string) => `${name} 的在线简历 - 前端工程师，Vue / React 双栈。` },
   },
   en: {
-    home: { title: "Home", description: (name: string, tagline: string, bio: string) => `${name} — ${tagline}. ${bio}` },
+    home: { title: "Home", description: (name: string, tagline: string, bio: string) => `${name} - ${tagline}. ${bio}` },
     about: { title: "About", description: (name: string) => `Learn about ${name}'s frontend experience, skills, and collaboration value.` },
     projects: { title: "Projects", description: "Work across AI, enterprise frontend, cross-platform delivery, visualization, and engineering." },
-    resume: { title: "Resume", description: (name: string) => `${name}'s online resume — Frontend Engineer, Vue / React dual-stack.` },
+    resume: { title: "Resume", description: (name: string) => `${name}'s online resume - Frontend Engineer, Vue / React dual-stack.` },
   },
 } as const;
 

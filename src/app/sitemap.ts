@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 import { SITE_CONFIG, ROUTES } from "@/lib/constants";
-import { getProjectsContent } from "@/lib/content";
+import { getNotesContent, getProjectsContent } from "@/lib/content";
 import { defaultLocale } from "@/lib/i18n";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = SITE_CONFIG.url;
   const { projects } = getProjectsContent(defaultLocale);
+  const { notes } = getNotesContent(defaultLocale);
 
-  const staticRoutes = [ROUTES.home, ROUTES.about, ROUTES.projects, ROUTES.resume, ROUTES.contact];
+  const staticRoutes = [ROUTES.home, ROUTES.about, ROUTES.projects, ROUTES.notes, ROUTES.resume, ROUTES.contact];
 
   return [
     ...staticRoutes.map((path) => ({
@@ -20,7 +21,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${base}${ROUTES.project(project.slug)}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
-      priority: 0.6,
+      priority: project.featured ? 0.75 : 0.6,
+    })),
+    ...notes.map((note) => ({
+      url: `${base}${ROUTES.note(note.slug)}`,
+      lastModified: new Date(note.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
     })),
   ];
 }

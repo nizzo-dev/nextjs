@@ -24,12 +24,12 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
   ];
 
   return (
-    <footer className="border-t border-black/10 bg-white/50 transition-colors duration-300 dark:border-white/10 dark:bg-black/50">
+    <footer className="border-t border-blue-950/10 bg-white/65 backdrop-blur-xl transition-colors duration-300 dark:border-white/10 dark:bg-slate-950/70">
       <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-600/20">
                 {PERSONAL_INFO.displayName[0].toUpperCase()}
               </div>
               <div>
@@ -47,7 +47,7 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
             <ul className="space-y-2 text-sm">
               {navItems.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-zinc-600 transition-colors hover:text-foreground dark:text-zinc-400">
+                  <Link href={link.href} className="text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-300">
                     {link.label}
                   </Link>
                 </li>
@@ -64,7 +64,7 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-zinc-600 transition-colors hover:text-foreground dark:text-zinc-400"
+                    className="text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-300"
                   >
                     {link.label}
                   </a>
@@ -77,7 +77,7 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
             <h4 className="text-sm font-semibold">{footerText.ctaTitle}</h4>
             <a
               href={`mailto:${PERSONAL_INFO.email}`}
-              className="inline-flex text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+              className="inline-flex text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-300"
             >
               {footerText.sendEmail}
             </a>
@@ -85,7 +85,7 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
           </div>
         </div>
 
-        <div className="mt-8 border-t border-black/10 pt-8 dark:border-white/10">
+        <div className="mt-8 border-t border-blue-950/10 pt-8 dark:border-white/10">
           <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
             © {currentYear} {PERSONAL_INFO.displayName}. All rights reserved.
           </p>

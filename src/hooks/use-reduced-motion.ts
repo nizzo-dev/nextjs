@@ -1,31 +1,27 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { prefersReducedMotion } from "@/lib/gsap";
+import { useSyncExternalStore } from "react";
+
+const QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribe(callback: () => void) {
+  const media = window.matchMedia(QUERY);
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+
+function getSnapshot() {
+  return window.matchMedia(QUERY).matches;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(media.matches);
-
-    const handler = (event: MediaQueryListEvent) => setReduced(event.matches);
-    media.addEventListener("change", handler);
-    return () => media.removeEventListener("change", handler);
-  }, []);
-
-  return reduced;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
 export function useGsapReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(() =>
-    typeof window !== "undefined" ? prefersReducedMotion() : false,
-  );
-
-  useEffect(() => {
-    setReduced(prefersReducedMotion());
-  }, []);
-
-  return reduced;
+  return useReducedMotion();
 }

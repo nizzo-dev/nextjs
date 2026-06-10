@@ -3,6 +3,7 @@ import { PERSONAL_INFO, SITE_CONFIG } from "@/lib/constants";
 import type { Locale } from "@/lib/locale";
 import { defaultLocale } from "@/lib/locale";
 import { getAppConfigText, getPersonalProfile } from "@/lib/translations";
+import type { NoteItem, ProjectItem } from "@/lib/content";
 
 const siteUrl = SITE_CONFIG.url;
 
@@ -59,5 +60,42 @@ export function personJsonLd(locale: Locale = defaultLocale) {
     email: PERSONAL_INFO.email,
     sameAs: [PERSONAL_INFO.github, PERSONAL_INFO.website],
     description: profile.bio,
+  };
+}
+
+export function projectJsonLd(project: ProjectItem, locale: Locale = defaultLocale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: project.title,
+    headline: project.title,
+    description: project.summary,
+    url: `${siteUrl}/projects/${project.slug}`,
+    inLanguage: locale === "en" ? "en" : "zh-CN",
+    creator: {
+      "@type": "Person",
+      name: PERSONAL_INFO.displayName,
+      url: siteUrl,
+    },
+    keywords: project.tags.join(", "),
+    datePublished: project.year,
+  };
+}
+
+export function articleJsonLd(note: NoteItem, locale: Locale = defaultLocale) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: note.title,
+    description: note.summary,
+    url: `${siteUrl}/notes/${note.slug}`,
+    datePublished: note.date,
+    inLanguage: locale === "en" ? "en" : "zh-CN",
+    author: {
+      "@type": "Person",
+      name: PERSONAL_INFO.displayName,
+      url: siteUrl,
+    },
+    keywords: note.tags.join(", "),
   };
 }

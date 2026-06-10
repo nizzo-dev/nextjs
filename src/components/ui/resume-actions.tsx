@@ -19,9 +19,9 @@ export function ResumeActions({ downloadLabel, contactLabel }: ResumeActionsProp
   return (
     <div className="no-print flex flex-wrap gap-3">
       <Button onClick={handlePrint}>{downloadLabel}</Button>
-      <Link href={ROUTES.contact}>
-        <Button variant="outline">{contactLabel}</Button>
-      </Link>
+      <Button asChild variant="outline">
+        <Link href={ROUTES.contact}>{contactLabel}</Link>
+      </Button>
     </div>
   );
 }

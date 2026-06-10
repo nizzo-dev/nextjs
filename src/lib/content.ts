@@ -54,6 +54,25 @@ export interface ProjectItem {
   highlights?: string[];
   demoUrl?: string;
   repoUrl?: string;
+  caseStudy: ProjectCaseStudy;
+  screenshots: ProjectScreenshot[];
+}
+
+export interface ProjectCaseStudy {
+  problem: string;
+  roleDetails: string;
+  constraints: string[];
+  solution: string;
+  technicalHighlights: string[];
+  outcome: string;
+  lessons: string;
+}
+
+export interface ProjectScreenshot {
+  title: string;
+  description: string;
+  src: string;
+  alt: string;
 }
 
 export interface CategoryItem {
@@ -67,16 +86,27 @@ export interface ResumeSkillGroup {
   items: string[];
 }
 
+export interface NoteItem {
+  slug: string;
+  title: string;
+  summary: string;
+  date: string;
+  tags: string[];
+  readingTime: string;
+  relatedProjects: string[];
+  content: string[];
+}
+
 const skills: SkillItem[] = [
   { name: "Vue", icon: "🟢", color: "from-emerald-400 to-green-600" },
   { name: "React Hooks", icon: "⚛️", color: "from-cyan-400 to-blue-500" },
   { name: "微信小程序", icon: "🧩", color: "from-lime-400 to-green-500" },
   { name: "Webpack / Vite", icon: "⚡", color: "from-amber-400 to-orange-500" },
-  { name: "Ant Design / Element / Vant", icon: "🎨", color: "from-pink-400 to-rose-500" },
-  { name: "ECharts / 地图", icon: "📊", color: "from-indigo-400 to-violet-500" },
+  { name: "Ant Design / Element / Vant", icon: "UI", color: "from-blue-500 to-sky-400" },
+  { name: "ECharts / 地图", icon: "DA", color: "from-blue-600 to-cyan-400" },
   { name: "微前端 / 低代码", icon: "🧱", color: "from-sky-400 to-cyan-500" },
   { name: "Node.js / Linux", icon: "🛠️", color: "from-slate-500 to-zinc-700" },
-  { name: "AI 辅助开发", icon: "🤖", color: "from-fuchsia-500 to-pink-600" },
+  { name: "AI 辅助开发", icon: "AI", color: "from-blue-500 to-sky-600" },
 ];
 
 const skillsEn: SkillItem[] = [
@@ -84,11 +114,11 @@ const skillsEn: SkillItem[] = [
   { name: "React Hooks", icon: "⚛️", color: "from-cyan-400 to-blue-500" },
   { name: "WeChat Mini Program", icon: "🧩", color: "from-lime-400 to-green-500" },
   { name: "Webpack / Vite", icon: "⚡", color: "from-amber-400 to-orange-500" },
-  { name: "Ant Design / Element / Vant", icon: "🎨", color: "from-pink-400 to-rose-500" },
-  { name: "ECharts / Maps", icon: "📊", color: "from-indigo-400 to-violet-500" },
+  { name: "Ant Design / Element / Vant", icon: "UI", color: "from-blue-500 to-sky-400" },
+  { name: "ECharts / Maps", icon: "DA", color: "from-blue-600 to-cyan-400" },
   { name: "Micro-frontends / Low-code", icon: "🧱", color: "from-sky-400 to-cyan-500" },
   { name: "Node.js / Linux", icon: "🛠️", color: "from-slate-500 to-zinc-700" },
-  { name: "AI-assisted Development", icon: "🤖", color: "from-fuchsia-500 to-pink-600" },
+  { name: "AI-assisted Development", icon: "AI", color: "from-blue-500 to-sky-600" },
 ];
 
 const statsByLocale: Record<Locale, StatItem[]> = {
@@ -96,14 +126,14 @@ const statsByLocale: Record<Locale, StatItem[]> = {
     {
       value: "Vue + React",
       label: "双主栈工程实践",
-      color: "text-indigo-500",
-      gradient: "from-indigo-500 to-purple-500",
+      color: "text-blue-600",
+      gradient: "from-blue-600 to-sky-500",
     },
     {
       value: "Web / H5 / 小程序",
       label: "多端交付经验",
-      color: "text-pink-500",
-      gradient: "from-pink-500 to-rose-500",
+      color: "text-blue-500",
+      gradient: "from-blue-500 to-cyan-400",
     },
     {
       value: "AI + 工程化",
@@ -116,14 +146,14 @@ const statsByLocale: Record<Locale, StatItem[]> = {
     {
       value: "Vue + React",
       label: "Dual-stack engineering",
-      color: "text-indigo-500",
-      gradient: "from-indigo-500 to-purple-500",
+      color: "text-blue-600",
+      gradient: "from-blue-600 to-sky-500",
     },
     {
       value: "Web / H5 / Mini Program",
       label: "Cross-platform delivery",
-      color: "text-pink-500",
-      gradient: "from-pink-500 to-rose-500",
+      color: "text-blue-500",
+      gradient: "from-blue-500 to-cyan-400",
     },
     {
       value: "AI + DX",
@@ -270,7 +300,7 @@ const resumeTextByLocale = {
     education: "学习成长",
     skills: "技能矩阵",
     featured: "代表项目",
-    viewAll: "查看全部 →",
+    viewAll: "查看全部",
     download: "下载 PDF",
     contact: "联系我",
   },
@@ -281,7 +311,7 @@ const resumeTextByLocale = {
     education: "Growth",
     skills: "Skills",
     featured: "Featured Projects",
-    viewAll: "View All →",
+    viewAll: "View All",
     download: "Download PDF",
     contact: "Contact Me",
   },
@@ -301,6 +331,18 @@ const contactTextByLocale = {
     githubLabel: "GitHub",
     cookieAiLabel: "Cookie AI",
     formTitle: "发送消息",
+    intentTitle: "合作意向",
+    intentHelper: "选择一个最接近的话题，我会把它带入邮件主题，方便后续沟通。",
+    intentOptions: [
+      { value: "项目开发", label: "项目开发" },
+      { value: "代码重构", label: "代码重构" },
+      { value: "AI 工具", label: "AI 工具" },
+      { value: "招聘沟通", label: "招聘沟通" },
+      { value: "技术咨询", label: "技术咨询" },
+    ],
+    expectationTitle: "适合沟通的方向",
+    expectationItems: ["企业后台与 SaaS 前端", "AI 工具和效率产品", "Vue / React 重构与交付", "可视化和多端适配"],
+    mailBodyIntent: "合作意向",
     nameLabel: "姓名",
     namePlaceholder: "你的名字",
     emailFieldLabel: "邮箱",
@@ -327,6 +369,18 @@ const contactTextByLocale = {
     githubLabel: "GitHub",
     cookieAiLabel: "Cookie AI",
     formTitle: "Send a Message",
+    intentTitle: "Collaboration Intent",
+    intentHelper: "Pick the closest topic. It will be added to the email subject so the conversation starts with context.",
+    intentOptions: [
+      { value: "Project development", label: "Project development" },
+      { value: "Code refactor", label: "Code refactor" },
+      { value: "AI tooling", label: "AI tooling" },
+      { value: "Hiring conversation", label: "Hiring conversation" },
+      { value: "Consulting", label: "Consulting" },
+    ],
+    expectationTitle: "Best-fit topics",
+    expectationItems: ["Enterprise dashboards and SaaS frontend", "AI tools and productivity products", "Vue / React refactoring and delivery", "Visualization and cross-platform adaptation"],
+    mailBodyIntent: "Intent",
     nameLabel: "Name",
     namePlaceholder: "Your name",
     emailFieldLabel: "Email",
@@ -342,12 +396,205 @@ const contactTextByLocale = {
   },
 } as const;
 
+const notesTextByLocale = {
+  zh: {
+    title: "技术笔记",
+    subtitle: "记录项目复盘、AI 编程、前端工程化和复杂业务交付中的实践经验。",
+    readMore: "阅读全文",
+    relatedProjects: "相关项目",
+    back: "返回笔记",
+  },
+  en: {
+    title: "Notes",
+    subtitle: "Field notes on project delivery, AI-assisted coding, frontend engineering, and complex product work.",
+    readMore: "Read Note",
+    relatedProjects: "Related Projects",
+    back: "Back to Notes",
+  },
+} as const;
+
+const notesByLocale: Record<Locale, NoteItem[]> = {
+  zh: [
+    {
+      slug: "ai-assisted-frontend-workflow",
+      title: "如何把 AI 编程真正接入前端工作流",
+      summary: "从需求拆解、代码生成、审查到回归验证，记录一套更稳定的 AI 辅助开发方法。",
+      date: "2026-06-01",
+      tags: ["AI Coding", "Workflow", "Frontend"],
+      readingTime: "5 分钟",
+      relatedProjects: ["cookieai", "tts-voice-platform"],
+      content: [
+        "AI 编程最有价值的地方不是让模型一次性生成完整项目，而是把它放进明确的工程流程中。需求拆解、接口确认、测试验证和代码审查都需要边界。",
+        "在前端项目中，我更倾向于让 AI 处理可验证的局部任务，比如组件重构、表单状态整理、重复样式抽象和测试补充。核心交互和业务流程仍然需要工程师先定义不变量。",
+        "稳定的做法是先写清楚页面目标和数据结构，再让 AI 输出小步变更。每一步都通过 lint、build 或真实页面检查验证，避免把不确定性累积到最后。",
+      ],
+    },
+    {
+      slug: "enterprise-frontend-case-study",
+      title: "企业后台前端的复杂度来自哪里",
+      summary: "权限、动态菜单、表格、上传、通知和状态同步，才是后台项目真正需要工程设计的地方。",
+      date: "2026-05-20",
+      tags: ["Enterprise", "React", "Vue"],
+      readingTime: "6 分钟",
+      relatedProjects: ["device-upgrade-platform", "enterprise-dashboard"],
+      content: [
+        "企业后台看起来像是表格和表单的组合，但真正的复杂度通常来自权限、流程状态和异常处理。页面越多，越需要统一的数据请求、错误展示和权限表达。",
+        "我会优先把列表、筛选、分页、上传、下载任务和消息通知沉淀成稳定模式。这样业务页面可以更关注流程本身，而不是重复处理基础交互。",
+        "如果项目还包含动态菜单和按钮权限，前端需要明确哪些状态来自后端，哪些状态由路由和组件本地决定。边界清晰后，后续维护成本会低很多。",
+      ],
+    },
+    {
+      slug: "tts-voice-product-flow",
+      title: "TTS 语音平台如何设计生成链路",
+      summary: "从文本输入、角色拆分、情绪配置到音频导出，复盘 TTS 语音合成平台的前端流程设计。",
+      date: "2026-05-08",
+      tags: ["Vue 3", "TTS", "Product Flow"],
+      readingTime: "6 分钟",
+      relatedProjects: ["tts-voice-platform"],
+      content: [
+        "TTS 平台的难点不只是调用生成接口，而是让用户能清楚管理文本、角色、音色、情绪和导出格式。前端需要把生成链路拆成可理解的步骤。",
+        "我会优先保证每一段文本都有明确状态：待生成、生成中、失败、可播放、可下载。状态表达清楚后，用户才不会在长任务里失去控制感。",
+        "音色试听、声音克隆和作品管理属于同一个闭环。把这些能力串起来，比单独做一个生成按钮更接近真实产品体验。",
+      ],
+    },
+    {
+      slug: "device-upgrade-admin-architecture",
+      title: "设备升级后台的权限、上传和任务反馈",
+      summary: "结合设备升级平台，记录动态菜单、三层权限、分片上传和下载任务进度的工程处理方式。",
+      date: "2026-04-22",
+      tags: ["React 19", "Ant Design", "Admin"],
+      readingTime: "7 分钟",
+      relatedProjects: ["device-upgrade-platform", "enterprise-dashboard"],
+      content: [
+        "设备升级类后台需要处理的不是单一 CRUD，而是样本、设备、固件包、工单和运维权限之间的链路。前端结构必须围绕流程组织。",
+        "动态菜单和按钮权限适合由后端提供基础数据，前端再结合路由表做最终合并。这样既能控制权限，又能保留前端路由的类型和布局能力。",
+        "上传和下载任务要有可见反馈。分片上传、SHA-256 校验、顶栏任务进度和消息通知组合起来，能让用户知道长任务正在可靠推进。",
+      ],
+    },
+    {
+      slug: "visualization-dashboard-clarity",
+      title: "数据可视化页面先解决表达，再解决炫技",
+      summary: "复盘可视化平台中的图表联动、地图展示和大屏表达，重点是清晰度与决策效率。",
+      date: "2026-04-05",
+      tags: ["ECharts", "Visualization", "Dashboard"],
+      readingTime: "5 分钟",
+      relatedProjects: ["data-visualization-platform"],
+      content: [
+        "可视化页面最容易陷入堆图表。真正有效的做法是先确定用户要判断什么，再决定用指标卡、折线、地图还是联动筛选。",
+        "地图和图表联动时，状态来源必须清楚。当前区域、时间范围、筛选条件和高亮项都要能被用户理解，也要能被代码稳定追踪。",
+        "大屏场景下，信息密度和动画都要克制。动效应该帮助建立层级，而不是干扰读数和业务判断。",
+      ],
+    },
+    {
+      slug: "cross-platform-ui-adaptation",
+      title: "Web、H5、小程序多端适配的取舍",
+      summary: "从多端商城和低代码搭建实践出发，记录组件复用、交互一致性和平台差异之间的取舍。",
+      date: "2026-03-18",
+      tags: ["H5", "Mini Program", "Low-code"],
+      readingTime: "6 分钟",
+      relatedProjects: ["mini-program-commerce", "low-code-builder"],
+      content: [
+        "多端项目不能只追求一套代码跑 everywhere。更现实的目标是复用业务模型和组件思路，同时允许不同平台保留必要差异。",
+        "H5 和小程序在布局、手势、导航和安全限制上都有差别。前端需要提前识别哪些交互可以统一，哪些交互应该按平台重写。",
+        "低代码场景进一步放大了这个问题。Schema 要表达业务意图，而不是暴露过多平台细节，否则配置会越来越难维护。",
+      ],
+    },
+  ],
+  en: [
+    {
+      slug: "ai-assisted-frontend-workflow",
+      title: "Making AI Coding Work in Frontend Delivery",
+      summary: "A practical workflow for using AI across planning, implementation, review, and regression checks.",
+      date: "2026-06-01",
+      tags: ["AI Coding", "Workflow", "Frontend"],
+      readingTime: "5 min",
+      relatedProjects: ["cookieai", "tts-voice-platform"],
+      content: [
+        "AI coding is most useful when it is placed inside a clear engineering workflow rather than treated as a one-shot project generator. Requirements, interfaces, verification, and review still need boundaries.",
+        "For frontend work, I prefer using AI on verifiable local tasks: component refactors, form-state cleanup, repeated styling abstraction, and test additions. Core interactions and product invariants still need an engineer's direction first.",
+        "A stable process starts with page goals and data structures, then asks AI for small changes. Each step is checked through lint, build, or real page review so uncertainty does not accumulate until the end.",
+      ],
+    },
+    {
+      slug: "enterprise-frontend-case-study",
+      title: "Where Enterprise Frontend Complexity Comes From",
+      summary: "Access control, dynamic menus, tables, uploads, notifications, and state sync are where admin systems need real design.",
+      date: "2026-05-20",
+      tags: ["Enterprise", "React", "Vue"],
+      readingTime: "6 min",
+      relatedProjects: ["device-upgrade-platform", "enterprise-dashboard"],
+      content: [
+        "Enterprise admin surfaces may look like tables and forms, but the actual complexity usually comes from permissions, workflow state, and error handling. The more screens a system has, the more it needs shared request, error, and access patterns.",
+        "I prioritize stable patterns for lists, filters, pagination, uploads, download tasks, and notifications. Business pages can then focus on the workflow instead of rebuilding base interactions.",
+        "When dynamic menus and button permissions are involved, the frontend needs clear ownership boundaries between backend-driven state, route state, and local component state. Clear boundaries reduce maintenance cost later.",
+      ],
+    },
+    {
+      slug: "tts-voice-product-flow",
+      title: "Designing the Generation Flow for a TTS Platform",
+      summary: "A project note on text input, role splitting, emotion settings, and export flows in the TTS voice platform.",
+      date: "2026-05-08",
+      tags: ["Vue 3", "TTS", "Product Flow"],
+      readingTime: "6 min",
+      relatedProjects: ["tts-voice-platform"],
+      content: [
+        "The hard part of a TTS platform is not only calling a generation API. Users need to manage text, roles, voices, emotions, and output formats without losing track of the workflow.",
+        "Each text segment needs a clear state: pending, generating, failed, playable, and downloadable. Once the state model is visible, long-running generation feels much more reliable.",
+        "Voice preview, voice cloning, and project management belong to the same loop. Connecting them creates a real product workflow instead of a single generation button.",
+      ],
+    },
+    {
+      slug: "device-upgrade-admin-architecture",
+      title: "Permissions, Uploads, and Task Feedback in Device Admin Systems",
+      summary: "Notes from the device upgrade platform covering dynamic menus, layered permissions, chunked uploads, and progress feedback.",
+      date: "2026-04-22",
+      tags: ["React 19", "Ant Design", "Admin"],
+      readingTime: "7 min",
+      relatedProjects: ["device-upgrade-platform", "enterprise-dashboard"],
+      content: [
+        "A device upgrade admin system is not a simple CRUD surface. Samples, devices, firmware packages, tickets, and operational permissions form a connected workflow.",
+        "Dynamic menus and button permissions work best when the backend provides the permission data and the frontend merges it with a typed route model. This keeps access control flexible without giving up frontend structure.",
+        "Uploads and downloads need visible feedback. Chunked uploads, SHA-256 checks, top-bar task progress, and notifications help users trust that long tasks are still moving.",
+      ],
+    },
+    {
+      slug: "visualization-dashboard-clarity",
+      title: "Visualization Dashboards Should Solve Clarity Before Style",
+      summary: "A note on chart linking, maps, large-screen views, and why decision clarity matters more than visual noise.",
+      date: "2026-04-05",
+      tags: ["ECharts", "Visualization", "Dashboard"],
+      readingTime: "5 min",
+      relatedProjects: ["data-visualization-platform"],
+      content: [
+        "Visualization pages often drift into chart stacking. A better starting point is to define what the user needs to decide, then choose metric cards, lines, maps, or linked filters.",
+        "When maps and charts are linked, state ownership needs to be obvious. Current region, time range, filters, and highlighted items should be clear to users and stable in code.",
+        "Large-screen dashboards need restraint in both density and motion. Animation should support hierarchy, not make numbers harder to read.",
+      ],
+    },
+    {
+      slug: "cross-platform-ui-adaptation",
+      title: "Tradeoffs in Web, H5, and Mini Program Adaptation",
+      summary: "Lessons from cross-platform commerce and low-code work on component reuse, consistency, and platform differences.",
+      date: "2026-03-18",
+      tags: ["H5", "Mini Program", "Low-code"],
+      readingTime: "6 min",
+      relatedProjects: ["mini-program-commerce", "low-code-builder"],
+      content: [
+        "Cross-platform work should not chase one code path for every environment. A more realistic goal is to reuse business models and component ideas while allowing platform-specific interaction choices.",
+        "H5 and mini programs differ in layout, gestures, navigation, and platform restrictions. The frontend should identify early which interactions can stay unified and which should be implemented per platform.",
+        "Low-code builders amplify this problem. Schema should describe business intent rather than leaking too many platform details, otherwise configuration becomes hard to maintain.",
+      ],
+    },
+  ],
+};
+
 const headerTextByLocale = {
   zh: {
     nav: {
       home: "首页",
       about: "关于",
       projects: "项目",
+      notes: "笔记",
       resume: "简历",
       contact: "联系",
     },
@@ -359,6 +606,7 @@ const headerTextByLocale = {
       home: "Home",
       about: "About",
       projects: "Projects",
+      notes: "Notes",
       resume: "Resume",
       contact: "Contact",
     },
@@ -387,7 +635,7 @@ const projectBase = [
     id: 1,
     slug: "cookieai",
     emoji: "🤖",
-    gradient: "from-fuchsia-500 to-violet-600",
+    gradient: "from-blue-600 to-sky-500",
     tags: ["React", "AI", "Prompt Engineering", "Workflow"],
     featured: true,
     category: "ai",
@@ -404,7 +652,7 @@ const projectBase = [
     id: 2,
     slug: "enterprise-dashboard",
     emoji: "💼",
-    gradient: "from-indigo-500 to-blue-600",
+    gradient: "from-blue-700 to-blue-500",
     tags: ["Vue", "Element UI", "Redux", "权限系统"],
     featured: true,
     category: "web",
@@ -420,7 +668,7 @@ const projectBase = [
     id: 3,
     slug: "mini-program-commerce",
     emoji: "🛍️",
-    gradient: "from-emerald-500 to-teal-600",
+    gradient: "from-sky-500 to-cyan-500",
     tags: ["H5", "微信小程序", "Vant", "多端适配"],
     featured: true,
     category: "web",
@@ -468,7 +716,7 @@ const projectBase = [
     id: 6,
     slug: "low-code-builder",
     emoji: "🧱",
-    gradient: "from-pink-500 to-rose-600",
+    gradient: "from-blue-500 to-sky-600",
     tags: ["低代码", "React", "Schema", "拖拽"],
     featured: false,
     category: "ai",
@@ -516,7 +764,7 @@ const projectBase = [
     id: 9,
     slug: "tts-voice-platform",
     emoji: "🎙️",
-    gradient: "from-teal-500 to-cyan-600",
+    gradient: "from-blue-500 to-cyan-500",
     tags: ["Vue 3", "TypeScript", "Element Plus", "TTS", "Pinia"],
     featured: true,
     category: "ai",
@@ -534,7 +782,7 @@ const projectBase = [
     id: 10,
     slug: "device-upgrade-platform",
     emoji: "⚙️",
-    gradient: "from-blue-600 to-indigo-700",
+    gradient: "from-blue-700 to-blue-500",
     tags: ["React 19", "Vite", "Ant Design", "Zustand", "ProTable"],
     featured: true,
     category: "web",
@@ -609,7 +857,7 @@ const projectTextZh: ProjectText = {
     title: "设备升级平台",
     summary: "面向桌面浏览器的企业级 Web 管理端，串联样本、设备、固件升级与运维权限全流程。",
     description:
-      "基于 Vite 8 + React 19 + Ant Design 5 构建的行业后台管理系统，围绕「样本 → 设备 → 升级 → 运维」业务链路交付。平台提供统一布局、JWT 与会话双模式登录、动态菜单，以及路由 / 菜单 / 按钮三层权限控制；封装 PageProTable 统一表格分页与响应归一化，并实现 SHA-256 校验的分片上传、顶栏下载任务进度与 WebSocket 消息通知。业务侧覆盖样本数据与采集文件管理、售后工单流转、设备台账、固件升级包分发，以及用户角色、消息通知与操作日志等模块，已完成主要页面联调并可支撑完整管理流程。",
+      "基于 Vite 8 + React 19 + Ant Design 5 构建的行业后台管理系统，围绕样本、设备、升级、运维业务链路交付。平台提供统一布局、JWT 与会话双模式登录、动态菜单，以及路由 / 菜单 / 按钮三层权限控制；封装 PageProTable 统一表格分页与响应归一化，并实现 SHA-256 校验的分片上传、顶栏下载任务进度与 WebSocket 消息通知。业务侧覆盖样本数据与采集文件管理、售后工单流转、设备台账、固件升级包分发，以及用户角色、消息通知与操作日志等模块，已完成主要页面联调并可支撑完整管理流程。",
   },
 };
 
@@ -672,7 +920,7 @@ const projectTextEn: ProjectText = {
     title: "Device Upgrade Platform",
     summary: "An enterprise web admin console for samples, devices, firmware delivery, and operational access control.",
     description:
-      "Built with Vite 8, React 19, and Ant Design 5, this admin system connects sample management, device records, firmware upgrades, and day-to-day operations in one workflow. It includes unified layout, dual-mode auth (JWT and local session), dynamic menus, and three-layer access control across routes, menus, and actions. Shared capabilities include PageProTable for list pages, chunked uploads with SHA-256 verification, download task progress in the header, and WebSocket notifications. Business modules cover sample and file management, after-sales tickets, device ledgers, upgrade packages, user roles, announcements, and audit logs—with core flows integrated end to end.",
+      "Built with Vite 8, React 19, and Ant Design 5, this admin system connects sample management, device records, firmware upgrades, and day-to-day operations in one workflow. It includes unified layout, dual-mode auth (JWT and local session), dynamic menus, and three-layer access control across routes, menus, and actions. Shared capabilities include PageProTable for list pages, chunked uploads with SHA-256 verification, download task progress in the header, and WebSocket notifications. Business modules cover sample and file management, after-sales tickets, device ledgers, upgrade packages, user roles, announcements, and audit logs, with core flows integrated end to end.",
   },
 };
 
@@ -686,7 +934,7 @@ const aboutContentByLocale = {
         description:
           "熟练掌握 Vue、React 函数式组件与 Hooks，能在复杂业务场景中完成模块拆分、状态管理、组件沉淀与大型项目交付。",
         icon: "🚀",
-        gradient: "from-indigo-500 to-purple-600",
+        gradient: "from-blue-700 to-blue-500",
       },
       {
         role: "多端业务适配",
@@ -695,7 +943,7 @@ const aboutContentByLocale = {
         description:
           "拥有丰富的 Web 端、H5、微信小程序开发经验，能高效处理不同终端下的布局、交互与兼容性问题。",
         icon: "📱",
-        gradient: "from-emerald-500 to-teal-600",
+        gradient: "from-sky-500 to-cyan-500",
       },
       {
         role: "工程化与效率建设",
@@ -704,7 +952,7 @@ const aboutContentByLocale = {
         description:
           "熟练配置现代化构建工具，关注开发体验和项目性能；同时积极使用 AI 辅助编程工具提升研发效率，Cursor 为重度使用者。",
         icon: "⚙️",
-        gradient: "from-pink-500 to-rose-600",
+        gradient: "from-blue-500 to-sky-600",
       },
     ] satisfies ExperienceItem[],
     educations: [
@@ -721,13 +969,13 @@ const aboutContentByLocale = {
         icon: "🖥️",
         title: "前端项目开发",
         description: "面向 Vue、React 和复杂业务系统进行高质量开发与重构落地。",
-        gradient: "from-blue-500 to-indigo-600",
+        gradient: "from-blue-600 to-sky-500",
       },
       {
         icon: "🎯",
         title: "多端与体验优化",
         description: "处理 Web、H5、小程序适配，提升设计还原度、交互质量和用户体验。",
-        gradient: "from-fuchsia-500 to-pink-600",
+        gradient: "from-blue-500 to-cyan-500",
       },
       {
         icon: "🤖",
@@ -746,7 +994,7 @@ const aboutContentByLocale = {
         description:
           "Experienced with Vue, React functional components, and Hooks for complex business applications, modular delivery, state management, and scalable frontend systems.",
         icon: "🚀",
-        gradient: "from-indigo-500 to-purple-600",
+        gradient: "from-blue-700 to-blue-500",
       },
       {
         role: "Cross-platform Product Work",
@@ -755,7 +1003,7 @@ const aboutContentByLocale = {
         description:
           "Strong hands-on experience across Web, H5, and mini program projects, with a focus on layout adaptation, interaction consistency, and compatibility handling.",
         icon: "📱",
-        gradient: "from-emerald-500 to-teal-600",
+        gradient: "from-sky-500 to-cyan-500",
       },
       {
         role: "Engineering & Productivity",
@@ -764,7 +1012,7 @@ const aboutContentByLocale = {
         description:
           "Comfortable with modern build tooling, performance optimization, and developer experience improvements. Heavy Cursor user with active AI-assisted coding workflows.",
         icon: "⚙️",
-        gradient: "from-pink-500 to-rose-600",
+        gradient: "from-blue-500 to-sky-600",
       },
     ] satisfies ExperienceItem[],
     educations: [
@@ -781,13 +1029,13 @@ const aboutContentByLocale = {
         icon: "🖥️",
         title: "Frontend Delivery",
         description: "Build and improve Vue and React products for complex business use cases.",
-        gradient: "from-blue-500 to-indigo-600",
+        gradient: "from-blue-600 to-sky-500",
       },
       {
         icon: "🎯",
         title: "Cross-platform UX",
         description: "Handle Web, H5, and mini program adaptation while keeping high UI fidelity and user experience quality.",
-        gradient: "from-fuchsia-500 to-pink-600",
+        gradient: "from-blue-500 to-cyan-500",
       },
       {
         icon: "🤖",
@@ -864,6 +1112,60 @@ const aboutIntroByLocale = {
   en: "I am a frontend engineer focused on Vue, React, large business applications, cross-platform delivery, and engineering productivity. Beyond UI implementation, I care about fidelity, performance, tooling, visualization, and practical AI-assisted development workflows.",
 } as const;
 
+function buildCaseStudy(project: (typeof projectBase)[number], text: ProjectText[string], locale: Locale): ProjectCaseStudy {
+  const isEnglish = locale === "en";
+  const stack = project.tags.slice(0, 3).join(isEnglish ? ", " : "、");
+  const role = project.role ?? (isEnglish ? "Frontend Engineer" : "前端工程师");
+
+  return isEnglish
+    ? {
+        problem: `${text.title} needed a practical frontend solution that could turn business requirements into reliable user-facing workflows without slowing future iteration.`,
+        roleDetails: `I worked as ${role}, focusing on interface structure, component boundaries, delivery quality, and the engineering decisions behind the experience.`,
+        constraints: [
+          "Keep the product understandable for non-technical users",
+          "Balance delivery speed with maintainable frontend architecture",
+          "Preserve interaction quality across the main usage scenarios",
+        ],
+        solution: `The implementation used ${stack} as the main technical base, with reusable UI patterns, clear state boundaries, and a page structure shaped around the core workflow instead of isolated screens.`,
+        technicalHighlights: [...project.highlights],
+        outcome: `${text.title} became a clearer, more maintainable product surface with focused flows, reusable implementation patterns, and enough structure to support later iteration.`,
+        lessons: "The most valuable work was not only building screens, but clarifying the workflow, choosing the right abstractions, and keeping the interface understandable as complexity grew.",
+      }
+    : {
+        problem: `${text.title} 需要把业务需求转化为稳定、可理解、可持续迭代的前端体验，而不是只完成单个页面。`,
+        roleDetails: `我在项目中承担${role}角色，重点负责界面结构、组件边界、交付质量，以及支撑体验的工程决策。`,
+        constraints: [
+          "让非技术用户也能快速理解核心流程",
+          "在交付速度和长期可维护性之间取得平衡",
+          "保证主要使用场景中的交互质量和状态一致性",
+        ],
+        solution: `项目以 ${stack} 为主要技术基础，通过可复用 UI 模式、清晰的状态边界和围绕核心流程组织的页面结构来推进落地。`,
+        technicalHighlights: [...project.highlights],
+        outcome: `${text.title} 最终形成了更清晰、更易维护的产品界面，具备可复用实现模式，也为后续迭代留下了结构空间。`,
+        lessons: "这个项目最有价值的部分不只是完成页面，而是把流程讲清楚、抽象选准确，并在复杂度上升时保持界面可理解。",
+      };
+}
+
+function buildScreenshots(project: (typeof projectBase)[number], text: ProjectText[string], locale: Locale): ProjectScreenshot[] {
+  const isEnglish = locale === "en";
+  const base = `/project-placeholders/${project.slug}`;
+
+  return [
+    {
+      title: isEnglish ? "Primary workflow" : "核心流程",
+      description: isEnglish ? "The main screen and decision path users rely on most." : "用户最常使用的主界面与关键决策路径。",
+      src: `${base}-workflow.svg`,
+      alt: `${text.title} ${isEnglish ? "primary workflow preview" : "核心流程预览"}`,
+    },
+    {
+      title: isEnglish ? "System detail" : "系统细节",
+      description: isEnglish ? "A closer view of the interaction model, data state, or admin surface." : "展示交互模型、数据状态或后台能力的局部细节。",
+      src: `${base}-detail.svg`,
+      alt: `${text.title} ${isEnglish ? "system detail preview" : "系统细节预览"}`,
+    },
+  ];
+}
+
 function buildProjects(locale: Locale): ProjectItem[] {
   const textMap = locale === "en" ? projectTextEn : projectTextZh;
   const metaMap = getProjectMetaMap(locale);
@@ -875,6 +1177,8 @@ function buildProjects(locale: Locale): ProjectItem[] {
       role: meta?.role ?? project.role,
       highlights: meta?.highlights ?? (project.highlights ? [...project.highlights] : undefined),
       tags: meta?.tags ?? [...project.tags],
+      caseStudy: buildCaseStudy(project, textMap[project.slug], locale),
+      screenshots: buildScreenshots(project, textMap[project.slug], locale),
     };
   });
 }
@@ -931,4 +1235,15 @@ export function getHeaderText(locale: Locale) {
 
 export function getContactContent(locale: Locale) {
   return contactTextByLocale[locale] ?? contactTextByLocale[defaultLocale];
+}
+
+export function getNotesContent(locale: Locale) {
+  return {
+    notes: notesByLocale[locale] ?? notesByLocale[defaultLocale],
+    text: notesTextByLocale[locale] ?? notesTextByLocale[defaultLocale],
+  };
+}
+
+export function getNoteBySlug(locale: Locale, slug: string): NoteItem | undefined {
+  return (notesByLocale[locale] ?? notesByLocale[defaultLocale]).find((note) => note.slug === slug);
 }

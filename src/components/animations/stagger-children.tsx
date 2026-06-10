@@ -43,9 +43,11 @@ export function StaggerChildren({
       gsap.from(items, {
         y,
         opacity: 0,
+        scale: 0.98,
         duration,
         stagger,
         ease: defaultEase,
+        clearProps: "scale",
         scrollTrigger: {
           trigger: container,
           start,

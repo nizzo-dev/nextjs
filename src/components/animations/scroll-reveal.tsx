@@ -38,9 +38,12 @@ export function ScrollReveal({
       gsap.from(el, {
         y,
         opacity: 0,
+        scale: 0.985,
+        filter: "blur(6px)",
         duration,
         delay,
         ease: defaultEase,
+        clearProps: "filter,scale",
         scrollTrigger: {
           trigger: el,
           start,

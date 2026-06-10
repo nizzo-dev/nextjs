@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { gsap, prefersReducedMotion, registerGsap } from "@/lib/gsap";
@@ -15,18 +15,13 @@ const PARTICLE_POSITIONS = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
 }));
 
 export function AnimatedBackground() {
-  const [mounted, setMounted] = useState(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
   const containerRef = useRef<HTMLDivElement>(null);
   const timelinesRef = useRef<gsap.core.Timeline[]>([]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   useGSAP(
     () => {
-      if (!mounted || !containerRef.current) return;
+      if (!containerRef.current) return;
       registerGsap();
       timelinesRef.current.forEach((t) => t.kill());
       timelinesRef.current = [];
@@ -112,10 +107,8 @@ export function AnimatedBackground() {
         timelinesRef.current = [];
       };
     },
-    { scope: containerRef, dependencies: [mounted, isMobile] },
+    { scope: containerRef, dependencies: [isMobile] },
   );
-
-  if (!mounted) return null;
 
   return (
     <div ref={containerRef} aria-hidden="true">

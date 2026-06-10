@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/lib/constants";
 import type { ExperienceItem } from "@/lib/content";
@@ -24,29 +23,26 @@ export function ExperienceSnapshot({
           <h2 className="text-3xl font-bold">{title}</h2>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">{subtitle}</p>
         </div>
-        <Link href={ROUTES.about}>
-          <Button variant="ghost">{viewAllLabel}</Button>
-        </Link>
+        <Button asChild variant="ghost">
+          <Link href={ROUTES.about}>{viewAllLabel}</Link>
+        </Button>
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-px overflow-hidden rounded-2xl border border-blue-200/70 bg-blue-200/70 dark:border-blue-400/20 dark:bg-blue-400/20 md:grid-cols-2">
         {experiences.map((exp) => (
-          <Card key={exp.role} className="overflow-hidden border-0 shadow-md">
-            <div className="flex">
-              <div className={`w-1.5 bg-gradient-to-b ${exp.gradient}`} />
-              <div className="flex-1 p-6">
-                <div className="mb-3 flex items-center gap-3">
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${exp.gradient} text-lg`}>
-                    {exp.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{exp.role}</h3>
-                    <p className="text-sm text-indigo-500">{exp.company}</p>
-                  </div>
+          <div key={exp.role} className="bg-white/85 dark:bg-slate-950/75">
+            <div className="flex h-full flex-col p-8">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-sm font-semibold text-white shadow-lg shadow-blue-600/20">
+                  {exp.company.slice(0, 1).toUpperCase()}
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{exp.description}</p>
+                <div>
+                  <h3 className="font-semibold">{exp.role}</h3>
+                  <p className="text-sm text-blue-600 dark:text-blue-300">{exp.company}</p>
+                </div>
               </div>
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">{exp.description}</p>
             </div>
-          </Card>
+          </div>
         ))}
       </div>
     </section>

@@ -36,9 +36,9 @@ export function ProjectsView({ categories, projects, emptyLabel, text }: Project
   const otherProjects = filtered.filter((p) => !p.featured);
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-20">
       <ScrollReveal>
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex gap-3 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible">
           {categories.map((category) => {
             const isActive = activeCategory === category.key;
             return (
@@ -47,9 +47,8 @@ export function ProjectsView({ categories, projects, emptyLabel, text }: Project
                 variant={isActive ? "default" : "outline"}
                 size="sm"
                 onClick={() => setActiveCategory(category.key)}
-                className={cn(isActive && "border-0 bg-indigo-600 hover:bg-indigo-700")}
+                className={cn("shrink-0", isActive && "border-blue-600 bg-blue-600 text-white hover:bg-blue-500")}
               >
-                <span className="mr-2">{category.emoji}</span>
                 {category.name}
               </Button>
             );
@@ -64,39 +63,36 @@ export function ProjectsView({ categories, projects, emptyLabel, text }: Project
           {featuredProjects.length > 0 && (
             <ScrollReveal>
               <section className="space-y-8">
-                <h2 className="flex items-center gap-3 text-2xl font-bold">
-                  <span className="text-3xl">✨</span>
-                  {text.featuredTitle}
-                </h2>
+                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{text.featuredTitle}</h2>
                 <StaggerChildren className="grid gap-8 lg:grid-cols-2" stagger={0.12}>
                   {featuredProjects.map((project) => (
-                    <Card key={project.slug} className="group overflow-hidden border-0 shadow-lg">
-                      <div className={`relative flex h-56 items-center justify-center bg-gradient-to-br ${project.gradient}`}>
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_55%)]" />
-                        <span className="relative text-8xl transition-transform duration-500 group-hover:scale-110">
-                          {project.emoji}
+                    <Card key={project.slug} className="group overflow-hidden p-0">
+                      <div className="relative flex h-64 items-end bg-gradient-to-br from-slate-950 via-blue-950 to-blue-700 p-6">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(96,165,250,0.28),transparent_55%)]" />
+                        <span className="relative text-7xl font-bold text-white/90 transition-transform duration-500 group-hover:translate-x-2">
+                          {project.title.slice(0, 1)}
                         </span>
                         <div className="absolute bottom-4 left-4 right-4 flex gap-2 opacity-100 md:opacity-0 md:transition-all md:duration-300 md:group-hover:opacity-100">
-                          <Link href={ROUTES.project(project.slug)}>
-                            <Button size="sm" className="bg-white/90 text-gray-900 hover:bg-white">
+                          <Button asChild size="sm" className="bg-white text-blue-700 hover:bg-blue-50">
+                            <Link href={ROUTES.project(project.slug)}>
                               {text.detailButton}
-                            </Button>
-                          </Link>
+                            </Link>
+                          </Button>
                           {project.demoUrl && (
-                            <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                              <Button variant="outline" size="sm" className="border-white/50 bg-white/90 text-gray-900 hover:bg-white">
+                            <Button asChild variant="outline" size="sm" className="border-white/50 bg-white/90 text-blue-700 hover:bg-white">
+                              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
                                 Demo
-                              </Button>
-                            </a>
+                              </a>
+                            </Button>
                           )}
                         </div>
                       </div>
-                      <div className="bg-white p-6 dark:bg-zinc-900">
-                        <h3 className="text-2xl font-bold transition-colors group-hover:text-indigo-500">{project.title}</h3>
+                      <div className="bg-white/90 p-6 dark:bg-slate-950/80">
+                        <h3 className="text-2xl font-bold transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-300">{project.title}</h3>
                         <p className="mt-3 leading-relaxed text-zinc-600 dark:text-zinc-400">{project.summary}</p>
                         <div className="mt-4 flex flex-wrap gap-2">
                           {project.tags.map((tag) => (
-                            <span key={tag} className="rounded-full bg-zinc-100 px-3 py-1 text-xs text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                            <span key={tag} className="rounded-full bg-blue-50 px-3 py-1 text-xs text-blue-700 dark:bg-blue-950/40 dark:text-blue-200">
                               {tag}
                             </span>
                           ))}
@@ -112,10 +108,7 @@ export function ProjectsView({ categories, projects, emptyLabel, text }: Project
           {otherProjects.length > 0 && (
             <ScrollReveal>
               <section className="space-y-8">
-                <h2 className="flex items-center gap-3 text-2xl font-bold">
-                  <span className="text-3xl">📁</span>
-                  {text.otherTitle}
-                </h2>
+                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{text.otherTitle}</h2>
                 <StaggerChildren className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" stagger={0.08}>
                   {otherProjects.map((project) => (
                     <ProjectCard key={project.slug} project={project} detailLabel={text.detailButton} />

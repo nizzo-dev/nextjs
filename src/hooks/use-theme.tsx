@@ -34,15 +34,19 @@ function applyThemeToDocument(theme: Theme) {
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    const savedTheme = localStorage.getItem("theme") as Theme | null;
+    return savedTheme ?? "system";
+  });
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    return resolveTheme((localStorage.getItem("theme") as Theme | null) ?? "system");
+  });
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    const initial = savedTheme ?? "system";
-    setThemeState(initial);
-    setResolvedTheme(applyThemeToDocument(initial));
-  }, []);
+    applyThemeToDocument(theme);
+  }, [theme]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");

@@ -5,7 +5,7 @@
 export const APP_CONFIG = {
   name: "Pipi · 前端工程师",
   description:
-    "pipi596888 的个人作品集 — 聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
+    "pipi596888 的个人作品集，聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
   version: "0.1.0",
 } as const;
 
@@ -18,9 +18,11 @@ export const ROUTES = {
   home: "/",
   about: "/about",
   projects: "/projects",
+  notes: "/notes",
   contact: "/contact",
   resume: "/resume",
   project: (slug: string) => `/projects/${slug}`,
+  note: (slug: string) => `/notes/${slug}`,
 } as const;
 
 export const PERSONAL_INFO = {

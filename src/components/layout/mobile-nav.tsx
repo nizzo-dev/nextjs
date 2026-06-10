@@ -31,10 +31,6 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
   const common = getCommonText(clientLocale);
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -48,7 +44,7 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
         aria-label={open ? common.menuClose : common.menuOpen}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-200 bg-white text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-blue-200 bg-white/80 text-blue-700 backdrop-blur-sm dark:border-blue-400/25 dark:bg-slate-950/70 dark:text-blue-200"
       >
         {open ? (
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -64,11 +60,11 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
       {open && (
         <>
           <div
-            className="fixed inset-0 top-16 z-40 bg-black/40 backdrop-blur-sm"
+            className="fixed inset-0 top-16 z-40 bg-slate-950/45 backdrop-blur-sm"
             onClick={() => setOpen(false)}
             aria-hidden
           />
-          <nav className="fixed inset-x-0 top-16 z-50 border-b border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-800 dark:bg-zinc-950">
+          <nav className="fixed inset-x-0 top-16 z-50 border-b border-blue-950/10 bg-white/95 p-4 shadow-2xl shadow-blue-950/10 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/95">
             <ul className="space-y-1">
               {navItems.map((item) => {
                 const isActive =
@@ -79,11 +75,12 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
                   <li key={item.href}>
                     <Link
                       href={item.href}
+                      onClick={() => setOpen(false)}
                       className={cn(
                         "block rounded-lg px-4 py-3 text-sm font-medium transition-colors",
                         isActive
-                          ? "bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400"
-                          : "text-zinc-700 hover:bg-zinc-50 dark:text-zinc-300 dark:hover:bg-zinc-900",
+                          ? "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-200"
+                          : "text-zinc-700 hover:bg-blue-50 dark:text-zinc-300 dark:hover:bg-blue-950/30",
                       )}
                     >
                       {item.label}
@@ -97,11 +94,11 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
                 <LocaleSwitcher locale={locale} label={localeSwitchLabel} className="flex-1 justify-center" />
                 <ThemeToggle />
               </div>
-              <a href={`mailto:${PERSONAL_INFO.email}`} className="block">
-                <Button className="w-full" size="sm">
+              <Button asChild className="w-full" size="sm">
+                <a href={`mailto:${PERSONAL_INFO.email}`}>
                   {contactLabel}
-                </Button>
-              </a>
+                </a>
+              </Button>
             </div>
           </nav>
         </>

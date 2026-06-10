@@ -63,10 +63,10 @@ export const Header = memo(function Header({
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-black/[.08] bg-white/80 backdrop-blur-sm dark:border-white/[.145] dark:bg-black/80">
+    <header className="sticky top-0 z-50 w-full border-b border-blue-950/10 bg-white/75 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75">
       <div className="container mx-auto flex h-16 items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link href={ROUTES.home} className="flex min-w-0 items-center space-x-2">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-sm font-bold text-white">
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-600/20">
             {PERSONAL_INFO.displayName[0].toUpperCase()}
           </div>
           <div className="min-w-0 leading-tight">
@@ -90,7 +90,7 @@ export const Header = memo(function Header({
                 data-active={isActive ? "true" : "false"}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors duration-200",
-                  isActive ? "text-foreground" : "text-zinc-600 hover:text-foreground dark:text-zinc-400",
+                  isActive ? "text-blue-700 dark:text-blue-200" : "text-slate-600 hover:text-blue-700 dark:text-slate-400 dark:hover:text-blue-200",
                 )}
               >
                 {item.label}
@@ -99,7 +99,7 @@ export const Header = memo(function Header({
           })}
           <span
             ref={indicatorRef}
-            className="pointer-events-none absolute bottom-0 left-0 h-0.5 rounded-full bg-indigo-500"
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 rounded-full bg-blue-500 shadow-[0_0_16px_rgba(59,130,246,0.55)]"
             style={{ width: 0, opacity: 0 }}
           />
         </nav>
@@ -107,9 +107,9 @@ export const Header = memo(function Header({
         <div className="flex items-center gap-2">
           <LocaleSwitcher locale={locale} label={localeSwitchLabel} />
           <ThemeToggle />
-          <a href={`mailto:${PERSONAL_INFO.email}`} className="hidden md:block">
-            <Button size="sm">{contactLabel}</Button>
-          </a>
+          <Button asChild size="sm" className="hidden md:inline-flex">
+            <a href={`mailto:${PERSONAL_INFO.email}`}>{contactLabel}</a>
+          </Button>
           <MobileNav
             navItems={navItems}
             contactLabel={contactLabel}

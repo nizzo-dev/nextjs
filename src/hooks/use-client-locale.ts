@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { defaultLocale, isLocale, type Locale } from "@/lib/locale";
 
@@ -13,15 +13,16 @@ export function readLocaleCookie(): Locale {
 
 export function useClientLocale(): Locale {
   const pathname = usePathname();
-  const [locale, setLocale] = useState<Locale>(defaultLocale);
 
-  useEffect(() => {
-    setLocale(readLocaleCookie());
+  const subscribe = useCallback((callback: () => void) => {
+    window.addEventListener("locale-change", callback);
+    return () => window.removeEventListener("locale-change", callback);
+  }, []);
 
-    const onLocaleChange = () => setLocale(readLocaleCookie());
-    window.addEventListener("locale-change", onLocaleChange);
-    return () => window.removeEventListener("locale-change", onLocaleChange);
+  const getSnapshot = useCallback(() => {
+    void pathname;
+    return readLocaleCookie();
   }, [pathname]);
 
-  return locale;
+  return useSyncExternalStore(subscribe, getSnapshot, () => defaultLocale);
 }

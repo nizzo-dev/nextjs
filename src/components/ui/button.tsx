@@ -10,6 +10,7 @@ export interface ButtonProps
   variant?: "default" | "outline" | "ghost" | "destructive";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
+  asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -19,6 +20,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = "default",
       size = "md",
       isLoading = false,
+      asChild = false,
       disabled,
       children,
       ...props
@@ -29,15 +31,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const common = getCommonText(locale);
 
     const baseStyles =
-      "inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]";
+      "inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:translate-y-px active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none";
 
     const variants = {
       default:
-        "bg-foreground text-background hover:bg-[#383838] dark:hover:bg-[#ccc]",
+        "border border-blue-600 bg-blue-600 text-white shadow-lg shadow-blue-600/20 hover:border-blue-500 hover:bg-blue-500 dark:border-blue-500 dark:bg-blue-500 dark:hover:border-blue-400 dark:hover:bg-blue-400",
       outline:
-        "border border-solid border-black/[.08] dark:border-white/[.145] hover:border-transparent hover:bg-black/[.04] dark:hover:bg-[#1a1a1a]",
+        "border border-blue-200 bg-white/70 text-blue-700 backdrop-blur-sm hover:border-blue-400 hover:bg-blue-50 dark:border-blue-400/25 dark:bg-slate-950/50 dark:text-blue-200 dark:hover:border-blue-400/60 dark:hover:bg-blue-950/40",
       ghost:
-        "hover:bg-black/[.04] dark:hover:bg-[#1a1a1a]",
+        "text-slate-700 hover:bg-blue-50 hover:text-blue-700 dark:text-slate-300 dark:hover:bg-blue-950/40 dark:hover:text-blue-200",
       destructive:
         "bg-red-600 text-white hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800",
     };
@@ -48,14 +50,25 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "h-14 px-6 text-lg",
     };
 
+    const buttonClassName = cn(
+      baseStyles,
+      variants[variant],
+      sizes[size],
+      className,
+    );
+
+    if (asChild) {
+      const child = React.Children.only(children);
+      if (React.isValidElement<{ className?: string }>(child)) {
+        return React.cloneElement(child, {
+          className: cn(buttonClassName, child.props.className),
+        });
+      }
+    }
+
     return (
       <button
-        className={cn(
-          baseStyles,
-          variants[variant],
-          sizes[size],
-          className
-        )}
+        className={buttonClassName}
         ref={ref}
         disabled={disabled || isLoading}
         {...props}

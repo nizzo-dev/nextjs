@@ -10,6 +10,7 @@ export async function HeaderWrapper() {
     { href: "/", label: headerText.nav.home },
     { href: "/about", label: headerText.nav.about },
     { href: "/projects", label: headerText.nav.projects },
+    { href: "/notes", label: headerText.nav.notes },
     { href: "/resume", label: headerText.nav.resume },
     { href: "/contact", label: headerText.nav.contact },
   ];

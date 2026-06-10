@@ -10,17 +10,19 @@ interface GradientCtaProps {
 
 export function GradientCta({ title, subtitle, buttonLabel, href }: GradientCtaProps) {
   return (
-    <section className="relative overflow-hidden rounded-3xl">
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.15),transparent_50%)]" />
-      <div className="relative px-8 py-16 text-center">
-        <h2 className="mb-4 text-2xl font-bold text-white md:text-3xl">{title}</h2>
-        <p className="mx-auto mb-8 max-w-2xl text-white/85">{subtitle}</p>
-        <Link href={href}>
-          <Button size="lg" className="bg-white text-indigo-600 hover:bg-white/90">
-            {buttonLabel}
+    <section className="relative overflow-hidden rounded-2xl bg-slate-950">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(59,130,246,0.28),transparent_50%)]" />
+      <div className="absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-blue-500/20 blur-3xl" />
+      <div className="relative px-8 py-16 md:px-12 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="mb-4 text-2xl font-bold tracking-tight text-white md:text-3xl">{title}</h2>
+          <p className="mb-8 text-zinc-400">{subtitle}</p>
+          <Button asChild size="lg" className="bg-blue-500 hover:bg-blue-400">
+            <Link href={href}>
+              {buttonLabel}
+            </Link>
           </Button>
-        </Link>
+        </div>
       </div>
     </section>
   );
