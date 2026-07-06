@@ -15,14 +15,14 @@ export const personalProfileByLocale = {
 
 export const appConfigByLocale = {
   zh: {
-    name: "Pipi · 前端工程师",
+    name: "Nizzo · 前端工程师",
     description:
-      "pipi596888 的个人作品集，聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
+      "nizzo-dev 的个人作品集，聚焦 Vue / React 双栈、多端交付、数据可视化与 AI 工具落地。",
   },
   en: {
-    name: "Pipi · Frontend Engineer",
+    name: "Nizzo · Frontend Engineer",
     description:
-      "Portfolio of pipi596888, focused on Vue/React dual-stack, cross-platform delivery, data visualization, and AI tooling.",
+      "Portfolio of nizzo-dev, focused on Vue/React dual-stack, cross-platform delivery, data visualization, and AI tooling.",
   },
 } as const;
 

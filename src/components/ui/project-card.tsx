@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import { LiquidGlassSurface } from "@/components/ui/liquid-glass-surface";
 import { ROUTES } from "@/lib/constants";
 import type { ProjectItem } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -35,9 +36,17 @@ export function ProjectCard({
                 {project.title.slice(0, 1)}
               </span>
               {project.year && (
-                <span className="rounded-full bg-black/20 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                <LiquidGlassSurface
+                  contentClassName="px-2.5 py-1 text-xs font-medium"
+                  fallbackClassName="border-white/20 bg-black/20 shadow-black/15"
+                  displacementScale={28}
+                  blurAmount={0.06}
+                  saturation={125}
+                  aberrationIntensity={0.9}
+                  elasticity={0.1}
+                >
                   {project.year}
-                </span>
+                </LiquidGlassSurface>
               )}
             </div>
             {project.role && (

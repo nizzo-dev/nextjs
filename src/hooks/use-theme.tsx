@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  useState,
-  useEffect,
   useCallback,
   createContext,
   useContext,
+  useSyncExternalStore,
   type ReactNode,
 } from "react";
 
@@ -14,6 +13,7 @@ type Theme = "light" | "dark" | "system";
 interface ThemeContextType {
   theme: Theme;
   resolvedTheme: "light" | "dark";
+  mounted: boolean;
   setTheme: (theme: Theme) => void;
 }
 
@@ -33,40 +33,68 @@ function applyThemeToDocument(theme: Theme) {
   return resolved;
 }
 
+const THEME_CHANGE_EVENT = "nizzo-theme-change";
+
+function readStoredTheme(): Theme {
+  const savedTheme = localStorage.getItem("theme") as Theme | null;
+  return savedTheme ?? "system";
+}
+
+function subscribeToTheme(callback: () => void) {
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const notify = () => {
+    applyThemeToDocument(readStoredTheme());
+    callback();
+  };
+  const timeoutId = window.setTimeout(notify, 0);
+
+  mediaQuery.addEventListener("change", notify);
+  window.addEventListener("storage", notify);
+  window.addEventListener(THEME_CHANGE_EVENT, notify);
+
+  return () => {
+    window.clearTimeout(timeoutId);
+    mediaQuery.removeEventListener("change", notify);
+    window.removeEventListener("storage", notify);
+    window.removeEventListener(THEME_CHANGE_EVENT, notify);
+  };
+}
+
+function getThemeSnapshot() {
+  const theme = readStoredTheme();
+  const resolvedTheme = resolveTheme(theme);
+  return `${theme}:${resolvedTheme}`;
+}
+
+function getServerThemeSnapshot() {
+  return "unmounted:light";
+}
+
+function parseThemeSnapshot(snapshot: string): { theme: Theme; resolvedTheme: "light" | "dark"; mounted: boolean } {
+  const [theme = "system", resolvedTheme = "light"] = snapshot.split(":");
+  return {
+    theme: (theme === "unmounted" ? "system" : theme) as Theme,
+    resolvedTheme: resolvedTheme as "light" | "dark",
+    mounted: theme !== "unmounted",
+  };
+}
+
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    if (typeof window === "undefined") return "system";
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    return savedTheme ?? "system";
-  });
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => {
-    if (typeof window === "undefined") return "light";
-    return resolveTheme((localStorage.getItem("theme") as Theme | null) ?? "system");
-  });
-
-  useEffect(() => {
-    applyThemeToDocument(theme);
-  }, [theme]);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = () => {
-      if (theme === "system") {
-        setResolvedTheme(applyThemeToDocument("system"));
-      }
-    };
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
+  const snapshot = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
+  const { theme, resolvedTheme, mounted } = parseThemeSnapshot(snapshot);
 
   const setTheme = useCallback((newTheme: Theme) => {
-    setThemeState(newTheme);
     localStorage.setItem("theme", newTheme);
-    setResolvedTheme(applyThemeToDocument(newTheme));
+    applyThemeToDocument(newTheme);
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, resolvedTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, resolvedTheme, mounted, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

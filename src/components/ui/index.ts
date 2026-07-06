@@ -4,6 +4,7 @@ export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
 export { Input, type InputProps } from "./input";
 export { Container, type ContainerProps } from "./container";
 export { Loading, type LoadingProps } from "./loading";
+export { LiquidGlassSurface } from "./liquid-glass-surface";
 export { MouseFollowCharacter } from "./character";
 export { HomeCharacter } from "./home-character";
 export { ProjectCard } from "./project-card";

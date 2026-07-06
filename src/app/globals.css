@@ -137,6 +137,84 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Liquid Glass React web approximation. The package provides refraction; this layer keeps the material visible across browsers. */
+.liquid-glass-surface {
+  isolation: isolate;
+}
+
+.liquid-glass-surface .liquid-glass-react {
+  filter: drop-shadow(0 18px 34px rgba(15, 23, 42, 0.22));
+}
+
+.liquid-glass-surface .glass {
+  border: 1px solid rgba(255, 255, 255, 0.46);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.72), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08) 48%, rgba(56, 189, 248, 0.2)),
+    rgba(255, 255, 255, 0.12);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.62),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.16),
+    0 18px 48px rgba(15, 23, 42, 0.22) !important;
+}
+
+.liquid-glass-surface .glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.34) 38%, transparent 58%),
+    radial-gradient(circle at 78% 12%, rgba(125, 211, 252, 0.38), transparent 28%);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.liquid-glass-surface .glass__warp {
+  opacity: 0.98;
+}
+
+.liquid-glass-surface[data-prominence="subtle"] .glass {
+  border-color: rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06)),
+    rgba(255, 255, 255, 0.08);
+}
+
+.liquid-glass-surface[data-prominence="hero"] .glass {
+  border-color: rgba(255, 255, 255, 0.58);
+  background:
+    radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.82), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.1) 42%, rgba(14, 165, 233, 0.24)),
+    rgba(255, 255, 255, 0.14);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18),
+    0 24px 70px rgba(15, 23, 42, 0.32) !important;
+}
+
+.dark .liquid-glass-surface .glass {
+  border-color: rgba(255, 255, 255, 0.22);
+  background:
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.28), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04) 48%, rgba(56, 189, 248, 0.16)),
+    rgba(15, 23, 42, 0.36);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.08),
+    0 22px 60px rgba(0, 0, 0, 0.42) !important;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-glass-surface .glass {
+    background: rgba(37, 99, 235, 0.96);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
 /* 闪烁星星效果 */
 .star {
   position: absolute;
@@ -430,45 +508,300 @@ body {
   transform: translateY(0);
 }
 
-/* ===== 眼睛跟随小人物样式 ===== */
+/* ===== Nizzo homepage cat mascot ===== */
 
-.character-container {
-  transition: transform 0.3s ease;
+.cat-pet {
+  pointer-events: auto;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.character-container:hover {
-  transform: scale(1.1);
+.cat-direction,
+.cat-sprite-wrap {
+  position: relative;
+  transform-origin: center bottom;
 }
 
-.character-container:hover .character-arm-left {
-  animation: wave-left 0.5s ease-in-out infinite;
+.cat-sprite {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  filter: drop-shadow(0 14px 20px rgba(15, 23, 42, 0.18));
+}
+
+.cat-front,
+.cat-side {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.cat-front {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cat-side {
+  opacity: 0;
+  transform: translateY(2px) scale(0.95);
+}
+
+.cat-pet[data-state="walking"] .cat-front {
+  opacity: 0;
+  transform: translateY(4px) scale(0.92);
+}
+
+.cat-pet[data-state="walking"] .cat-side {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cat-heart {
+  position: absolute;
+  left: 78px;
+  top: 4px;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  opacity: 0;
+  transform: translateY(8px) scale(0.7) rotate(45deg);
+  border-radius: 4px;
+  background: #f472b6;
+  box-shadow: 0 8px 18px rgba(244, 114, 182, 0.28);
+  pointer-events: none;
+}
+
+.cat-heart::before,
+.cat-heart::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #f472b6;
+}
+
+.cat-heart::before {
+  left: -9px;
+  top: 0;
+}
+
+.cat-heart::after {
+  left: 0;
+  top: -9px;
+}
+
+.cat-pet[data-state="resting"] .cat-front {
+  animation: cat-breathe 2.6s ease-in-out infinite;
+}
+
+.cat-pet[data-state="resting"] .cat-front-tail {
+  animation: cat-tail-rest 2.9s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 96px 108px;
+}
+
+.cat-pet[data-state="walking"] .cat-side,
+.cat-pet[data-state="walking"] .cat-side-stage {
+  will-change: transform;
+}
+
+.cat-pet[data-state="walking"] .cat-side-stage {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: cat-walk-bob 0.36s ease-in-out infinite;
+}
+
+.cat-pet[data-state="walking"] .cat-side-head {
+  animation: cat-head-walk 0.36s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.cat-pet[data-state="walking"] .cat-side-tail,
+.cat-pet[data-state="walking"] .cat-side-tail-tip {
+  animation: cat-tail-walk 0.36s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: 38px 76px;
+  will-change: transform;
+}
+
+.cat-pet[data-state="walking"] .cat-side-body {
+  animation: cat-side-body-stretch 0.36s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.cat-side-leg {
+  transform-box: fill-box;
   transform-origin: center top;
 }
 
-.character-container:hover .character-arm-right {
-  animation: wave-right 0.5s ease-in-out infinite;
-  transform-origin: center top;
+.cat-pet[data-state="walking"] .cat-side-leg-front-left,
+.cat-pet[data-state="walking"] .cat-side-leg-back-right {
+  animation: cat-step-forward 0.36s ease-in-out infinite;
+  will-change: transform;
 }
 
-.eye-pupil {
-  transition: cx 75ms ease-out, cy 75ms ease-out;
+.cat-pet[data-state="walking"] .cat-side-leg-front-right,
+.cat-pet[data-state="walking"] .cat-side-leg-back-left {
+  animation: cat-step-back 0.36s ease-in-out infinite;
+  will-change: transform;
 }
 
-@keyframes wave-left {
+.cat-eye {
+  animation: cat-blink 5.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center center;
+}
+
+.cat-sleep-eye,
+.cat-mouth-cute {
+  opacity: 0;
+}
+
+.cat-pet[data-expression="sleepy"] .cat-eye {
+  opacity: 0;
+}
+
+.cat-pet[data-expression="sleepy"] .cat-sleep-eye {
+  opacity: 1;
+}
+
+.cat-pet[data-expression="sleepy"] .cat-front {
+  animation: cat-sleep-nod 2.2s ease-in-out infinite;
+}
+
+.cat-pet[data-expression="cute"] .cat-heart {
+  animation: cat-heart-pop 1.55s ease-out infinite;
+}
+
+.cat-pet[data-expression="cute"] .cat-mouth-calm {
+  opacity: 0;
+}
+
+.cat-pet[data-expression="cute"] .cat-mouth-cute {
+  opacity: 1;
+}
+
+.cat-pet[data-expression="cute"] .cat-front {
+  animation: cat-cute-tilt 1.35s ease-in-out infinite;
+}
+
+@keyframes cat-breathe {
   0%, 100% {
-    transform: rotate(-10deg);
+    transform: translateY(0) scaleY(1);
   }
   50% {
-    transform: rotate(10deg);
+    transform: translateY(2px) scaleY(0.985);
   }
 }
 
-@keyframes wave-right {
+@keyframes cat-walk-bob {
   0%, 100% {
-    transform: rotate(10deg);
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: rotate(-10deg);
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+@keyframes cat-head-walk {
+  0%, 100% {
+    transform: rotate(-3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4deg) translateY(1px);
+  }
+}
+
+@keyframes cat-tail-rest {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes cat-tail-walk {
+  0%, 100% {
+    transform: rotate(-14deg) translateY(0);
+  }
+  50% {
+    transform: rotate(16deg) translateY(-2px);
+  }
+}
+
+@keyframes cat-side-body-stretch {
+  0%, 100% {
+    transform: scaleX(1) translateY(0);
+  }
+  50% {
+    transform: scaleX(1.03) translateY(1px);
+  }
+}
+
+@keyframes cat-step-forward {
+  0%, 100% {
+    transform: rotate(22deg) translateX(-4px) translateY(0);
+  }
+  50% {
+    transform: rotate(-24deg) translateX(5px) translateY(-4px);
+  }
+}
+
+@keyframes cat-step-back {
+  0%, 100% {
+    transform: rotate(-20deg) translateX(5px) translateY(-3px);
+  }
+  50% {
+    transform: rotate(22deg) translateX(-4px) translateY(0);
+  }
+}
+
+@keyframes cat-blink {
+  0%, 92%, 100% {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0.12);
+  }
+}
+
+@keyframes cat-sleep-nod {
+  0%, 100% {
+    transform: rotate(-2deg) translateY(0);
+  }
+  50% {
+    transform: rotate(2deg) translateY(4px);
+  }
+}
+
+@keyframes cat-cute-tilt {
+  0%, 100% {
+    transform: rotate(-7deg) translateY(0);
+  }
+  50% {
+    transform: rotate(6deg) translateY(-2px);
+  }
+}
+
+@keyframes cat-heart-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.55) rotate(45deg);
+  }
+  22% {
+    opacity: 1;
+    transform: translateY(0) scale(0.92) rotate(45deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(1.12) rotate(45deg);
   }
 }
 
@@ -492,6 +825,7 @@ body {
 
   header,
   footer,
+  .cat-pet,
   .character-container,
   .gradient-orb,
   .floating-shape,

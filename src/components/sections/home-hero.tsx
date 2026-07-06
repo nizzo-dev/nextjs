@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { Button } from "@/components/ui/button";
+import { LiquidGlassSurface } from "@/components/ui/liquid-glass-surface";
 import { ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { defaultEase, gsap, prefersReducedMotion, registerGsap } from "@/lib/gsap";
@@ -66,11 +67,20 @@ export function HomeHero({
         </p>
 
         <div className="hero-cta flex flex-wrap gap-3 pt-1">
-          <Button asChild size="lg" className="px-7">
-            <Link href={ROUTES.projects}>
+          <Link href={ROUTES.projects} className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950">
+            <LiquidGlassSurface
+              contentClassName="h-14 px-7 text-lg font-medium"
+              fallbackClassName="border-blue-200/80 bg-blue-600/90 shadow-blue-600/25"
+              prominence="hero"
+              displacementScale={76}
+              blurAmount={0.16}
+              saturation={170}
+              aberrationIntensity={3.2}
+              elasticity={0.32}
+            >
               {primaryAction}
-            </Link>
-          </Button>
+            </LiquidGlassSurface>
+          </Link>
           <Button asChild variant="outline" size="lg" className="px-7">
             <Link href={ROUTES.resume}>
               {secondaryAction}
@@ -84,14 +94,44 @@ export function HomeHero({
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(59,130,246,0.24),transparent_55%)]" />
           <div className="relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
             <Image
-              src="https://picsum.photos/seed/pipi-dev-workspace/800/1000"
-              alt="Developer workspace"
+              src="/hero-workspace.svg"
+              alt="Developer workspace illustration"
               fill
               priority
+              unoptimized
               className="object-cover opacity-90"
               sizes="(max-width: 1024px) 100vw, 480px"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/20 to-transparent" />
+            <div
+              aria-hidden
+              className="absolute inset-x-8 top-8 h-24 rounded-full bg-[linear-gradient(90deg,rgba(37,99,235,0),rgba(56,189,248,0.34),rgba(255,255,255,0.36),rgba(37,99,235,0))] blur-2xl"
+            />
+            <div className="absolute right-5 top-5 z-10 md:right-7 md:top-7">
+              <LiquidGlassSurface
+                className="rounded-[28px]"
+                contentClassName="w-52 flex-col items-start gap-3 px-5 py-4 text-left md:w-60 md:px-6 md:py-5"
+                fallbackClassName="rounded-[28px] border-white/45 bg-white/18 shadow-blue-950/35"
+                prominence="hero"
+                cornerRadius={28}
+                displacementScale={92}
+                blurAmount={0.2}
+                saturation={180}
+                aberrationIntensity={4}
+                elasticity={0.28}
+                mode="prominent"
+              >
+                <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/70">
+                  Liquid glass
+                </span>
+                <span className="text-2xl font-semibold leading-none text-white md:text-3xl">
+                  {stats[0]?.value ?? "UI"}
+                </span>
+                <span className="max-w-40 text-xs leading-relaxed text-white/72 md:max-w-48">
+                  {stats[0]?.label ?? "Interactive surface"}
+                </span>
+              </LiquidGlassSurface>
+            </div>
             <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
               <div className="grid grid-cols-3 gap-3 border-t border-white/10 pt-5">
                 {stats.map((stat, i) => (

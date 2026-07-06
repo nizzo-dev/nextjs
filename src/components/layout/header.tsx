@@ -4,7 +4,7 @@ import { memo, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
-import { Button } from "@/components/ui/button";
+import { LiquidGlassSurface } from "@/components/ui/liquid-glass-surface";
 import { PERSONAL_INFO, ROUTES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { gsap, registerGsap } from "@/lib/gsap";
@@ -107,9 +107,22 @@ export const Header = memo(function Header({
         <div className="flex items-center gap-2">
           <LocaleSwitcher locale={locale} label={localeSwitchLabel} />
           <ThemeToggle />
-          <Button asChild size="sm" className="hidden md:inline-flex">
-            <a href={`mailto:${PERSONAL_INFO.email}`}>{contactLabel}</a>
-          </Button>
+          <a
+            href={`mailto:${PERSONAL_INFO.email}`}
+            className="hidden rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 md:inline-flex dark:focus-visible:ring-offset-slate-950"
+          >
+            <LiquidGlassSurface
+              contentClassName="h-9 px-3 text-sm font-medium"
+              fallbackClassName="border-blue-200/70 bg-blue-600/90 shadow-blue-600/20"
+              displacementScale={38}
+              blurAmount={0.08}
+              saturation={135}
+              aberrationIntensity={1.2}
+              elasticity={0.16}
+            >
+              {contactLabel}
+            </LiquidGlassSurface>
+          </a>
           <MobileNav
             navItems={navItems}
             contactLabel={contactLabel}

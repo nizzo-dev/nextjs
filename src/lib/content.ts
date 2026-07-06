@@ -771,7 +771,7 @@ const projectBase = [
     year: "2026",
     role: "独立设计与开发",
     demoUrl: "https://tts.itnan.fun",
-    repoUrl: "https://github.com/pipi596888/TTS",
+    repoUrl: "https://github.com/nizzo-dev/TTS",
     highlights: [
       "单角色 / 多角色文本转语音，支持情绪与多格式导出",
       "音色管理、声音克隆与作品全流程管理",
