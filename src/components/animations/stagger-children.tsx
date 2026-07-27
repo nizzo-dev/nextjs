@@ -36,13 +36,12 @@ export function StaggerChildren({
       if (!items.length) return;
 
       if (prefersReducedMotion()) {
-        gsap.set(items, { opacity: 1, y: 0 });
+        gsap.set(items, { y: 0 });
         return;
       }
 
       gsap.from(items, {
         y,
-        opacity: 0,
         scale: 0.98,
         duration,
         stagger,

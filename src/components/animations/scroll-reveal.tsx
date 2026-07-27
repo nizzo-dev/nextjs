@@ -31,13 +31,12 @@ export function ScrollReveal({
       if (!el) return;
 
       if (prefersReducedMotion()) {
-        gsap.set(el, { opacity: 1, y: 0 });
+        gsap.set(el, { y: 0 });
         return;
       }
 
       gsap.from(el, {
         y,
-        opacity: 0,
         scale: 0.985,
         filter: "blur(6px)",
         duration,

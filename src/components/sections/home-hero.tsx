@@ -37,12 +37,12 @@ export function HomeHero({
       if (prefersReducedMotion()) return;
 
       const tl = gsap.timeline({ defaults: { ease: defaultEase } });
-      tl.from(".hero-eyebrow", { y: 12, opacity: 0, duration: 0.45 })
-        .from(".hero-title", { y: 28, opacity: 0, filter: "blur(8px)", duration: 0.6 }, "-=0.2")
-        .from(".hero-subtitle", { y: 18, opacity: 0, duration: 0.45 }, "-=0.25")
-        .from(".hero-cta > *", { y: 14, opacity: 0, duration: 0.35, stagger: 0.08 }, "-=0.15")
-        .from(".hero-visual", { x: 28, opacity: 0, scale: 0.96, duration: 0.7 }, "-=0.4")
-        .from(".hero-stat", { y: 10, opacity: 0, duration: 0.35, stagger: 0.06 }, "-=0.2");
+      tl.from(".hero-eyebrow", { y: 12, duration: 0.45 })
+        .from(".hero-title", { y: 28, filter: "blur(8px)", duration: 0.6 }, "-=0.2")
+        .from(".hero-subtitle", { y: 18, duration: 0.45 }, "-=0.25")
+        .from(".hero-cta > *", { y: 14, duration: 0.35, stagger: 0.08 }, "-=0.15")
+        .from(".hero-visual", { x: 28, scale: 0.96, duration: 0.7 }, "-=0.4")
+        .from(".hero-stat", { y: 10, duration: 0.35, stagger: 0.06 }, "-=0.2");
     },
     { scope: ref },
   );
@@ -67,9 +67,9 @@ export function HomeHero({
         </p>
 
         <div className="hero-cta flex flex-wrap gap-3 pt-1">
-          <Link href={ROUTES.projects} className="inline-flex rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950">
+          <Link href={ROUTES.projects} className="inline-flex shrink-0 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950">
             <LiquidGlassSurface
-              contentClassName="h-14 px-7 text-lg font-medium"
+              contentClassName="h-14 whitespace-nowrap px-7 text-lg font-medium"
               fallbackClassName="border-blue-200/80 bg-blue-600/90 shadow-blue-600/25"
               prominence="hero"
               displacementScale={76}
