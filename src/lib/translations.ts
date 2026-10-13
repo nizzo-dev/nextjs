@@ -151,6 +151,15 @@ export const projectMetaZh: Record<string, ProjectMeta> = {
     ],
     tags: ["React 19", "Vite", "Ant Design", "Zustand", "ProTable"],
   },
+  "hot-ai": {
+    role: "独立设计与开发",
+    highlights: [
+      "对话式查询千余个平台热榜，模型自动调用工具检索榜单",
+      "热点列表实时渲染，AI 自动分组总结当日要点",
+      "玻璃拟态界面、昼夜主题切换与灵动的模板提问卡片",
+    ],
+    tags: ["Next.js 16", "AI SDK", "DeepSeek", "Tailwind 4", "TypeScript"],
+  },
 };
 
 export const projectMetaEn: Record<string, ProjectMeta> = {
@@ -234,6 +243,15 @@ export const projectMetaEn: Record<string, ProjectMeta> = {
       "End-to-end delivery across samples, tickets, devices, and upgrades",
     ],
     tags: ["React 19", "Vite", "Ant Design", "Zustand", "ProTable"],
+  },
+  "hot-ai": {
+    role: "Solo Design & Development",
+    highlights: [
+      "Chat-driven access to 1,000+ trending lists via model tool calls",
+      "Live list rendering with automatic AI summaries grouped by topic",
+      "Glassmorphism UI with light/dark themes and animated starter prompts",
+    ],
+    tags: ["Next.js 16", "AI SDK", "DeepSeek", "Tailwind 4", "TypeScript"],
   },
 };
 

@@ -788,6 +788,24 @@ const projectBase = [
       "样本、工单、设备台账、升级包等模块完整联调交付",
     ],
   },
+  {
+    id: 11,
+    slug: "hot-ai",
+    emoji: "",
+    gradient: "from-rose-500 to-orange-500",
+    tags: ["Next.js 16", "AI SDK", "DeepSeek", "Tailwind 4", "TypeScript"],
+    featured: true,
+    category: "ai",
+    year: "2026",
+    role: "独立设计与开发",
+    demoUrl: "https://iknow.itnan.fun",
+    repoUrl: "https://github.com/nizzo-dev/iknow",
+    highlights: [
+      "对话式查询千余个平台热榜，模型自动调用工具检索榜单",
+      "热点列表实时渲染，AI 自动分组总结当日要点",
+      "玻璃拟态界面、昼夜主题切换与灵动的模板提问卡片",
+    ],
+  },
 ] as const;
 
 type ProjectText = Record<string, { title: string; summary: string; description: string }>;
@@ -853,6 +871,12 @@ const projectTextZh: ProjectText = {
     description:
       "基于 Vite 8 + React 19 + Ant Design 5 构建的行业后台管理系统，围绕样本、设备、升级、运维业务链路交付。平台提供统一布局、JWT 与会话双模式登录、动态菜单，以及路由 / 菜单 / 按钮三层权限控制；封装 PageProTable 统一表格分页与响应归一化，并实现 SHA-256 校验的分片上传、顶栏下载任务进度与 WebSocket 消息通知。业务侧覆盖样本数据与采集文件管理、售后工单流转、设备台账、固件升级包分发，以及用户角色、消息通知与操作日志等模块，已完成主要页面联调并可支撑完整管理流程。",
   },
+  "hot-ai": {
+    title: "热点 AI",
+    summary: "以对话方式获取全网热榜，并由 AI 自动总结当日热点的智能助手。",
+    description:
+      "基于 Next.js 16 + Vercel AI SDK + DeepSeek 构建的热点对话应用。用户只需说出想看的榜单（如微博热搜、抖音热榜），模型会通过工具调用检索上千个数据源、拉取实时榜单并渲染为列表，随后自动按主题分组总结当日热点。界面采用玻璃拟态风格，支持昼夜主题切换，空对话时提供可直接点击的模板提问。",
+  },
 };
 
 const projectTextEn: ProjectText = {
@@ -915,6 +939,12 @@ const projectTextEn: ProjectText = {
     summary: "An enterprise web admin console for samples, devices, firmware delivery, and operational access control.",
     description:
       "Built with Vite 8, React 19, and Ant Design 5, this admin system connects sample management, device records, firmware upgrades, and day-to-day operations in one workflow. It includes unified layout, dual-mode auth (JWT and local session), dynamic menus, and three-layer access control across routes, menus, and actions. Shared capabilities include PageProTable for list pages, chunked uploads with SHA-256 verification, download task progress in the header, and WebSocket notifications. Business modules cover sample and file management, after-sales tickets, device ledgers, upgrade packages, user roles, announcements, and audit logs, with core flows integrated end to end.",
+  },
+  "hot-ai": {
+    title: "Hot AI",
+    summary: "A chat assistant that fetches trending lists across the web and summarizes the day's hot topics with AI.",
+    description:
+      "A trending-topics chat app built with Next.js 16, the Vercel AI SDK, and DeepSeek. Ask for a list such as Weibo or Douyin trending, and the model uses tool calls to search over a thousand sources, fetch the live list, render it, and then summarize the day's topics in grouped points. The UI uses a glassmorphism style with light/dark themes and clickable starter prompts.",
   },
 };
 
