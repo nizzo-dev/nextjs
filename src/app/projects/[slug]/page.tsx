@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button, Card, Container } from "@/components/ui";
+import { DemoLink } from "@/components/ui/demo-link";
 import { ProjectMediaGallery } from "@/components/sections/project-media-gallery";
 import { ROUTES } from "@/lib/constants";
 import { getProjectBySlug, getProjectDetailText, getProjectsContent } from "@/lib/content";
@@ -69,9 +70,9 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
                 </Button>
                 {project.demoUrl && (
                   <Button asChild variant="outline" className="border-white/30 bg-white/10 text-white hover:bg-white/20">
-                    <a href={project.demoUrl} target="_blank" rel="noreferrer">
+                    <DemoLink href={project.demoUrl}>
                       {text.demo}
-                    </a>
+                    </DemoLink>
                   </Button>
                 )}
                 {project.repoUrl && (

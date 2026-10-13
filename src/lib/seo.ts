@@ -58,7 +58,7 @@ export function personJsonLd(locale: Locale = defaultLocale) {
     jobTitle: profile.title,
     url: siteUrl,
     email: PERSONAL_INFO.email,
-    sameAs: [PERSONAL_INFO.github, PERSONAL_INFO.website],
+    sameAs: [PERSONAL_INFO.github],
     description: profile.bio,
   };
 }

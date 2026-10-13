@@ -37,7 +37,6 @@ export default async function ResumePage() {
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-blue-100/70">
                 <span>{PERSONAL_INFO.email}</span>
                 <span>{PERSONAL_INFO.github}</span>
-                <span>{PERSONAL_INFO.website}</span>
               </div>
             </div>
             <div className="page-hero-actions">

@@ -169,9 +169,6 @@ const homeTextByLocale = {
     greeting: "你好，我是",
     primaryAction: "查看项目",
     secondaryAction: "联系我",
-    caseStudyLabel: "主打案例",
-    caseStudyDemo: "在线体验",
-    caseStudyDetail: "了解详情",
     experienceTitle: "项目经验",
     experienceSubtitle: "大型业务系统、多端交付与工程化建设的持续实践",
     experienceViewAll: "查看全部经历",
@@ -189,9 +186,6 @@ const homeTextByLocale = {
     greeting: "Hi, I'm",
     primaryAction: "View Projects",
     secondaryAction: "Contact Me",
-    caseStudyLabel: "Spotlight",
-    caseStudyDemo: "Live Demo",
-    caseStudyDetail: "Case Study",
     experienceTitle: "Experience",
     experienceSubtitle: "Enterprise systems, cross-platform delivery, and engineering practice",
     experienceViewAll: "View Full Profile",
@@ -247,6 +241,7 @@ const projectsTextByLocale = {
     featuredTitle: "精选项目",
     otherTitle: "更多实践",
     detailButton: "查看详情",
+    demoButton: "在线演示",
     repoButton: "源码",
     ctaTitle: "想进一步了解这些项目？",
     ctaSubtitle: "如果你对某个方向感兴趣，或者有类似需求，欢迎直接联系我。",
@@ -258,6 +253,7 @@ const projectsTextByLocale = {
     featuredTitle: "Featured",
     otherTitle: "More Work",
     detailButton: "View Details",
+    demoButton: "Live Demo",
     repoButton: "Source Code",
     ctaTitle: "Interested in these projects?",
     ctaSubtitle: "If any of these directions match your needs, feel free to reach out.",
@@ -329,7 +325,6 @@ const contactTextByLocale = {
     emailLabel: "邮箱",
     emailValue: "点击发送邮件",
     githubLabel: "GitHub",
-    cookieAiLabel: "Cookie AI",
     formTitle: "发送消息",
     intentTitle: "合作意向",
     intentHelper: "选择一个最接近的话题，我会把它带入邮件主题，方便后续沟通。",
@@ -367,7 +362,6 @@ const contactTextByLocale = {
     emailLabel: "Email",
     emailValue: "Send an email",
     githubLabel: "GitHub",
-    cookieAiLabel: "Cookie AI",
     formTitle: "Send a Message",
     intentTitle: "Collaboration Intent",
     intentHelper: "Pick the closest topic. It will be added to the email subject so the conversation starts with context.",
@@ -422,7 +416,7 @@ const notesByLocale: Record<Locale, NoteItem[]> = {
       date: "2026-06-01",
       tags: ["AI Coding", "Workflow", "Frontend"],
       readingTime: "5 分钟",
-      relatedProjects: ["cookieai", "tts-voice-platform"],
+      relatedProjects: ["tts-voice-platform"],
       content: [
         "AI 编程最有价值的地方不是让模型一次性生成完整项目，而是把它放进明确的工程流程中。需求拆解、接口确认、测试验证和代码审查都需要边界。",
         "在前端项目中，我更倾向于让 AI 处理可验证的局部任务，比如组件重构、表单状态整理、重复样式抽象和测试补充。核心交互和业务流程仍然需要工程师先定义不变量。",
@@ -508,7 +502,7 @@ const notesByLocale: Record<Locale, NoteItem[]> = {
       date: "2026-06-01",
       tags: ["AI Coding", "Workflow", "Frontend"],
       readingTime: "5 min",
-      relatedProjects: ["cookieai", "tts-voice-platform"],
+      relatedProjects: ["tts-voice-platform"],
       content: [
         "AI coding is most useful when it is placed inside a clear engineering workflow rather than treated as a one-shot project generator. Requirements, interfaces, verification, and review still need boundaries.",
         "For frontend work, I prefer using AI on verifiable local tasks: component refactors, form-state cleanup, repeated styling abstraction, and test additions. Core interactions and product invariants still need an engineer's direction first.",
@@ -633,19 +627,19 @@ const projectCategoriesByLocale: Record<Locale, CategoryItem[]> = {
 const projectBase = [
   {
     id: 1,
-    slug: "cookieai",
-    emoji: "🤖",
-    gradient: "from-blue-600 to-sky-500",
-    tags: ["React", "AI", "Prompt Engineering", "Workflow"],
+    slug: "cockpit",
+    emoji: "🗺️",
+    gradient: "from-slate-950 via-blue-950 to-cyan-700",
+    tags: ["Next.js", "ECharts", "数据可视化", "GeoJSON"],
     featured: true,
-    category: "ai",
+    category: "visual",
     year: "2026",
     role: "独立设计与开发",
-    demoUrl: "https://cookieai.xhbspace.cn",
+    demoUrl: "/cockpit",
     highlights: [
-      "多轮对话与 AI 工作流整合",
-      "面向真实使用场景的效率工具设计",
-      "持续结合 AI 编程实践快速迭代",
+      "全国地图、省市县层级下钻与面包屑返回",
+      "三类驾驶舱视图与多组实时感图表面板",
+      "基于本地模拟数据，支持离线演示与交互验证",
     ],
   },
   {
@@ -799,11 +793,11 @@ const projectBase = [
 type ProjectText = Record<string, { title: string; summary: string; description: string }>;
 
 const projectTextZh: ProjectText = {
-  cookieai: {
-    title: "Cookie AI",
-    summary: "AI 项目演示站，聚焦对话、效率提升与个人 AI 编程实践。",
+  cockpit: {
+    title: "全国数据驾驶舱",
+    summary: "面向全国省市县层级的可视化数据驾驶舱，展示地图下钻、指标面板与趋势分析。",
     description:
-      "这是我的 AI 项目演示作品，重点展示如何把大模型能力融入真实工作流，包括对话交互、内容生成、问题解决与持续迭代。在开发过程中我也大量使用 AI 辅助编程工具，以更快验证想法并优化实现细节。",
+      "这是一个基于 Next.js、ECharts 和静态 GeoJSON 构建的数据驾驶舱演示项目。页面以全国地图为入口，支持省、市、县三级下钻与面包屑返回，并提供场所、谈话人员、谈话对象三类视图。所有业务指标与图表均使用本地模拟数据，适合直接在线体验界面与交互流程。",
   },
   "enterprise-dashboard": {
     title: "企业后台管理系统",
@@ -862,11 +856,11 @@ const projectTextZh: ProjectText = {
 };
 
 const projectTextEn: ProjectText = {
-  cookieai: {
-    title: "Cookie AI",
-    summary: "An AI demo project focused on conversations, productivity, and personal AI-assisted coding practice.",
+  cockpit: {
+    title: "National Data Cockpit",
+    summary: "A visualization cockpit for nationwide province, city, and county drill-down with dashboards and trend analysis.",
     description:
-      "This project showcases how LLM capabilities can be integrated into practical workflows, including chat interactions, content generation, problem solving, and rapid iteration with AI-assisted development tools.",
+      "A Next.js, ECharts, and static GeoJSON cockpit demo. It starts from a nationwide map, supports province, city, and county drill-down with breadcrumb navigation, and includes venue, participant, and subject views. All business metrics and charts use local mock data so the full interaction flow can be explored online without a backend connection.",
   },
   "enterprise-dashboard": {
     title: "Enterprise Dashboard",
@@ -1189,7 +1183,6 @@ export function getHomeContent(locale: Locale) {
     skills: locale === "en" ? skillsEn : skills,
     stats: statsByLocale[locale] ?? statsByLocale[defaultLocale],
     text: homeTextByLocale[locale] ?? homeTextByLocale[defaultLocale],
-    spotlight: buildProjects(locale).find((p) => p.slug === "cookieai"),
     experiencePreview: about.experiences.slice(0, 2),
   };
 }

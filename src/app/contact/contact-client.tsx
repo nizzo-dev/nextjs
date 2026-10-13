@@ -35,12 +35,6 @@ export function ContactClient({ text }: ContactClientProps) {
       value: PERSONAL_INFO.handle,
       href: PERSONAL_INFO.github,
     },
-    {
-      icon: "A",
-      label: text.cookieAiLabel,
-      value: "cookieai.xhbspace.cn",
-      href: PERSONAL_INFO.website,
-    },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {

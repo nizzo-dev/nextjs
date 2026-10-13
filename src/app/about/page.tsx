@@ -56,9 +56,6 @@ export default async function AboutPage() {
                 <Button asChild size="lg">
                   <a href={PERSONAL_INFO.github} target="_blank" rel="noopener noreferrer">GitHub</a>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                  <a href={PERSONAL_INFO.website} target="_blank" rel="noopener noreferrer">AI Demo</a>
-                </Button>
               </div>
             </div>
           </section>

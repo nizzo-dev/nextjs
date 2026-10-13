@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Button, Card } from "@/components/ui";
 import { ProjectCard } from "@/components/ui/project-card";
+import { DemoLink } from "@/components/ui/demo-link";
 import { GradientCta } from "@/components/sections/gradient-cta";
 import { ScrollReveal, StaggerChildren } from "@/components/animations";
 import { ROUTES } from "@/lib/constants";
@@ -18,6 +19,7 @@ interface ProjectsViewProps {
     featuredTitle: string;
     otherTitle: string;
     detailButton: string;
+    demoButton: string;
     ctaTitle: string;
     ctaSubtitle: string;
     ctaButton: string;
@@ -79,10 +81,15 @@ export function ProjectsView({ categories, projects, emptyLabel, text }: Project
                             </Link>
                           </Button>
                           {project.demoUrl && (
-                            <Button asChild variant="outline" size="sm" className="border-white/50 bg-white/90 text-blue-700 hover:bg-white">
-                              <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                                Demo
-                              </a>
+                            <Button
+                              asChild
+                              variant="outline"
+                              size="sm"
+                              className="border-white/50 bg-white/90 text-blue-700 hover:bg-white"
+                            >
+                              <DemoLink href={project.demoUrl}>
+                                {text.demoButton}
+                              </DemoLink>
                             </Button>
                           )}
                         </div>

@@ -4,7 +4,6 @@ import { ProjectCard } from "@/components/ui/project-card";
 import { HomeCharacter } from "@/components/ui/home-character";
 import { ScrollReveal } from "@/components/animations";
 import { HomeHero } from "@/components/sections/home-hero";
-import { CaseStudyBanner } from "@/components/sections/case-study-banner";
 import { ExperienceSnapshot } from "@/components/sections/experience-snapshot";
 import { GradientCta } from "@/components/sections/gradient-cta";
 import { ROUTES, PERSONAL_INFO } from "@/lib/constants";
@@ -30,9 +29,7 @@ export default async function Home() {
   const homeContent = getHomeContent(locale);
   const profile = getPersonalProfile(locale);
   const common = getCommonText(locale);
-  const featuredProjects = getFeaturedProjects(locale)
-    .filter((p) => p.slug !== "cookieai")
-    .slice(0, 3);
+  const featuredProjects = getFeaturedProjects(locale).slice(0, 3);
 
   const [leadProject, ...restProjects] = featuredProjects;
 
@@ -49,17 +46,6 @@ export default async function Home() {
             secondaryAction={common.resumeAction}
             stats={homeContent.stats}
           />
-
-          {homeContent.spotlight && (
-            <ScrollReveal>
-              <CaseStudyBanner
-                project={homeContent.spotlight}
-                label={homeContent.text.caseStudyLabel}
-                ctaDemo={homeContent.text.caseStudyDemo}
-                ctaDetail={homeContent.text.caseStudyDetail}
-              />
-            </ScrollReveal>
-          )}
 
           <ScrollReveal>
             <ExperienceSnapshot
@@ -144,14 +130,6 @@ export default async function Home() {
                 className="text-sm font-medium text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-300"
               >
                 Email
-              </a>
-              <a
-                href={PERSONAL_INFO.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-300"
-              >
-                Cookie AI
               </a>
               <Link
                 href={ROUTES.resume}

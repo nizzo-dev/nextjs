@@ -21,6 +21,7 @@ export const ROUTES = {
   notes: "/notes",
   contact: "/contact",
   resume: "/resume",
+  cockpit: "/cockpit",
   project: (slug: string) => `/projects/${slug}`,
   note: (slug: string) => `/notes/${slug}`,
 } as const;
@@ -33,10 +34,9 @@ export const PERSONAL_INFO = {
   name: "Nizzo",
   title: "前端工程师",
   tagline: "Vue / React 双栈 · 多端交付 · AI 工程化",
-  bio: "擅长企业级后台、复杂业务拆解与工程化建设；在 Cookie AI 等项目中持续探索 AI 辅助研发提效。",
+  bio: "擅长企业级后台、复杂业务拆解与工程化建设，并持续探索 AI 辅助研发提效。",
   email: "2066869033@qq.com",
   github: "https://github.com/nizzo-dev",
-  website: "https://cookieai.xhbspace.cn",
   twitter: "",
   linkedin: "",
 } as const;

@@ -1,9 +1,57 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import { useTheme } from "@/hooks/use-theme";
 import { useClientLocale } from "@/hooks/use-client-locale";
 import { getCommonText } from "@/lib/translations";
 import { cn } from "@/lib/utils";
+
+function toggleThemeWithReveal(
+  button: HTMLButtonElement,
+  event: MouseEvent<HTMLButtonElement>,
+  nextTheme: "light" | "dark",
+  setTheme: (theme: "light" | "dark") => void,
+) {
+  const startViewTransition = document.startViewTransition;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (typeof startViewTransition !== "function" || prefersReducedMotion) {
+    setTheme(nextTheme);
+    return;
+  }
+
+  const buttonRect = button.getBoundingClientRect();
+  const x = event.clientX || buttonRect.left + buttonRect.width / 2;
+  const y = event.clientY || buttonRect.top + buttonRect.height / 2;
+  const radius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+
+  try {
+    const transition = startViewTransition.call(document, () => {
+      setTheme(nextTheme);
+    });
+
+    void transition.ready
+      .then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${radius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 520,
+            easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            fill: "both",
+            pseudoElement: "::view-transition-new(root)",
+          } as KeyframeAnimationOptions & { pseudoElement: string },
+        );
+      })
+      .catch(() => undefined);
+  } catch {
+    setTheme(nextTheme);
+  }
+}
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { mounted, resolvedTheme, setTheme } = useTheme();
@@ -33,7 +81,14 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       aria-label={resolvedTheme === "dark" ? common.themeToLight : common.themeToDark}
-      onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      onClick={(event) =>
+        toggleThemeWithReveal(
+          event.currentTarget,
+          event,
+          resolvedTheme === "dark" ? "light" : "dark",
+          setTheme,
+        )
+      }
       className={buttonClassName}
     >
       {resolvedTheme === "dark" ? (

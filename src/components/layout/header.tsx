@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGSAP } from "@gsap/react";
 import { PERSONAL_INFO, ROUTES } from "@/lib/constants";
+import { requestFullscreen } from "@/lib/fullscreen";
 import { cn } from "@/lib/utils";
 import { gsap, registerGsap } from "@/lib/gsap";
 import type { Locale } from "@/lib/locale";
@@ -86,6 +87,11 @@ export const Header = memo(function Header({
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={() => {
+                  if (item.href === ROUTES.cockpit) {
+                    void requestFullscreen();
+                  }
+                }}
                 data-active={isActive ? "true" : "false"}
                 className={cn(
                   "relative px-4 py-2 text-sm font-medium transition-colors duration-200",

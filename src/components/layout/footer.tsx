@@ -19,7 +19,6 @@ export const Footer = memo(function Footer({ navItems, footerText, profile }: Fo
 
   const socialLinks = [
     { label: "GitHub", href: PERSONAL_INFO.github },
-    { label: "Cookie AI", href: PERSONAL_INFO.website },
     { label: footerText.emailLink, href: `mailto:${PERSONAL_INFO.email}` },
   ];
 

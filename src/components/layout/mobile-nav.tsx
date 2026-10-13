@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { PERSONAL_INFO, ROUTES } from "@/lib/constants";
+import { requestFullscreen } from "@/lib/fullscreen";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./theme-toggle";
 import { LocaleSwitcher } from "./locale-switcher";
@@ -75,7 +76,12 @@ export function MobileNav({ navItems, contactLabel, locale, localeSwitchLabel }:
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      onClick={() => setOpen(false)}
+                      onClick={() => {
+                        if (item.href === ROUTES.cockpit) {
+                          void requestFullscreen();
+                        }
+                        setOpen(false);
+                      }}
                       className={cn(
                         "block rounded-lg px-4 py-3 text-sm font-medium transition-colors",
                         isActive

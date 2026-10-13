@@ -4,12 +4,12 @@ export const personalProfileByLocale = {
   zh: {
     title: "前端工程师",
     tagline: "Vue / React 双栈 · 多端交付 · AI 工程化",
-    bio: "擅长企业级后台、复杂业务拆解与工程化建设；在 Cookie AI 等项目中持续探索 AI 辅助研发提效。",
+    bio: "擅长企业级后台、复杂业务拆解与工程化建设，并持续探索 AI 辅助研发提效。",
   },
   en: {
     title: "Frontend Engineer",
     tagline: "Vue / React · Cross-platform · AI Engineering",
-    bio: "Focused on enterprise dashboards, complex business systems, and engineering excellence, with hands-on AI-assisted development through projects like Cookie AI.",
+    bio: "Focused on enterprise dashboards, complex business systems, engineering excellence, and practical AI-assisted development workflows.",
   },
 } as const;
 
@@ -98,11 +98,6 @@ export const pageMetaByLocale = {
 type ProjectMeta = { role: string; highlights: string[]; tags: string[] };
 
 export const projectMetaZh: Record<string, ProjectMeta> = {
-  cookieai: {
-    role: "独立设计与开发",
-    highlights: ["多轮对话与 AI 工作流整合", "面向真实使用场景的效率工具设计", "持续结合 AI 编程实践快速迭代"],
-    tags: ["React", "AI", "Prompt Engineering", "Workflow"],
-  },
   "enterprise-dashboard": {
     role: "前端负责人",
     highlights: ["负责大型后台项目模块拆分与组件复用", "推动复杂表单、列表和权限体系稳定落地", "注重性能优化和业务迭代效率"],
@@ -159,15 +154,6 @@ export const projectMetaZh: Record<string, ProjectMeta> = {
 };
 
 export const projectMetaEn: Record<string, ProjectMeta> = {
-  cookieai: {
-    role: "Solo Design & Development",
-    highlights: [
-      "Integrated multi-turn chat with AI workflows",
-      "Productivity tools designed for real-world usage",
-      "Rapid iteration with AI-assisted coding practices",
-    ],
-    tags: ["React", "AI", "Prompt Engineering", "Workflow"],
-  },
   "enterprise-dashboard": {
     role: "Frontend Lead",
     highlights: [
