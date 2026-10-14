@@ -181,6 +181,19 @@ const homeTextByLocale = {
     ctaSubtitle:
       "我可以参与 Vue / React 大型项目、多端适配、可视化大屏，以及 AI 辅助研发相关合作。",
     ctaButton: "发起沟通",
+    spotlight: {
+      eyebrow: "个人项目",
+      title: "热点 AI",
+      intro: "一个用对话方式看热点的 AI 应用：实时抓取微博、抖音、B 站、头条等约 1000 个榜单来源，再交给 DeepSeek 归纳总结，几秒看懂今天大家在聊什么。",
+      highlights: [
+        { title: "实时热榜", description: "覆盖约 1000 个来源，微博热搜、抖音热榜、B 站热门随问随取" },
+        { title: "AI 归纳", description: "DeepSeek 自动按话题分组总结，支持跨平台对比" },
+        { title: "对话式体验", description: "随机模板与实时热点卡片，点一下就能开聊" },
+      ],
+      liveAction: "在线体验",
+      detailAction: "项目详情",
+      previewAlt: "热点 AI 深色主题界面截图",
+    },
   },
   en: {
     greeting: "Hi, I'm",
@@ -198,6 +211,19 @@ const homeTextByLocale = {
     ctaSubtitle:
       "I can help with Vue/React apps, cross-platform delivery, data visualization, and AI-assisted development.",
     ctaButton: "Get in Touch",
+    spotlight: {
+      eyebrow: "Personal Project",
+      title: "Hot AI",
+      intro: "A chat-first way to follow what's trending: it pulls real-time hot lists from about 1,000 sources such as Weibo, Douyin and Bilibili, then lets DeepSeek summarize them so you get the day's topics in seconds.",
+      highlights: [
+        { title: "Real-time lists", description: "About 1,000 sources, from Weibo trending to Douyin and Bilibili" },
+        { title: "AI summaries", description: "DeepSeek groups topics and compares platforms" },
+        { title: "Chat experience", description: "Shuffled prompts and live trending cards, one click to start" },
+      ],
+      liveAction: "Try It Live",
+      detailAction: "Project Details",
+      previewAlt: "Screenshot of Hot AI in dark theme",
+    },
   },
 } as const;
 

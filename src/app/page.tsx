@@ -6,6 +6,7 @@ import { ScrollReveal } from "@/components/animations";
 import { HomeHero } from "@/components/sections/home-hero";
 import { ExperienceSnapshot } from "@/components/sections/experience-snapshot";
 import { GradientCta } from "@/components/sections/gradient-cta";
+import { HomeProjectSpotlight } from "@/components/sections/home-project-spotlight";
 import { ROUTES, PERSONAL_INFO } from "@/lib/constants";
 import { getFeaturedProjects, getHomeContent } from "@/lib/content";
 import { getLocale } from "@/lib/i18n";
@@ -29,7 +30,7 @@ export default async function Home() {
   const homeContent = getHomeContent(locale);
   const profile = getPersonalProfile(locale);
   const common = getCommonText(locale);
-  const featuredProjects = getFeaturedProjects(locale).slice(0, 3);
+  const featuredProjects = getFeaturedProjects(locale).filter((p) => p.slug !== "hot-ai").slice(0, 3);
 
   const [leadProject, ...restProjects] = featuredProjects;
 
@@ -46,6 +47,16 @@ export default async function Home() {
             secondaryAction={common.resumeAction}
             stats={homeContent.stats}
           />
+
+          <ScrollReveal>
+            <HomeProjectSpotlight
+              text={homeContent.text.spotlight}
+              tags={["Next.js", "AI SDK", "DeepSeek"]}
+              liveUrl="https://iknow.itnan.fun"
+              detailHref={ROUTES.project("hot-ai")}
+              image="/projects/hot-ai-preview.webp"
+            />
+          </ScrollReveal>
 
           <ScrollReveal>
             <ExperienceSnapshot
