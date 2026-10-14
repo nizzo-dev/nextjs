@@ -160,6 +160,15 @@ export const projectMetaZh: Record<string, ProjectMeta> = {
     ],
     tags: ["Next.js 16", "AI SDK", "DeepSeek", "Tailwind 4", "TypeScript"],
   },
+  "semantic-verification": {
+    role: "前端负责人",
+    highlights: [
+      "全链路离线部署，可在隔离网络中运行",
+      "笔录与录音转写语义比对，差异直接批注在原文",
+      "AI 问数带事实校验层，回答中的数字均可溯源",
+    ],
+    tags: ["React 18", "Vite", "Ant Design", "Spring Boot", "FastAPI", "FunASR", "Ollama"],
+  },
 };
 
 export const projectMetaEn: Record<string, ProjectMeta> = {
@@ -252,6 +261,15 @@ export const projectMetaEn: Record<string, ProjectMeta> = {
       "Glassmorphism UI with light/dark themes and animated starter prompts",
     ],
     tags: ["Next.js 16", "AI SDK", "DeepSeek", "Tailwind 4", "TypeScript"],
+  },
+  "semantic-verification": {
+    role: "Frontend Lead",
+    highlights: [
+      "Fully offline deployment that runs inside air-gapped networks",
+      "Semantic diff of records vs. transcripts, annotated on the original",
+      "AI data Q&A with a fact-grounding layer for traceable numbers",
+    ],
+    tags: ["React 18", "Vite", "Ant Design", "Spring Boot", "FastAPI", "FunASR", "Ollama"],
   },
 };
 

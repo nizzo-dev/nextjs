@@ -641,12 +641,14 @@ const projectCategoriesByLocale: Record<Locale, CategoryItem[]> = {
     { key: "web", name: "企业应用", emoji: "💼" },
     { key: "ai", name: "AI 与效率", emoji: "🤖" },
     { key: "visual", name: "可视化", emoji: "📈" },
+    { key: "work", name: "工作项目", emoji: "" },
   ],
   en: [
     { key: "all", name: "All", emoji: "🌍" },
     { key: "web", name: "Enterprise Apps", emoji: "💼" },
     { key: "ai", name: "AI & Productivity", emoji: "🤖" },
     { key: "visual", name: "Visualization", emoji: "📈" },
+    { key: "work", name: "Work", emoji: "" },
   ],
 };
 
@@ -832,11 +834,33 @@ const projectBase = [
       "玻璃拟态界面、昼夜主题切换与灵动的模板提问卡片",
     ],
   },
+  {
+    id: 12,
+    slug: "semantic-verification",
+    emoji: "",
+    gradient: "from-slate-950 via-blue-950 to-indigo-700",
+    tags: ["React 18", "Vite", "Ant Design", "Spring Boot", "FastAPI", "FunASR", "Ollama"],
+    featured: false,
+    category: "work",
+    year: "2026",
+    role: "前端负责人",
+    highlights: [
+      "全链路离线部署，可在隔离网络中运行",
+      "笔录与录音转写语义比对，差异直接批注在原文",
+      "AI 问数带事实校验层，回答中的数字均可溯源",
+    ],
+  },
 ] as const;
 
 type ProjectText = Record<string, { title: string; summary: string; description: string }>;
 
 const projectTextZh: ProjectText = {
+  "semantic-verification": {
+    title: "离线语义核验与 AI 问数系统",
+    summary: "将纸质笔录与录音转写自动进行语义比对的离线核验平台，并配套可溯源的 AI 问数助手。",
+    description:
+      "这是我在工作中参与交付的一套本地化部署系统。核验人员上传纸质笔录和对应的音视频，系统完成说话人分离与语音转写、识别视频水印时间并对齐时间轴，再将笔录与转写文本进行语义比对，把遗漏、改写和不一致之处直接批注在原文上，最后导出核验报告。配套的 AI 问数模块支持用自然语言多轮查询核验与业务数据，以流式文本和图表作答。整套系统包括前端、后端、语音服务和大模型均在内网离线运行。",
+  },
   cockpit: {
     title: "全国数据驾驶舱",
     summary: "面向全国省市县层级的可视化数据驾驶舱，展示地图下钻、指标面板与趋势分析。",
@@ -906,6 +930,12 @@ const projectTextZh: ProjectText = {
 };
 
 const projectTextEn: ProjectText = {
+  "semantic-verification": {
+    title: "Offline Semantic Verification & AI Data Q&A",
+    summary: "An on-premise platform that semantically compares written interview records with speech transcripts, paired with a grounded AI data assistant.",
+    description:
+      "A work project delivered as a fully on-premise system. Reviewers upload a written record together with the matching audio or video. The system separates speakers, transcribes the speech, reads the video watermark time to align the timeline, and then semantically compares the record with the transcript, annotating omissions, rewrites, and inconsistencies directly on the original document before exporting a verification report. An AI data Q&A module answers multi-turn natural-language questions about verification and business data with streamed text and charts. Every component, including the frontend, backend, speech services, and the language model, runs offline inside a closed network.",
+  },
   cockpit: {
     title: "National Data Cockpit",
     summary: "A visualization cockpit for nationwide province, city, and county drill-down with dashboards and trend analysis.",
@@ -1162,7 +1192,95 @@ const aboutIntroByLocale = {
   en: "I am a frontend engineer focused on Vue, React, large business applications, cross-platform delivery, and engineering productivity. Beyond UI implementation, I care about fidelity, performance, tooling, visualization, and practical AI-assisted development workflows.",
 } as const;
 
+const caseStudyOverrides: Record<Locale, Record<string, ProjectCaseStudy>> = {
+  zh: {
+    "semantic-verification": {
+      problem:
+        "审讯类笔录需要与录音录像逐字核对，人工一边听一边比，单份就要花费大量时间，还容易遗漏改写或时间错位等问题；同时业务人员想查数据时只能依赖固定报表。",
+      roleDetails:
+        "我担任前端负责人，主导核验工作台与 AI 问数对话两大模块的设计与实现，包括任务侧栏、上传与来源关联、文档与音视频联动预览、比对结果看板和原文批注；同时参与了后端接口、智能体问答链路与部署方案等系统其他部分的建设。",
+      constraints: [
+        "必须完全离线部署，不能调用任何外部服务",
+        "面向非技术核验人员，流程要清晰、结果要可追溯",
+        "需要兼容内网中较旧版本的浏览器",
+        "大模型回答中的数据必须准确，不能出现编造",
+      ],
+      solution:
+        "前端采用 React 18 + Vite + Ant Design，后端使用 Java Spring Boot 负责任务编排、规则库与报告导出。语音侧由 FunASR 完成说话人分离和转写，并通过水印 OCR 识别视频时间实现对齐。AI 问数由 Python FastAPI 智能体承担，先做结构化查询规划，再调用本地 Ollama 上的 Qwen3 模型生成回答，并以流式方式推送文本和图表。核心流程为：上传笔录与音视频、转写与时间对齐、语义比对与原文批注、人工复核、导出报告。",
+      technicalHighlights: [
+        "全链路离线 / 隔离网络部署，模型与语音服务均在本地运行",
+        "说话人分离与重命名，转写结果按角色呈现",
+        "视频水印 OCR 识别时间，自动对齐笔录与录音时间轴",
+        "语义级差异比对，差异直接批注在 Word / PDF 原文上",
+        "事实校验防幻觉层：回答中的数字和状态必须能在查询结果中找到依据",
+        "结构化查询规划，支持相对日期、多轮指代等自然语言问法",
+        "流式回答，富文本与 ECharts 图表同步渲染",
+        "兼容 Chrome 69 等旧版浏览器，适配内网环境",
+      ],
+      outcome:
+        "系统把核验从逐字人工比对转为“机器比对、人工复核”，核验人员只需关注被标出的差异；AI 问数让业务人员可以直接用自然语言查询数据，回答中的数据均可追溯。",
+      lessons:
+        "在严肃场景中引入大模型，关键不在于模型多强，而在于边界设计：让模型负责理解和表达，让数据与规则负责事实，并把每一个结论都做成可核对的。",
+    },
+  },
+  en: {
+    "semantic-verification": {
+      problem:
+        "Interview records had to be checked word by word against audio and video recordings. Doing it by ear was slow for every single record, and rewrites or timing mismatches were easy to miss. Staff also had to rely on fixed reports whenever they needed data.",
+      roleDetails:
+        "I was the frontend lead, owning the design and implementation of the verification workbench and the AI data Q&A chat: the task sidebar, upload and source linking, synchronized document and media preview, the results dashboard, and annotations on the original document. I also contributed across the rest of the system, including backend APIs, the agent answer pipeline, and the deployment plan.",
+      constraints: [
+        "Fully offline deployment with no external services",
+        "Clear, traceable workflow for non-technical reviewers",
+        "Support for older browsers inside closed networks",
+        "Numbers in model answers must be accurate, never invented",
+      ],
+      solution:
+        "The frontend uses React 18, Vite, and Ant Design. A Java Spring Boot backend handles task orchestration, rule libraries, and report export. FunASR performs speaker diarization and transcription, and a watermark OCR service reads video timestamps for alignment. AI data Q&A runs through a Python FastAPI agent that plans structured queries, calls a local Qwen3 model on Ollama, and streams text and charts back. The core workflow is: upload record and media, transcribe and align, run the semantic diff with annotations, review, and export the report.",
+      technicalHighlights: [
+        "Fully offline, air-gapped deployment with local models and speech services",
+        "Speaker diarization with renaming, transcripts shown per speaker",
+        "Watermark OCR reads video time to align record and recording timelines",
+        "Semantic diff with differences annotated on the original Word / PDF",
+        "Anti-hallucination fact-grounding layer: every number and status must be backed by query results",
+        "Structured query planner handling relative dates and multi-turn references",
+        "Streaming answers with rich text and ECharts charts rendered together",
+        "Legacy browser support down to Chrome 69 for closed-network machines",
+      ],
+      outcome:
+        "Verification shifted from manual word-by-word comparison to machine comparison with human review, so reviewers only focus on flagged differences. AI data Q&A lets staff query data in plain language with traceable answers.",
+      lessons:
+        "Bringing LLMs into high-stakes work is less about model strength than about boundaries: let the model understand and phrase, let data and rules own the facts, and make every conclusion checkable.",
+    },
+  },
+};
+
+const screenshotOverrides: Record<Locale, Record<string, ProjectScreenshot[]>> = {
+  zh: {
+    "semantic-verification": [
+      {
+        title: "系统架构",
+        description: "前端、后端、语音与 OCR 服务、智能体和本地大模型全部运行在内网，不依赖任何外部服务。",
+        src: "/projects/semantic-verification-architecture.svg",
+        alt: "离线语义核验与 AI 问数系统架构图",
+      },
+    ],
+  },
+  en: {
+    "semantic-verification": [
+      {
+        title: "System architecture",
+        description: "Frontend, backend, speech and OCR services, the agent, and the local LLM all run inside a closed network.",
+        src: "/projects/semantic-verification-architecture.svg",
+        alt: "Architecture diagram of the offline semantic verification and AI data Q&A system",
+      },
+    ],
+  },
+};
+
 function buildCaseStudy(project: (typeof projectBase)[number], text: ProjectText[string], locale: Locale): ProjectCaseStudy {
+  const override = caseStudyOverrides[locale]?.[project.slug];
+  if (override) return override;
   const isEnglish = locale === "en";
   const stack = project.tags.slice(0, 3).join(isEnglish ? ", " : "、");
   const role = project.role ?? (isEnglish ? "Frontend Engineer" : "前端工程师");
@@ -1197,6 +1315,8 @@ function buildCaseStudy(project: (typeof projectBase)[number], text: ProjectText
 }
 
 function buildScreenshots(project: (typeof projectBase)[number], text: ProjectText[string], locale: Locale): ProjectScreenshot[] {
+  const override = screenshotOverrides[locale]?.[project.slug];
+  if (override) return override;
   const isEnglish = locale === "en";
   const base = `/project-placeholders/${project.slug}`;
 

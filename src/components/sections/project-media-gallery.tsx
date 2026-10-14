@@ -8,13 +8,18 @@ export function ProjectMediaGallery({ items }: ProjectMediaGalleryProps) {
   if (!items.length) return null;
 
   return (
-    <div className="grid gap-5 md:grid-cols-2">
+    <div className={items.length > 1 ? "grid gap-5 md:grid-cols-2" : "grid gap-5"}>
       {items.map((item) => (
         <figure
           key={item.src}
           className="overflow-hidden rounded-2xl border border-blue-200/70 bg-white/85 shadow-sm shadow-blue-950/5 backdrop-blur-sm dark:border-blue-400/20 dark:bg-slate-950/70"
         >
           <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+            {!item.src.startsWith("/project-placeholders/") ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={item.src} alt={item.alt} loading="lazy" className="absolute inset-0 h-full w-full object-contain" />
+            ) : (
+            <>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(96,165,250,0.3),transparent_46%)]" />
             <div className="absolute inset-x-6 top-6 h-2 rounded-full bg-white/10" />
             <div className="absolute left-6 top-12 h-28 w-28 rounded-2xl bg-blue-500/20 ring-1 ring-white/10" />
@@ -27,6 +32,8 @@ export function ProjectMediaGallery({ items }: ProjectMediaGalleryProps) {
                 <div className="h-14 rounded-xl bg-white/10" />
               </div>
             </div>
+            </>
+            )}
           </div>
           <figcaption className="p-5">
             <h3 className="font-semibold">{item.title}</h3>

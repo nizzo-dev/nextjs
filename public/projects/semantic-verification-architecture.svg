@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" font-family="Inter, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#020617"/><stop offset="1" stop-color="#0b1a3a"/></linearGradient>
+    <radialGradient id="glow" cx="0.22" cy="0.15" r="0.6"><stop offset="0" stop-color="#3b82f6" stop-opacity="0.28"/><stop offset="1" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#60a5fa"/></marker>
+    <style>
+      .box{fill:#0f1e3d;stroke:#3b82f6;stroke-opacity:.55;stroke-width:2}
+      .zone{fill:none;stroke:#93c5fd;stroke-opacity:.35;stroke-width:2;stroke-dasharray:10 8}
+      .t{fill:#e2e8f0;font-size:30px;font-weight:700}
+      .s{fill:#93c5fd;font-size:20px}
+      .m{fill:#94a3b8;font-size:18px}
+      .k{fill:#93c5fd;font-size:16px;letter-spacing:3px;font-family:ui-monospace,Menlo,monospace}
+      .ln{stroke:#60a5fa;stroke-width:2.5;fill:none;marker-end:url(#ar)}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#glow)"/>
+  <text x="80" y="92" class="k">SYSTEM ARCHITECTURE · OFFLINE / AIR-GAPPED</text>
+  <text x="80" y="140" class="t" font-size="38">离线语义核验与 AI 问数系统</text>
+
+  <rect x="60" y="190" width="1480" height="760" rx="28" class="zone"/>
+  <text x="90" y="226" class="k">ON-PREMISE NETWORK · NO EXTERNAL CALLS</text>
+
+  <!-- frontend -->
+  <rect x="110" y="270" width="380" height="250" rx="22" class="box"/>
+  <text x="140" y="320" class="k">FRONTEND</text>
+  <text x="140" y="362" class="t">核验工作台 · AI 问数</text>
+  <text x="140" y="400" class="s">React 18 · Vite · Ant Design</text>
+  <text x="140" y="440" class="m">笔录 / 音视频比对与原文批注</text>
+  <text x="140" y="470" class="m">流式图表回答 · 兼容旧版浏览器</text>
+
+  <!-- backend -->
+  <rect x="610" y="270" width="380" height="250" rx="22" class="box"/>
+  <text x="640" y="320" class="k">BACKEND</text>
+  <text x="640" y="362" class="t">业务与任务编排</text>
+  <text x="640" y="400" class="s">Java · Spring Boot</text>
+  <text x="640" y="440" class="m">任务调度 · 规则库 / 热词库</text>
+  <text x="640" y="470" class="m">权限与日志 · 报告导出</text>
+
+  <!-- storage -->
+  <rect x="1110" y="270" width="380" height="250" rx="22" class="box"/>
+  <text x="1140" y="320" class="k">STORAGE</text>
+  <text x="1140" y="362" class="t">数据与缓存</text>
+  <text x="1140" y="400" class="s">MySQL · Redis</text>
+  <text x="1140" y="440" class="m">核验结果 · 历史记录</text>
+  <text x="1140" y="470" class="m">知识库文档</text>
+
+  <!-- asr -->
+  <rect x="110" y="630" width="430" height="260" rx="22" class="box"/>
+  <text x="140" y="680" class="k">SPEECH &amp; VISION</text>
+  <text x="140" y="722" class="t">语音转写 · 水印 OCR</text>
+  <text x="140" y="760" class="s">FunASR · OCR 服务</text>
+  <text x="140" y="800" class="m">说话人分离与转写</text>
+  <text x="140" y="830" class="m">视频水印时间识别与对齐</text>
+
+  <!-- agent -->
+  <rect x="610" y="630" width="430" height="260" rx="22" class="box"/>
+  <text x="640" y="680" class="k">AGENT</text>
+  <text x="640" y="722" class="t">AI 问数智能体</text>
+  <text x="640" y="760" class="s">Python · FastAPI</text>
+  <text x="640" y="800" class="m">结构化查询规划</text>
+  <text x="640" y="830" class="m">事实校验防幻觉 · 流式输出</text>
+
+  <!-- llm -->
+  <rect x="1110" y="630" width="380" height="260" rx="22" class="box"/>
+  <text x="1140" y="680" class="k">LOCAL LLM</text>
+  <text x="1140" y="722" class="t">本地大模型</text>
+  <text x="1140" y="760" class="s">Ollama · Qwen3</text>
+  <text x="1140" y="800" class="m">OpenAI 兼容接口</text>
+  <text x="1140" y="830" class="m">完全离线推理</text>
+
+  <path d="M490 380H600" class="ln"/><path d="M600 420H490" class="ln"/>
+  <text x="502" y="366" class="m" font-size="15">REST / WS</text>
+  <path d="M990 395H1100" class="ln"/>
+  <path d="M720 520V560H325V620" class="ln"/>
+  <path d="M880 520V620" class="ln"/>
+  <path d="M1040 760H1100" class="ln"/>
+</svg>
